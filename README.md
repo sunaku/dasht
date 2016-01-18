@@ -19,8 +19,15 @@ which aptly characterizes the terminal environment where everything is text.
 
 ## Dependencies
 
+Required:
+
 * [POSIX] environment (Linux, BSD, etc.)
   [POSIX]: http://pubs.opengroup.org/onlinepubs/9699919799/
+
+Optional:
+
+* [w3m] to display dasht(1) search results
+  [w3m]: http://w3m.sourceforge.net/
 
 ## Installation
 
@@ -40,6 +47,10 @@ If unspecified, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`, or
 `$HOME/.local/share/dasht/docsets/` if `$XDG_DATA_HOME` is also unspecified.
 
 ## Usage
+
+### dasht(1)
+
+Displays dasht-query-html(1) results, if any, using the w3m(1) browser.
 
 ### dasht-query-html(1)
 
