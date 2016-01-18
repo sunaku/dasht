@@ -41,6 +41,10 @@ If unspecified, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`, or
 
 ## Usage
 
+### dasht-query-html(1)
+
+Decorates dasht-query-line(1) results as HTML table rows.
+
 ### dasht-query-line(1)
 
     Usage: dasht-query-line QUERY
