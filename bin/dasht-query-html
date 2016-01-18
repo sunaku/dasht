@@ -5,7 +5,7 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
-query=$(echo "$1" | tr -s '[:space:]' '|')
+query=$(echo "$1" | tr -s '[:space:]*' '||' | tr '?' '.' | sed 's/\[!/[^/g')
 test -n "$query" -a "$query" != '|'
 
 dasht-query-line "$@" | awk -F ' = ' -v IGNORECASE=1 '

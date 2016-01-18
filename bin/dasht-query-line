@@ -11,6 +11,7 @@
 #     url = VALUE     # URL of the API documentation for this result
 #
 # Whitespace characters in the given QUERY are treated as wildcards.
+# Moreover, UNIX glob pattern syntax can be used in the given QUERY.
 #
 # Setup: $DASHT_DOCSETS_DIR
 #
@@ -23,8 +24,8 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
-query=$(echo "$1" | tr -s '[:space:]' '%')
-test -n "$query" -a "$query" != '%'
+query=$(echo "$1" | tr -s '[:space:]' '*' | sed 's/\[!/[^/g')
+test -n "$query" -a "$query" != '*'
 
 for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx; do
   url="file://$(dirname "$database")/Documents/"
@@ -67,7 +68,7 @@ for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx; d
     SELECT name, type,
       '${url}' || replace(path, '//apple_ref/' || type || '/', '') AS url
     FROM searchIndex
-    WHERE name LIKE '%${query}%' ESCAPE '\\'
+    WHERE lower(name) GLOB lower('*${query}*')
     ORDER BY name COLLATE NOCASE
     LIMIT 100
   "
@@ -81,7 +82,7 @@ for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx; d
     ON ztokenmetainformation.zfile = zfilepath.z_pk
     JOIN ztokentype
     ON ztoken.ztokentype = ztokentype.z_pk
-    WHERE ztokenname LIKE '%${query}%' ESCAPE '\\'
+    WHERE lower(ztokenname) GLOB lower('*${query}*')
     ORDER BY ztokenname COLLATE NOCASE
     LIMIT 100
   "

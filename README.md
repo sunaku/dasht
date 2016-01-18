@@ -15,6 +15,8 @@ which aptly characterizes the terminal environment where everything is text.
 
 * You never have to leave your terminal!
 
+* Search using UNIX glob pattern syntax.
+
 * Keep [Dash] docsets anywhere you like.
 
 ## Dependencies
@@ -69,6 +71,7 @@ prints the results in groups of four lines, in the following order:
     url = VALUE     # URL of the API documentation for this result
 
 Whitespace characters in the given QUERY are treated as wildcards.
+Moreover, UNIX glob pattern syntax can be used in the given QUERY.
 
 ## License
 
