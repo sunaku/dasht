@@ -77,6 +77,12 @@ Moreover, UNIX glob pattern syntax can be used in the given QUERY.
 
 Lists the names of [Dash] docsets installed in `$DASHT_DOCSETS_DIR`.
 
+### dasht-docsets-filter(1)
+
+    Usage: dash-docsets-filter REGEXP...
+
+Lists installed [Dash] docset names that match the given regular expressions.
+
 ### dasht-docsets-remove(1)
 
     Usage: dasht-docsets-remove NAME...

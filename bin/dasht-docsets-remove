@@ -10,9 +10,6 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
-query=$(echo "$*" | tr -s ' ' '|')
-test -n "$query"
-
-dasht-docsets | egrep -i "$query" | xargs -r -I % -n 1 -p \
+dasht-docsets-filter "$@" | xargs -r -I % -n 1 -p \
   rm -f -r "$DASHT_DOCSETS_DIR"/%.docset \
            "$DASHT_DOCSETS_DIR"/%.tgz
