@@ -8,9 +8,9 @@
 query=$(echo "$1" | tr -s '[:space:]*' '||' | tr '?' '.' | sed 's/\[!/[^/g')
 test -n "$query" -a "$query" != '|'
 
-dasht-query-line "$@" | awk -F ' = ' -v IGNORECASE=1 '
-  $1 == "name" { gsub("'"$query"'", "<b><i>&</i></b>", $2) }
-  { result[$1] = $2 }
+dasht-query-line "$@" | awk -v IGNORECASE=1 '
+  { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
+  $1 == "name" { gsub("'"$query"'", "<b><i>&</i></b>", result["name"]) }
   $1 == "url" { print \
     "<tr>"\
       "<td><a href=\"" result["url"] "\">" result["name"] "</a></td>"\
