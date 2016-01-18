@@ -25,7 +25,7 @@
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
 query=$(echo "$1" | tr -s '[:space:]' '*' | sed 's/\[!/[^/g')
-test -n "$query" -a "$query" != '*'
+test -n "$query"
 
 for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx
 do

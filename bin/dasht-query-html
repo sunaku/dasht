@@ -6,7 +6,7 @@
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
 query=$(echo "$1" | tr -s '[:space:]*' '||' | tr '?' '.' | sed 's/\[!/[^/g')
-test -n "$query" -a "$query" != '|'
+test -n "$query"
 
 dasht-query-line "$@" | awk -v IGNORECASE=1 '
   { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
