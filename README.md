@@ -73,6 +73,10 @@ prints the results in groups of four lines, in the following order:
 Whitespace characters in the given QUERY are treated as wildcards.
 Moreover, UNIX glob pattern syntax can be used in the given QUERY.
 
+### dasht-docsets(1)
+
+Lists the names of [Dash] docsets installed in `$DASHT_DOCSETS_DIR`.
+
 ## License
 
 Distributed under the terms of the ISC license (see the LICENSE file).
