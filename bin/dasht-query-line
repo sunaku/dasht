@@ -109,6 +109,7 @@ for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx; d
       (Erlang) echo 'gsub("%2F", "-", $3);'
                echo 'gsub("%5F", "_", $3);' ;;
       (Elixir) echo 'gsub("%2F", "/", $3);' ;;
+      (CSS)    echo 'if ($3 !~ "#.+") $3 = $3 "#wiki-content";' ;;
     esac
   )"'}; /./' # only print nonempty lines
 done
