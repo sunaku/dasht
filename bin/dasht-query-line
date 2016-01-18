@@ -27,10 +27,8 @@
 query=$(echo "$1" | tr -s '[:space:]' '*' | sed 's/\[!/[^/g')
 test -n "$query" -a "$query" != '*'
 
-for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx; do
-  url="file://$(dirname "$database")/Documents/"
-  docset=$(basename "${database%.docset/*}")
-
+for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx
+do
   #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   #   _                _          ____ ____  _                     _
   #  | |__   ___  __ _(_)_ __    / ___|  _ \| |       ___ ___   __| | ___
@@ -65,23 +63,25 @@ for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx; d
   #   along with Zeal. If not, see <http://www.gnu.org/licenses/>.
   #
   zeal_searchIndex_query="
-    SELECT name, type,
-      '${url}' || replace(path, '//apple_ref/' || type || '/', '') AS url
+    SELECT name,
+           type,
+           replace(path, '//apple_ref/' || type || '/', '') AS url
     FROM searchIndex
     WHERE lower(name) GLOB lower('*${query}*')
     ORDER BY name COLLATE NOCASE
     LIMIT 100
   "
   zeal_ztoken_query="
-    SELECT ztokenname AS name, ztypename AS type,
-      '${url}' || zpath || ifnull('#' || zanchor, '') AS url
+    SELECT ztokenname                          AS name,
+           ztypename                           AS type,
+           zpath || ifnull('#' || zanchor, '') AS url
     FROM ztoken
     JOIN ztokenmetainformation
-    ON ztoken.zmetainformation = ztokenmetainformation.z_pk
+      ON ztokenmetainformation.z_pk = ztoken.zmetainformation
     JOIN zfilepath
-    ON ztokenmetainformation.zfile = zfilepath.z_pk
+      ON zfilepath.z_pk = ztokenmetainformation.zfile
     JOIN ztokentype
-    ON ztoken.ztokentype = ztokentype.z_pk
+      ON ztokentype.z_pk = ztoken.ztokentype
     WHERE lower(ztokenname) GLOB lower('*${query}*')
     ORDER BY ztokenname COLLATE NOCASE
     LIMIT 100
@@ -99,18 +99,32 @@ for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx; d
   else sql=$zeal_ztoken_query
   fi
 
-  sqlite3 -line "$database" "$sql" | awk '{$1=$1}; $1=="url" {'"$(
-    # indicate the source of this result
-    echo 'print "from = '"$docset"'";'
+  baseurl="file://$(dirname "$database")/Documents/"
+  docset=$(basename "${database%.docset/*}")
 
-    # unescape URI fragment intelligently
-    # according to quirks of each docset:
-    # blind unescape isn't always correct
-    case "$docset" in
-      (Erlang) echo 'gsub("%2F", "-", $3);'
-               echo 'gsub("%5F", "_", $3);' ;;
-      (Elixir) echo 'gsub("%2F", "/", $3);' ;;
-      (CSS)    echo 'if ($3 !~ "#.+") $3 = $3 "#wiki-content";' ;;
-    esac
-  )"'}; /./' # only print nonempty lines
+  sqlite3 -line "$database" "$sql" | awk '
+    { $1 = $1 } # strip whitespace from key
+
+    $1 == "url" {
+      # indicate the source of this result
+      print "from = '"$docset"'"
+
+      '"$(
+        # unescape URI fragment intelligently
+        # according to quirks of each docset:
+        # blind unescape isn't always correct
+        case "$docset" in
+          (Erlang) echo 'gsub("%2F", "-", $3)'
+                   echo 'gsub("%5F", "_", $3)' ;;
+          (Elixir) echo 'gsub("%2F", "/", $3)' ;;
+          (CSS)    echo 'if ($3 !~ "#.+") $3 = $3 "#wiki-content"' ;;
+        esac
+      )"'
+
+      # resolve URL to filesystem location
+      $3 = "'"$baseurl"'" $3
+    }
+
+    /./ # reject any empty lines from input
+  '
 done
