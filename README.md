@@ -41,6 +41,20 @@ If unspecified, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`, or
 
 ## Usage
 
+### dasht-query-line(1)
+
+    Usage: dasht-query-line QUERY
+
+Searches for the given QUERY within all available [Dash] docsets and
+prints the results in groups of four lines, in the following order:
+
+    name = VALUE    # value of the token that matched the QUERY
+    type = VALUE    # type of the token, as defined in the docset
+    from = VALUE    # name of the docset this result was found in
+    url = VALUE     # URL of the API documentation for this result
+
+Whitespace characters in the given QUERY are treated as wildcards.
+
 ## License
 
 Distributed under the terms of the ISC license (see the LICENSE file).
