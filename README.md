@@ -77,6 +77,13 @@ Moreover, UNIX glob pattern syntax can be used in the given QUERY.
 
 Lists the names of [Dash] docsets installed in `$DASHT_DOCSETS_DIR`.
 
+### dasht-docsets-remove(1)
+
+    Usage: dasht-docsets-remove NAME...
+
+Removes installed [Dash] docsets whose names loosely match the given NAMEs.
+You are asked to confirm this destructive operation for every such match.
+
 ## License
 
 Distributed under the terms of the ISC license (see the LICENSE file).
