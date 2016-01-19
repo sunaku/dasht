@@ -1,9 +1,9 @@
 #!/bin/sh -e
 #
-# Usage: dasht-query-line QUERY
+# Usage: dasht-query-line QUERY [DOCSET...]
 #
-# Searches for the given QUERY within all available Dash docsets and
-# prints the results in groups of four lines, in the following order:
+# Searches for the given QUERY in Dash docsets whose names loosely match the
+# given DOCSETs and prints the results in groups of four lines, in this order:
 #
 #     name = VALUE    # value of the token that matched the QUERY
 #     type = VALUE    # type of the token, as defined in the docset
@@ -26,8 +26,10 @@
 
 query=$(echo "$1" | tr -s '[:space:]' '*' | sed 's/\[!/[^/g')
 test -n "$query"
+test $# -gt 0 && shift
+test $# -gt 0 || set -- .
 
-for database in "$DASHT_DOCSETS_DIR"/*.docset/Contents/Resources/docSet.dsidx
+dasht-docsets-filter "$@" | while read docset
 do
   #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   #   _                _          ____ ____  _                     _
@@ -94,13 +96,13 @@ do
   #
   #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+  database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
+  file_url="file://$(dirname "$database")/Documents/"
+
   if sqlite3 "$database" '.tables' | fgrep -q searchIndex
   then sql=$zeal_searchIndex_query
   else sql=$zeal_ztoken_query
   fi
-
-  baseurl="file://$(dirname "$database")/Documents/"
-  docset=$(basename "${database%.docset/*}")
 
   sqlite3 -line "$database" "$sql" | awk '
     { $1 = $1 } # strip whitespace from key
@@ -122,7 +124,7 @@ do
       )"'
 
       # resolve URL to filesystem location
-      $3 = "'"$baseurl"'" $3
+      $3 = "'"$file_url"'" $3
     }
 
     /./ # reject any empty lines from input

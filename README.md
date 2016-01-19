@@ -60,10 +60,10 @@ Decorates dasht-query-line(1) results as HTML table rows.
 
 ### dasht-query-line(1)
 
-    Usage: dasht-query-line QUERY
+    Usage: dasht-query-line QUERY [DOCSET...]
 
-Searches for the given QUERY within all available [Dash] docsets and
-prints the results in groups of four lines, in the following order:
+Searches for the given QUERY in [Dash] docsets whose names loosely match the
+given DOCSETs and prints the results in groups of four lines, in this order:
 
     name = VALUE    # value of the token that matched the QUERY
     type = VALUE    # type of the token, as defined in the docset
