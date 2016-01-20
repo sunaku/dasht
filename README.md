@@ -88,20 +88,21 @@ Any specified OPTIONS\_FOR\_SQLITE3 are passed down to sqlite3(1).
 
 ### dasht-docsets(1)
 
+    Usage: dasht-docsets [NAME...]
+
 Lists the names of [Dash] docsets installed in `$DASHT_DOCSETS_DIR`.
 
-### dasht-docsets-filter(1)
-
-    Usage: dash-docsets-filter REGEXP...
-
-Lists installed [Dash] docset names that match the given regular expressions.
+If any NAMEs are specified, the list is filtered to include
+only those docsets whose names loosely match the given NAMEs.
 
 ### dasht-docsets-remove(1)
 
-    Usage: dasht-docsets-remove NAME...
+    Usage: dasht-docsets-remove [NAME...]
 
 Removes installed [Dash] docsets whose names loosely match the given NAMEs.
 You are asked to confirm this destructive operation for every such match.
+
+If no NAMEs are specified, all installed docsets are selected for removal.
 
 ## License
 
