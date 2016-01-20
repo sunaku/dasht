@@ -13,13 +13,13 @@
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
 # cache the docset download links page to avoid unnecessary network traffic
-mkdir -p "$DASHT_DOCSETS_DIR"
-links_cache="$DASHT_DOCSETS_DIR"/links.html
-curl -# -o "$links_cache" -R -z "$links_cache" https://kapeli.com/docset_links
+docset_links_cache="$DASHT_DOCSETS_DIR/docset_links"
+wget -T 2 -t 1 -P "$DASHT_DOCSETS_DIR" -N https://kapeli.com/docset_links ||
+test -s "$docset_links_cache"
 
 # extract and filter installable docset names from the download links page
 set -- $(
-  sed -n 's|.*/\([^/]\+\)\.tgz.*|\1|p' "$links_cache" |
+  sed -n 's|.*/\([^/]\+\)\.tgz.*|\1|p' "$docset_links_cache" |
   sort -u |
   grep -E -i "$(echo "$*" | tr -s ' ' '|')" |
   sed "$(dasht-docsets | awk '{ print "/^" $0 "$/d" }')" # exclude installed
@@ -33,7 +33,7 @@ for docset; do
   tgz="$DASHT_DOCSETS_DIR/$basename"
   url="https://kapeli.com/feeds/$basename"
 
-  curl -# -o "$tgz" -R -C - -L "$url"
+  wget -P "$DASHT_DOCSETS_DIR" -N -c "$url"
   gzip -t "$tgz" # verify the downloaded file
   tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz"
 done

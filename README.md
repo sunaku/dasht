@@ -29,8 +29,8 @@ Optional:
 * [w3m] to display dasht(1) search results
   [w3m]: http://w3m.sourceforge.net/
 
-* [curl] to download [docsets] from [Dash]
-  [curl]: http://curl.haxx.se/
+* [wget] to download [docsets] from [Dash]
+  [wget]: https://www.gnu.org/software/wget/
 
 ## Installation
 

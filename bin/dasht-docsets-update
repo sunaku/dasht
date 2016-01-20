@@ -12,15 +12,13 @@
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
 dasht-docsets "$@" | while read docset; do
-  echo "Updating $docset docset..."
-
   basename="$docset".tgz
   tgz="$DASHT_DOCSETS_DIR/$basename"
   url="https://kapeli.com/feeds/$basename"
   last_modified_at="$tgz".last_modified_at
 
   touch -r "$tgz" "$last_modified_at"
-  curl -# -o "$tgz" -R -L "$url"
+  wget -P "$DASHT_DOCSETS_DIR" -N "$url"
   if test "$tgz" -nt "$last_modified_at"; then
     gzip -t "$tgz" # verify the downloaded file
     tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz"
