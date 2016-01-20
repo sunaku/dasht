@@ -60,10 +60,11 @@ Decorates dasht-query-line(1) results as HTML table rows.
 
 ### dasht-query-line(1)
 
-    Usage: dasht-query-line QUERY [DOCSET...]
+    Usage: dasht-query-line [QUERY] [DOCSET...]
 
 Searches for the given QUERY in [Dash] docsets whose names loosely match the
-given DOCSETs and prints the results in groups of four lines, in this order:
+given DOCSETs (or in all installed [Dash] docsets if no DOCSETs are specified)
+and then prints the results in groups of four lines, in the following order:
 
     name = VALUE    # value of the token that matched the QUERY
     type = VALUE    # type of the token, as defined in the docset
@@ -72,6 +73,14 @@ given DOCSETs and prints the results in groups of four lines, in this order:
 
 Whitespace characters in the given QUERY are treated as wildcards.
 Moreover, UNIX glob pattern syntax can be used in the given QUERY.
+If QUERY is unspecified, its value is assumed to be a wildcard.
+
+### dasht-query-exec(1)
+
+    Usage: dasht-query-exec QUERY DATABASE [OPTIONS_FOR_SQLITE3...]
+
+Searches for the given QUERY (treated as a case-insensitive glob) in the
+given [Dash] docset DATABASE while passing the given options to sqlite3(1).
 
 ### dasht-docsets(1)
 
