@@ -1,15 +1,18 @@
 #!/bin/sh -e
 #
-# Usage: dasht-query-exec QUERY DATABASE [OPTIONS_FOR_SQLITE3...]
+# Usage: dasht-query-exec PATTERN DATABASE [OPTIONS_FOR_SQLITE3...]
 #
-# Searches for the given QUERY (treated as a case-insensitive glob) in the
-# given Dash docset DATABASE while passing the given options to sqlite3(1).
+# Searches for the given PATTERN in the given Dash docset DATABASE.
+#
+# Wildcard "%" characters in PATTERN can be escaped with backslash.
+#
+# Any specified OPTIONS_FOR_SQLITE3 are passed down to sqlite3(1).
 #
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
 test $# -ge 2
-query=$1
+pattern=$1
 database=$2
 shift 2
 test -f "$database"
@@ -47,16 +50,16 @@ test -f "$database"
 #   You should have received a copy of the GNU General Public License
 #   along with Zeal. If not, see <http://www.gnu.org/licenses/>.
 #
-searchIndex_sql="
+searchIndex_query="
   SELECT name,
          type,
          replace(path, '//apple_ref/' || type || '/', '') AS url
   FROM searchIndex
-  WHERE lower(name) GLOB lower('$query')
+  WHERE name LIKE '$pattern' ESCAPE '\\'
   ORDER BY name COLLATE NOCASE
   LIMIT 100;
 "
-ztoken_sql="
+ztoken_query="
   SELECT ztokenname                          AS name,
          ztypename                           AS type,
          zpath || ifnull('#' || zanchor, '') AS url
@@ -67,7 +70,7 @@ ztoken_sql="
     ON zfilepath.z_pk = ztokenmetainformation.zfile
   JOIN ztokentype
     ON ztokentype.z_pk = ztoken.ztokentype
-  WHERE lower(ztokenname) GLOB lower('$query')
+  WHERE ztokenname LIKE '$pattern' ESCAPE '\\'
   ORDER BY ztokenname COLLATE NOCASE
   LIMIT 100;
 "
@@ -79,9 +82,9 @@ ztoken_sql="
 #
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-if sqlite3 "$database" .tables | fgrep -q searchIndex
-then sql=$searchIndex_sql
-else sql=$ztoken_sql
+if sqlite3 "$database" .tables | grep -F -q searchIndex
+then query=$searchIndex_query
+else query=$ztoken_query
 fi
 
-exec sqlite3 "$database" "$sql" "$@"
+exec sqlite3 "$database" "$query" "$@"

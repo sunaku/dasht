@@ -5,12 +5,14 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
-query=$(echo "$1" | tr -s '[:space:]*' '||' | tr '?' '.' | sed 's/\[!/[^/g')
-test -n "$query"
+pattern=$(echo "$1" | sed '
+  s/[\^.[$()|*+?{\\]/\\\\&/g  # escape normal regex(7) syntax
+  s/\s\+/.*/g                 # treat whitespace as wildcards
+')
 
-dasht-query-line "$@" | awk -v IGNORECASE=1 '
+dasht-query-line "$@" | awk -v IGNORECASE=1 -v pattern="$pattern" '
   { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
-  $1 == "name" { gsub("'"$query"'", "<b><i>&</i></b>", result["name"]) }
+  $1 == "name" { gsub(pattern, "<b><i>&</i></b>", result["name"]) }
   $1 == "url" { print \
     "<tr>"\
       "<td><a href=\"" result["url"] "\">" result["name"] "</a></td>"\

@@ -1,19 +1,22 @@
 #!/bin/sh -e
 #
-# Usage: dasht-query-line [QUERY] [DOCSET...]
+# Usage: dasht-query-line [PATTERN] [DOCSET...]
 #
-# Searches for the given QUERY in Dash docsets whose names loosely match the
+# Searches for the given PATTERN in Dash docsets whose names loosely match the
 # given DOCSETs (or in all installed Dash docsets if no DOCSETs are specified)
 # and then prints the results in groups of four lines, in the following order:
 #
-#     name = VALUE    # value of the token that matched the QUERY
+#     name = VALUE    # value of the token that matched the PATTERN
 #     type = VALUE    # type of the token, as defined in the docset
 #     from = VALUE    # name of the docset this result was found in
 #     url = VALUE     # URL of the API documentation for this result
 #
-# Whitespace characters in the given QUERY are treated as wildcards.
-# Moreover, UNIX glob pattern syntax can be used in the given QUERY.
-# If QUERY is unspecified, its value is assumed to be a wildcard.
+# Whitespace characters in the PATTERN are treated as wildcards, whereas the
+# SQL LIKE wildcard characters "%" and "_" are not: they are taken literally.
+#
+# The given PATTERN is surrounded by whitespace wildcards before searching so
+# that it can match anywhere: beginning, middle, or end.  If unspecified, its
+# value is assumed to be a whitespace wildcard so that it matches everything.
 #
 # Setup: $DASHT_DOCSETS_DIR
 #
@@ -26,15 +29,18 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
-query=$(echo "*$1*" | tr -s '[:space:]' '*' | sed 's/\[!/[^/g')
-test $# -gt 0 && shift      # we're done with QUERY argument; move it away
+pattern=$(echo " $1 " | sed '
+  s/[%_]/\\&/g # do not treat "%" and "_" as wildcards
+  s/\s\+/%/g   # treat whitespace as wildcards instead
+')
+test $# -gt 0 && shift      # done with the PATTERN argument; move it away
 test $# -gt 0 || set -- .   # no DOCSETs were specified; match all of them
 
 dasht-docsets-filter "$@" | while read docset; do
   database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
   file_url="file://$(dirname "$database")/Documents/"
 
-  dasht-query-exec "$query" "$database" -line | awk '
+  dasht-query-exec "$pattern" "$database" -line | awk '
     { $1 = $1 } # strip whitespace from key
 
     $1 == "url" {

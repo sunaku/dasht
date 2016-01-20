@@ -15,8 +15,6 @@ which aptly characterizes the terminal environment where everything is text.
 
 * You never have to leave your terminal!
 
-* Search using UNIX glob pattern syntax.
-
 * Keep [Dash] docsets anywhere you like.
 
 ## Dependencies
@@ -60,27 +58,33 @@ Decorates dasht-query-line(1) results as HTML table rows.
 
 ### dasht-query-line(1)
 
-    Usage: dasht-query-line [QUERY] [DOCSET...]
+    Usage: dasht-query-line [PATTERN] [DOCSET...]
 
-Searches for the given QUERY in [Dash] docsets whose names loosely match the
+Searches for the given PATTERN in [Dash] docsets whose names loosely match the
 given DOCSETs (or in all installed [Dash] docsets if no DOCSETs are specified)
 and then prints the results in groups of four lines, in the following order:
 
-    name = VALUE    # value of the token that matched the QUERY
+    name = VALUE    # value of the token that matched the PATTERN
     type = VALUE    # type of the token, as defined in the docset
     from = VALUE    # name of the docset this result was found in
     url = VALUE     # URL of the API documentation for this result
 
-Whitespace characters in the given QUERY are treated as wildcards.
-Moreover, UNIX glob pattern syntax can be used in the given QUERY.
-If QUERY is unspecified, its value is assumed to be a wildcard.
+Whitespace characters in the PATTERN are treated as wildcards, whereas the
+SQL LIKE wildcard characters `%` and `_` are not: they are taken literally.
+
+The given PATTERN is surrounded by whitespace wildcards before searching so
+that it can match anywhere: beginning, middle, or end.  If unspecified, its
+value is assumed to be a whitespace wildcard so that it matches everything.
 
 ### dasht-query-exec(1)
 
-    Usage: dasht-query-exec QUERY DATABASE [OPTIONS_FOR_SQLITE3...]
+    Usage: dasht-query-exec PATTERN DATABASE [OPTIONS_FOR_SQLITE3...]
 
-Searches for the given QUERY (treated as a case-insensitive glob) in the
-given [Dash] docset DATABASE while passing the given options to sqlite3(1).
+Searches for the given PATTERN in the given [Dash] docset DATABASE.
+
+Wildcard "%" characters in PATTERN can be escaped with backslash.
+
+Any specified OPTIONS\_FOR\_SQLITE3 are passed down to sqlite3(1).
 
 ### dasht-docsets(1)
 
