@@ -107,6 +107,14 @@ You are asked to confirm this destructive operation for every such match.
 
 If no NAMEs are specified, all available docsets are selected for install.
 
+### dasht-docsets-update(1)
+
+    Usage: dasht-docsets-update [NAME...]
+
+Updates installed [Dash] docsets whose names loosely match the given NAMEs.
+
+If no NAMEs are specified, all available docsets are selected for update.
+
 ### dasht-docsets-remove(1)
 
     Usage: dasht-docsets-remove [NAME...]
