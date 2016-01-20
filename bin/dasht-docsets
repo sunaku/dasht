@@ -12,5 +12,7 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
-ls "$DASHT_DOCSETS_DIR" | sed -n 's/\.\(docset\|tgz\)$//p' | sort -u |
-{ IFS='|'; grep -E -i "$*" ;} # join NAMEs with '|' to filter the list
+ls "$DASHT_DOCSETS_DIR" |
+sed -n 's/\.docset$//p' |
+sort -u |
+grep -E -i "$(echo "$*" | tr -s ' ' '|')"

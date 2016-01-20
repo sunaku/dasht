@@ -1,0 +1,39 @@
+#!/bin/sh -e
+#
+# Usage: dasht-docsets-install [NAME...]
+#
+# Installs available Dash docsets whose names loosely match the given NAMEs.
+# You are asked to confirm this destructive operation for every such match.
+#
+# If no NAMEs are specified, all available docsets are selected for install.
+#
+# Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
+# Distributed under the terms of the ISC license (see the LICENSE file).
+
+: ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+
+# cache the docset download links page to avoid unnecessary network traffic
+mkdir -p "$DASHT_DOCSETS_DIR"
+links_cache="$DASHT_DOCSETS_DIR"/links.html
+curl -# -o "$links_cache" -R -z "$links_cache" https://kapeli.com/docset_links
+
+# extract and filter installable docset names from the download links page
+set -- $(
+  sed -n 's|.*/\([^/]\+\)\.tgz.*|\1|p' "$links_cache" |
+  sort -u |
+  grep -E -i "$(echo "$*" | tr -s ' ' '|')" |
+  sed "$(dasht-docsets | awk '{ print "/^" $0 "$/d" }')" # exclude installed
+)
+echo "Installable docsets ($#):\n\n\t$(echo "$*" | sed 's/ /,&/g')\n"
+
+for docset; do
+  echo "Install $docset docset" | xargs -p | grep -q . || continue # confirm
+
+  basename="$docset".tgz
+  tgz="$DASHT_DOCSETS_DIR/$basename"
+  url="https://kapeli.com/feeds/$basename"
+
+  curl -# -o "$tgz" -R -C - -L "$url"
+  gzip -t "$tgz" # verify the downloaded file
+  tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz"
+done

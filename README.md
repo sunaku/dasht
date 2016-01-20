@@ -29,6 +29,9 @@ Optional:
 * [w3m] to display dasht(1) search results
   [w3m]: http://w3m.sourceforge.net/
 
+* [curl] to download [docsets] from [Dash]
+  [curl]: http://curl.haxx.se/
+
 ## Installation
 
 1.  Clone or [download] this Git repository onto your system.
@@ -94,6 +97,15 @@ Lists the names of [Dash] docsets installed in `$DASHT_DOCSETS_DIR`.
 
 If any NAMEs are specified, the list is filtered to include
 only those docsets whose names loosely match the given NAMEs.
+
+### dasht-docsets-install(1)
+
+    Usage: dasht-docsets-install [NAME...]
+
+Installs available [Dash] docsets whose names loosely match the given NAMEs.
+You are asked to confirm this destructive operation for every such match.
+
+If no NAMEs are specified, all available docsets are selected for install.
 
 ### dasht-docsets-remove(1)
 

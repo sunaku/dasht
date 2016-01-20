@@ -12,6 +12,13 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
-dasht-docsets "$@" | xargs -r -I % -n 1 -p \
-  rm -f -r "$DASHT_DOCSETS_DIR"/%.docset \
-           "$DASHT_DOCSETS_DIR"/%.tgz
+set -- $(dasht-docsets "$@")
+echo "Removable docsets ($#):\n\n\t$(echo "$*" | sed 's/ /,&/g')\n"
+
+for docset; do
+  echo "Remove $docset docset" | xargs -p | grep -q . || continue # confirm
+
+  rootname="$DASHT_DOCSETS_DIR/$docset"
+  rm -f -r "$rootname".docset \
+           "$rootname".tgz
+done
