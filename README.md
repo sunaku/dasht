@@ -15,6 +15,8 @@ which aptly characterizes the terminal environment where everything is text.
 
 * You never have to leave your terminal!
 
+* Local search engine for web browsers.
+
 * Keep [Dash] docsets anywhere you like.
 
 ## Dependencies
@@ -31,6 +33,9 @@ Optional:
 
 * [wget] to download [docsets] from [Dash]
   [wget]: https://www.gnu.org/software/wget/
+
+* [netcat] for dasht-server(1) search engine
+  [netcat]: http://netcat.sourceforge.net/
 
 ## Installation
 
@@ -54,6 +59,22 @@ If unspecified, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`, or
 ### dasht(1)
 
 Displays dasht-query-html(1) results, if any, using the w3m(1) browser.
+
+### dasht-server(1)
+
+    Usage: dasht-server [PORT] [OPTIONS_FOR_NETCAT...]
+
+Runs a local search engine on the given PORT at http://127.0.0.1:PORT
+which is intended to be accessed by web browsers on the same machine.
+
+If no PORT number is specified, then its value is assumed to be 54321.
+
+Any specified OPTIONS\_FOR\_NETCAT... arguments are passed down to nc(1).
+
+The search engine's URL is printed to stdout for the user's reference.
+You can use this to launch a web browser along with the search engine:
+
+    dasht-server | xargs -n1 w3m
 
 ### dasht-query-html(1)
 

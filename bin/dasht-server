@@ -1,0 +1,42 @@
+#!/bin/sh -e
+#
+# Usage: dasht-server [PORT] [OPTIONS_FOR_NETCAT...]
+#
+# Runs a local search engine on the given PORT at http://127.0.0.1:PORT
+# which is intended to be accessed by web browsers on the same machine.
+#
+# If no PORT number is specified, then its value is assumed to be 54321.
+#
+# Any specified OPTIONS_FOR_NETCAT... arguments are passed down to nc(1).
+#
+# The search engine's URL is printed to stdout for the user's reference.
+# You can use this to launch a web browser along with the search engine:
+#
+#   dasht-server | xargs -n1 w3m
+#
+# Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
+# Distributed under the terms of the ISC license (see the LICENSE file).
+
+test $# -ge 1 || set -- 54321
+echo "http://127.0.0.1:$1"
+
+# Usage: loopback FILE_DESCRIPTOR
+#
+# Creates local loopback channel
+# bound to given FILE_DESCRIPTOR.
+#
+loopback() {
+  fifo="$USER.$(basename "$0").$$.$1"
+  mkfifo -m 0600 "$fifo"
+  eval "exec $1<>\"\$fifo\""
+  rm "$fifo"
+}
+
+loopback 3 # from nc(1) to dasht-server-http(1)
+loopback 4 # from dasht-server-http(1) to nc(1)
+
+while true; do
+  >&3 <&4 nc -l -p "$@" & nc=$!
+  <&3 >&4 dasht-server-http
+  kill $nc || wait
+done
