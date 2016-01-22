@@ -76,6 +76,40 @@ You can use this to launch a web browser along with the search engine:
 
     dasht-server | xargs -n1 w3m
 
+#### Browser refuses to load `file://` links
+
+Some web browsers refuse to load `file://` links from `http://127.0.0.1` URLs.
+However, the following web browsers do not suffer from this limitation and are
+thereby recommended for use with the search engine powered by dasht-server(1).
+
+Recommended terminal web browsers:
+
+* [w3m]
+
+* [elinks]
+  [elinks]: http://elinks.or.cz
+
+Recommended graphical web browsers:
+
+* [Dillo]
+  [Dillo]: http://www.dillo.org
+
+* [NetSurf]
+  [NetSurf]: http://www.netsurf-browser.org
+
+* [Firefox] needs a workaround (see below)
+  [Firefox]: http://www.mozilla.org/firefox
+
+##### Firefox
+
+The workaround for Firefox is to add this snippet to your `prefs.js` file:
+
+    user_pref("capability.policy.policynames", "localfilelinks");
+    user_pref("capability.policy.localfilelinks.sites", "http://127.0.0.1:54321");
+    user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
+
+See <http://kb.mozillazine.org/Links_to_local_pages_do_not_work> for details.
+
 ### dasht-server-http(1)
 
 Reads a single HTTP request from stdin and writes a response to stdout.
