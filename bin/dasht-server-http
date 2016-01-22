@@ -1,0 +1,91 @@
+#!/bin/sh -e
+#
+# Reads a single HTTP request from stdin and writes a response to stdout.
+#
+# Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
+# Distributed under the terms of the ISC license (see the LICENSE file).
+
+CR=$(echo '\r')
+while read line; do
+  line=${line%$CR} # chomp \r
+
+  # reached end of request
+  test -z "$line" && break
+
+  case "$line" in
+    ('GET /'*' HTTP/'*)
+      # parse request
+      set -- $line
+      url=$2
+
+      # parse URL query parameters as shell variables
+      eval "$(
+        printf %s "$url" | awk -v RS='[?&]' -F '=' '
+          NF > 1 {
+            # TODO: unescape "%\d\d" values in URL
+            gsub("+", " ", $2)
+
+            # surround value with single quotes to
+            # prevent shell interpretation of $...
+            print $1 "='"'"'" $2 "'"'"'"
+          }
+        '
+      )"
+
+      # emit response header
+      printf 'HTTP/1.0 200 OK\r\n'
+      printf 'Content-Type: text/html\r\n'
+      printf '\r\n'
+
+      # emit response body
+      cat <<RESPONSE_BODY
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>dasht $query $docsets</title>
+            <base target="_blank">
+          </head>
+          <body>
+            <style>
+              form {
+                top: 0;
+                position: fixed;
+                background-color: whitesmoke;
+              }
+              table {
+                margin-top: 2em;
+                border-collapse: collapse;
+              }
+              td:first-child {
+                font-family: monospace;
+                padding-right: 2em;
+              }
+              tr:hover {
+                font-weight: bold;
+                background-color: whitesmoke;
+              }
+              a {
+                text-decoration: none;
+              }
+              a:hover {
+                text-decoration: underline;
+              }
+              b > i {
+                font-style: normal;
+                background-color: yellow;
+              }
+            </style>
+            <form method="get" action="/" target="_self">
+              Search for <input name="query" value="$query" type="search"
+                                placeholder="spaces are wildcards" autofocus>
+              in docsets <input name="docsets" value="$docsets" type="search"
+                                placeholder="$(dasht-docsets | tr '\n' ' ')">
+              <input type="submit">
+            </form>
+            <table>$(dasht-query-html "$query" $docsets)</table>
+          </body>
+        </html>
+RESPONSE_BODY
+      ;;
+  esac
+done

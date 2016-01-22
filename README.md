@@ -76,6 +76,10 @@ You can use this to launch a web browser along with the search engine:
 
     dasht-server | xargs -n1 w3m
 
+### dasht-server-http(1)
+
+Reads a single HTTP request from stdin and writes a response to stdout.
+
 ### dasht-query-html(1)
 
 Decorates dasht-query-line(1) results as HTML table rows.
