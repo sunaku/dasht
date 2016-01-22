@@ -79,10 +79,14 @@ while read line; do
               Search for <input name="query" value="$query" type="search"
                                 placeholder="spaces are wildcards" autofocus>
               in docsets <input name="docsets" value="$docsets" type="search"
-                                placeholder="$(dasht-docsets | tr '\n' ' ')">
+                                placeholder="$(dasht-docsets | tr '\n' ' ')"
+                                list="docsets" multiple>
               <input type="submit">
             </form>
             <table>$(dasht-query-html "$query" $docsets)</table>
+            <datalist id="docsets">
+              $(dasht-docsets | sed 's|.*|<option value="&">&</option>|')
+            </datalist>
           </body>
         </html>
 RESPONSE_BODY
