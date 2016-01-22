@@ -34,8 +34,8 @@ Optional:
 * [wget] to download [docsets] from [Dash]
   [wget]: https://www.gnu.org/software/wget/
 
-* [netcat] for dasht-server(1) search engine
-  [netcat]: http://netcat.sourceforge.net/
+* [socat] for dasht-server(1) search engine
+  [socat]: http://www.dest-unreach.org/socat/
 
 ## Installation
 
@@ -62,14 +62,12 @@ Displays dasht-query-html(1) results, if any, using the w3m(1) browser.
 
 ### dasht-server(1)
 
-    Usage: dasht-server [PORT] [OPTIONS_FOR_NETCAT...]
+    Usage: dasht-server [PORT]
 
 Runs a local search engine on the given PORT at http://127.0.0.1:PORT
 which is intended to be accessed by web browsers on the same machine.
 
 If no PORT number is specified, then its value is assumed to be 54321.
-
-Any specified OPTIONS\_FOR\_NETCAT... arguments are passed down to nc(1).
 
 The search engine's URL is printed to stdout for the user's reference.
 You can use this to launch a web browser along with the search engine:
