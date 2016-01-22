@@ -40,27 +40,36 @@ dasht-docsets "$@" | while read docset; do
   database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
   file_url="file://$(dirname "$database")/Documents/"
 
-  dasht-query-exec "$pattern" "$database" -line | awk '
+  dasht-query-exec "$pattern" "$database" -line |
+  awk -v docset="$docset" -v file_url="$file_url" '
     { $1 = $1 } # strip whitespace from key
 
     $1 == "url" {
       # indicate the source of this result
-      print "from = '"$docset"'"
+      print "from = " docset
 
-      '"$(
-        # unescape URI fragment intelligently
-        # according to quirks of each docset:
-        # blind unescape isn't always correct
-        case "$docset" in
-          (Erlang) echo 'gsub("%2F", "-", $3)'
-                   echo 'gsub("%5F", "_", $3)' ;;
-          (Elixir) echo 'gsub("%2F", "/", $3)' ;;
-          (CSS)    echo 'if ($3 !~ "#.+") $3 = $3 "#wiki-content"' ;;
-        esac
-      )"'
+      # URI fragments are sometimes wrong
+      # or entirely missing; fix them here
+
+      if (docset ~ /^CSS/ && $3 !~ "#.+") {
+        $3 = $3 "#wiki-content"
+      }
+
+      if (docset ~ /^Erlang|^Elixir/) {
+        sub("#//apple_ref/[^/]+/", "#", $3)
+      }
+
+      if (docset ~ /^Erlang/) {
+        gsub("%2F", "-", $3)
+        gsub("%5F", "_", $3)
+      }
+
+      if (docset ~ /^Elixir/) {
+        gsub("%2F", "/", $3)
+      }
 
       # resolve URL to filesystem location
-      $3 = "'"$file_url"'" $3
+      $3 = file_url $3
     }
 
     /./ # reject any empty lines from input

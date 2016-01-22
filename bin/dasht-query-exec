@@ -53,7 +53,7 @@ test -f "$database"
 searchIndex_query="
   SELECT name,
          type,
-         replace(path, '//apple_ref/' || type || '/', '') AS url
+         path AS url
   FROM searchIndex
   WHERE name LIKE '$pattern' ESCAPE '\\'
   ORDER BY name COLLATE NOCASE
