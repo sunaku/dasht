@@ -12,10 +12,10 @@
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
 dasht-docsets "$@" | while read docset; do
-  basename="$docset".tgz
-  tgz="$DASHT_DOCSETS_DIR/$basename"
-  url="https://kapeli.com/feeds/$basename"
+  ls "$DASHT_DOCSETS_DIR/$docset"*.tgz
+done | sort -u | while read tgz; do
   last_modified_at="$tgz".last_modified_at
+  url="https://kapeli.com/feeds/$(basename "$tgz")"
 
   touch -r "$tgz" "$last_modified_at"
   wget -P "$DASHT_DOCSETS_DIR" -N "$url"
