@@ -26,6 +26,9 @@ Required:
 * [POSIX] environment (Linux, BSD, etc.)
   [POSIX]: http://pubs.opengroup.org/onlinepubs/9699919799/
 
+* [sqlite3] to search inside [Dash] docsets
+  [sqlite3]: https://www.sqlite.org/cli.html
+
 Optional:
 
 * [w3m] to display dasht(1) search results
