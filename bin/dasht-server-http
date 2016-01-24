@@ -13,16 +13,28 @@ url=$(awk '
 
 # parse URL query parameters as shell variables
 eval "$(
-  printf %s "$url" | awk -v RS='[?&]' -F '=' '
-    NF > 1 {
-      # TODO: unescape "%\d\d" values in URL
-      gsub("+", " ", $2)
+  # split URL on query parameter delimiters (?&)
+  IFS='?&'
+  set -- $url
+  shift # protocol, hostname, port number, path
 
-      # surround value with single quotes to
-      # prevent shell interpretation of $...
-      print $1 "='"'"'" $2 "'"'"'"
-    }
-  '
+  # convert segments into safely eval()able assignments
+  for segment; do
+    # split param=value
+    param=${segment%%=*}
+    value=${segment#*=}
+
+    # only accept known parameters to prevent injection
+    case "$param" in (query|docsets)
+      # decode URL-encoded characters in parameter value
+      value=$(echo "$value" | tr '+' ' ' | # + is space
+        # convert %HEX into \OCT for printf to evaluate
+        # later on when we eval() the entire expression
+        sed 's/%\([[:xdigit:]]\{2\}\)/\\\\\\$(echo "obase=8; ibase=16; \1" | bc)/g'
+      )
+      test -n "$value" && echo "$param=\$(printf \"$value\")"
+    ;;esac
+  done
 )"
 
 # emit response header
