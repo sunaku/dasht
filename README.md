@@ -56,6 +56,20 @@ If unspecified, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`, or
 
 ## Usage
 
+First, install some [docsets]:
+
+    dasht-docsets-install bash
+
+Next, perform a direct search:
+
+    dasht 'c - x'
+
+Then, repeat in a web browser:
+
+    dasht-server
+
+Done! You are now ready to go.
+
 ### dasht(1)
 
 Displays dasht-query-html(1) results, if any, using the w3m(1) browser.
