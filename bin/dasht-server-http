@@ -5,6 +5,17 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
+# Escapes XML "predefined entities" in given arguments.
+# see http://www.w3.org/TR/REC-xml/#sec-predefined-ent
+html_escape_predefined_entities() {
+  echo "$*" |
+  sed -e 's/&/\&amp;/g' \
+      -e 's/"/\&quot;/g' \
+      -e "s/'/\&apos;/g" \
+      -e 's/</\&lt;/g' \
+      -e 's/>/\&gt;/g'
+}
+
 # parse URL out of HTTP request
 url=$(awk '
   /^GET (\S+) HTTP\/1\.[01]\r$/ { print $2 }
@@ -32,7 +43,10 @@ eval "$(
         # later on when we eval() the entire expression
         sed 's/%\([[:xdigit:]]\{2\}\)/\\\\\\$(echo "obase=8; ibase=16; \1" | bc)/g'
       )
-      test -n "$value" && echo "$param=\$(printf \"$value\")"
+      if test -n "$value"; then
+        echo "$param=\$(printf \"$value\")"
+        echo "${param}_html=\$(html_escape_predefined_entities \"\$$param\")"
+      fi
     ;;esac
   done
 )"
@@ -47,7 +61,7 @@ cat <<RESPONSE_BODY
 <!DOCTYPE html>
 <html>
   <head>
-    <title>dasht $query $docsets</title>
+    <title>dasht $query_html $docsets_html</title>
     <base target="_blank">
   </head>
   <body>
@@ -81,9 +95,9 @@ cat <<RESPONSE_BODY
       }
     </style>
     <form method="get" action="/" target="_self">
-      Search for <input name="query" value="$query" type="search"
+      Search for <input name="query" value="$query_html" type="search"
                         placeholder="spaces are wildcards" autofocus>
-      in docsets <input name="docsets" value="$docsets" type="search"
+      in docsets <input name="docsets" value="$docsets_html" type="search"
                         placeholder="$(dasht-docsets | tr '\n' ' ')"
                         list="docsets" multiple>
       <input type="submit">
