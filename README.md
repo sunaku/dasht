@@ -77,6 +77,41 @@ Done! You are now ready to go.
 
 Displays dasht-query-html(1) results, if any, using the w3m(1) browser.
 
+### dasht-query-html(1)
+
+Decorates dasht-query-line(1) results as HTML table rows.
+
+### dasht-query-line(1)
+
+    Usage: dasht-query-line [PATTERN] [DOCSET...]
+
+Searches for the given PATTERN in [Dash] docsets whose names loosely match the
+given DOCSETs (or in all installed [Dash] docsets if no DOCSETs are specified)
+and then prints the results in groups of four lines, in the following order:
+
+    name = VALUE    # value of the token that matched the PATTERN
+    type = VALUE    # type of the token, as defined in the docset
+    from = VALUE    # name of the docset this result was found in
+    url = VALUE     # URL of the API documentation for this result
+
+Whitespace characters in the PATTERN are treated as wildcards, whereas the
+SQL LIKE wildcard characters `%` and `_` are not: they are taken literally.
+
+The given PATTERN is surrounded by whitespace wildcards before searching so
+that it can match anywhere: beginning, middle, or end.  If unspecified, its
+value is assumed to be a whitespace wildcard so that it matches everything.
+
+### dasht-query-exec(1)
+
+    Usage: dasht-query-exec PATTERN DATABASE [OPTIONS_FOR_SQLITE3...]
+
+Searches for the given PATTERN in the given [Dash] docset DATABASE.
+
+SQL LIKE wildcard characters in PATTERN are backslash escapable.
+For example, `\%` and `\_` are escaped, but `%` and `_` are not.
+
+Any specified OPTIONS\_FOR\_SQLITE3 are passed down to sqlite3(1).
+
 ### dasht-server(1)
 
     Usage: dasht-server [PORT]
@@ -128,41 +163,6 @@ See <http://kb.mozillazine.org/Links_to_local_pages_do_not_work> for details.
 ### dasht-server-http(1)
 
 Reads a single HTTP request from stdin and writes a response to stdout.
-
-### dasht-query-html(1)
-
-Decorates dasht-query-line(1) results as HTML table rows.
-
-### dasht-query-line(1)
-
-    Usage: dasht-query-line [PATTERN] [DOCSET...]
-
-Searches for the given PATTERN in [Dash] docsets whose names loosely match the
-given DOCSETs (or in all installed [Dash] docsets if no DOCSETs are specified)
-and then prints the results in groups of four lines, in the following order:
-
-    name = VALUE    # value of the token that matched the PATTERN
-    type = VALUE    # type of the token, as defined in the docset
-    from = VALUE    # name of the docset this result was found in
-    url = VALUE     # URL of the API documentation for this result
-
-Whitespace characters in the PATTERN are treated as wildcards, whereas the
-SQL LIKE wildcard characters `%` and `_` are not: they are taken literally.
-
-The given PATTERN is surrounded by whitespace wildcards before searching so
-that it can match anywhere: beginning, middle, or end.  If unspecified, its
-value is assumed to be a whitespace wildcard so that it matches everything.
-
-### dasht-query-exec(1)
-
-    Usage: dasht-query-exec PATTERN DATABASE [OPTIONS_FOR_SQLITE3...]
-
-Searches for the given PATTERN in the given [Dash] docset DATABASE.
-
-SQL LIKE wildcard characters in PATTERN are backslash escapable.
-For example, `\%` and `\_` are escaped, but `%` and `_` are not.
-
-Any specified OPTIONS\_FOR\_SQLITE3 are passed down to sqlite3(1).
 
 ### dasht-docsets(1)
 
