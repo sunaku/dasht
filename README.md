@@ -45,6 +45,10 @@ Optional:
 1.  Clone or [download] this Git repository onto your system.
 [download]: https://github.com/sunaku/dasht/archive/master.zip
 
+    Note: [Arch Linux](https://www.archlinux.org) users may choose to install
+    [this AUR package](https://aur.archlinux.org/packages/dasht-git/)
+    maintained by [Christian Höppner](https://github.com/mkaito).
+
 2.  Add the `bin/` folder to your `$PATH` environment variable:
 
         export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
