@@ -48,24 +48,10 @@ dasht-docsets "$@" | while read docset; do
       # indicate the source of this result
       print "from = " docset
 
-      # URI fragments are sometimes wrong
-      # or entirely missing; fix them here
-
+      # skip navigation links in CSS docset
+      # when URI fragment is not available
       if (docset ~ /^CSS/ && $3 !~ "#.+") {
         $3 = $3 "#wiki-content"
-      }
-
-      if (docset ~ /^Erlang|^Elixir/) {
-        sub("#//apple_ref/[^/]+/", "#", $3)
-      }
-
-      if (docset ~ /^Erlang/) {
-        gsub("%2F", "-", $3)
-        gsub("%5F", "_", $3)
-      }
-
-      if (docset ~ /^Elixir/) {
-        gsub("%2F", "/", $3)
       }
 
       # resolve URL to filesystem location
