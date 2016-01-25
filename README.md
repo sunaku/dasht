@@ -159,7 +159,8 @@ value is assumed to be a whitespace wildcard so that it matches everything.
 
 Searches for the given PATTERN in the given [Dash] docset DATABASE.
 
-Wildcard "%" characters in PATTERN can be escaped with backslash.
+SQL LIKE wildcard characters in PATTERN are backslash escapable.
+For example, `\%` and `\_` are escaped, but `%` and `_` are not.
 
 Any specified OPTIONS\_FOR\_SQLITE3 are passed down to sqlite3(1).
 
