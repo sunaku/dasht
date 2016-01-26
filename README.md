@@ -143,6 +143,9 @@ Recommended terminal web browsers:
 * [elinks]
   [elinks]: http://elinks.or.cz
 
+* [lynx]
+  [lynx]: http://lynx.invisible-island.net
+
 Recommended graphical web browsers:
 
 * [Dillo]
