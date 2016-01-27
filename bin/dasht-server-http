@@ -19,8 +19,7 @@ entities() {
 # Converts the given 2-xdigit string into a byte value.
 # See http://mywiki.wooledge.org/BashFAQ/071
 hex2byte() {
-  hex=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-  dec=$(echo "ibase=16; $hex" | bc)
+  dec=$(( 0x$1 ))
   oct=$(printf '%03o' "$dec")
   printf "\\$oct"
 }
