@@ -13,8 +13,9 @@
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
 set -- $(dasht-docsets "$@")
-echo "Removable docsets ($#):\n\n\t$(echo "$*" | sed 's/ /,&/g')\n"
+printf "Removable docsets ($#):\n\n\t%s\n\n" "$(echo "$*" | sed 's/ /,&/g')"
 
+trap exit INT # make ^C abort xargs -p
 for docset; do
   echo "Remove $docset docset" | xargs -p | grep -q . || continue # confirm
 

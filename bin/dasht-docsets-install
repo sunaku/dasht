@@ -24,8 +24,9 @@ set -- $(
   grep -E -i "$(echo "$*" | tr -s ' ' '|')" |
   sed "$(dasht-docsets | awk '{ print "/^" $0 "$/d" }')" # exclude installed
 )
-echo "Installable docsets ($#):\n\n\t$(echo "$*" | sed 's/ /,&/g')\n"
+printf "Installable docsets ($#):\n\n\t%s\n\n" "$(echo "$*" | sed 's/ /,&/g')"
 
+trap exit INT # make ^C abort xargs -p
 for docset; do
   echo "Install $docset docset" | xargs -p | grep -q . || continue # confirm
 
