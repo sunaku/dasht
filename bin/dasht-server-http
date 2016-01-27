@@ -27,7 +27,7 @@ hex2byte() {
 
 # parse URL out of HTTP request
 url=$(awk '
-  /^GET ([[:print:]]+) HTTP\/1\.[01]\r$/ { print $2 }
+  /^GET [[:print:]]+ HTTP\/1.+\r$/ { print $2 }
   /^\r$/ { exit } # reached end of HTTP request
 ')
 
