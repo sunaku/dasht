@@ -6,19 +6,28 @@
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
 # Escapes XML "predefined entities" in given arguments.
-# see http://www.w3.org/TR/REC-xml/#sec-predefined-ent
-html_escape_predefined_entities() {
+# See http://www.w3.org/TR/REC-xml/#sec-predefined-ent
+entities() {
   echo "$*" |
-  sed -e 's/&/\&amp;/g' \
+  sed -e 's/&/\&amp;/g'  \
       -e 's/"/\&quot;/g' \
       -e "s/'/\&apos;/g" \
-      -e 's/</\&lt;/g' \
+      -e 's/</\&lt;/g'   \
       -e 's/>/\&gt;/g'
+}
+
+# Converts the given 2-xdigit string into a byte value.
+# See http://mywiki.wooledge.org/BashFAQ/071
+hex2byte() {
+  hex=$(echo "$1" | tr '[:lower:]' '[:upper:]')
+  dec=$(echo "ibase=16; $hex" | bc)
+  oct=$(printf '%03o' "$dec")
+  printf "\\$oct"
 }
 
 # parse URL out of HTTP request
 url=$(awk '
-  /^GET (\S+) HTTP\/1\.[01]\r$/ { print $2 }
+  /^GET ([[:print:]]+) HTTP\/1\.[01]\r$/ { print $2 }
   /^\r$/ { exit } # reached end of HTTP request
 ')
 
@@ -39,13 +48,10 @@ eval "$(
     case "$param" in (query|docsets)
       # decode URL-encoded characters in parameter value
       value=$(echo "$value" | tr '+' ' ' | # + is space
-        # convert %HEX into \OCT for printf to evaluate
-        # later on when we eval() the entire expression
-        sed 's/%\([[:xdigit:]]\{2\}\)/\\\\\\$(echo "obase=8; ibase=16; \1" | bc)/g'
-      )
+        sed 's/%\([[:xdigit:]]\{2\}\)/$(hex2byte \1)/g')
       if test -n "$value"; then
-        echo "$param=\$(printf \"$value\")"
-        echo "${param}_html=\$(html_escape_predefined_entities \"\$$param\")"
+        echo "$param=\"$value\""
+        echo "${param}_html=\$(entities \"\$$param\")"
       fi
     ;;esac
   done
