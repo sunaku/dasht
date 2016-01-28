@@ -15,9 +15,9 @@
 set -- $(dasht-docsets "$@")
 printf "Removable docsets ($#):\n\n\t%s\n\n" "$(echo "$*" | sed 's/ /,&/g')"
 
-trap exit INT # make ^C abort xargs -p
+trap exit INT # let Control-C abort `xargs -p` when running under bash(1)
 for docset; do
-  echo "Remove $docset docset" | xargs -p | grep -q . || continue # confirm
+  echo "Remove $docset docset [y/N]" | xargs -p | grep -q . || continue
 
   rootname="$DASHT_DOCSETS_DIR/$docset"
   rm -f -r "$rootname".docset \
