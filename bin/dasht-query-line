@@ -29,10 +29,7 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
-pattern=$(echo " $1 " | sed '
-  s/[%_]/\\&/g # do not treat "%" and "_" as wildcards
-  s/\s\+/%/g   # treat whitespace as wildcards instead
-')
+pattern=$(echo " $1 " | sed 's/[%_]/\\&/g' | tr -s '[:space:]' '%')
 test $# -gt 0 && shift      # done with the PATTERN argument; move it away
 test $# -gt 0 || set -- .   # no DOCSETs were specified; match all of them
 

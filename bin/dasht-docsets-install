@@ -19,7 +19,7 @@ test -s "$docset_links_cache"
 
 # extract and filter installable docset names from the download links page
 set -- $(
-  sed -n 's|.*/\([^/]\+\)\.tgz.*|\1|p' "$docset_links_cache" |
+  sed -n 's|.*/\([^/]*\)\.tgz.*|\1|p' "$docset_links_cache" |
   sort -u |
   grep -E -i "$(echo "$*" | tr -s ' ' '|')" |
   sed "$(dasht-docsets | awk '{ print "/^" $0 "$/d" }')" # exclude installed
