@@ -11,9 +11,9 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
-dasht-docsets "$@" | while read docset; do
+dasht-docsets "$@" | while read -r docset; do
   ls "$DASHT_DOCSETS_DIR/$docset"*.tgz
-done | sort -u | while read tgz; do
+done | sort -u | while read -r tgz; do
   last_modified_at="$tgz".last_modified_at
   url="https://kapeli.com/feeds/$(basename "$tgz")"
 
