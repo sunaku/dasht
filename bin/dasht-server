@@ -19,4 +19,4 @@ host=127.0.0.1
 port=${1:-54321}
 echo "http://$host:$port"
 
-socat TCP-LISTEN:$port,bind=$host,reuseaddr,fork EXEC:dasht-server-http
+socat "TCP-LISTEN:$port,bind=$host,reuseaddr,fork" EXEC:dasht-server-http
