@@ -19,6 +19,11 @@ which aptly characterizes the terminal environment where everything is text.
 
 * Keep [Dash] docsets anywhere you like.
 
+## Screenshots
+
+![In your terminal](https://github.com/sunaku/dasht/raw/gh-pages/terminal.png)
+![In your browser](https://github.com/sunaku/dasht/raw/gh-pages/browser.png)
+
 ## Dependencies
 
 Required:
