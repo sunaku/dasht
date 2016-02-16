@@ -1,0 +1,83 @@
+.TH DASHT\-SERVER 1                2016\-01\-24                            1.0.0
+.SH NAME
+.PP
+dasht\-server \- runs a local search engine for your web browser
+.SH SYNOPSIS
+.PP
+\fB\fCdasht\-server\fR [\fIPORT\fP]
+.SS Examples
+.TP
+\fB\fCdasht\-server\fR
+Starts a local search engine at \[la]http://127.0.0.1:54321\[ra]\&.
+.TP
+\fB\fCdasht\-server\fR 8080
+Starts a local search engine on port number 8080.
+.SH DESCRIPTION
+.PP
+Runs a local search engine on \fIPORT\fP number, at \[la]http://127.0.0.1:PORT\[ra],
+which can only be accessed by web browsers running on the local machine.
+If no \fIPORT\fP number is specified, then its value is assumed to be 54321.
+.PP
+The search engine's URL is printed to stdout, for the user's reference,
+which can be used to launch a web browser along with the search engine:
+.PP
+.RS
+.nf
+dasht\-server | xargs \-n1 w3m
+.fi
+.RE
+.SS Browser refuses to load \fB\fCfile://\fR links
+.PP
+Some browsers refuse to load \fB\fCfile://\fR links from \fB\fChttp://127.0.0.1\fR URLs.
+However, the following browsers do not suffer from this limitation and are
+thereby recommended for use with the search engine provided by this script.
+.PP
+Recommended terminal web browsers:
+.RS
+.IP \(bu 2
+w3m \[la]http://w3m.sourceforge.net\[ra]
+.IP \(bu 2
+elinks \[la]http://elinks.or.cz\[ra]
+.IP \(bu 2
+lynx \[la]http://lynx.invisible-island.net\[ra]
+.RE
+.PP
+Recommended graphical web browsers:
+.RS
+.IP \(bu 2
+Dillo \[la]http://www.dillo.org\[ra]
+.IP \(bu 2
+NetSurf \[la]http://www.netsurf-browser.org\[ra]
+.IP \(bu 2
+Firefox \[la]http://www.mozilla.org/firefox\[ra] needs a workaround (see below)
+.RE
+.SS Firefox
+.PP
+The workaround for Firefox is to add this snippet to your \fB\fCprefs.js\fR file:
+.PP
+.RS
+.nf
+user_pref("capability.policy.policynames", "localfilelinks");
+user_pref("capability.policy.localfilelinks.sites", "http://127.0.0.1:54321");
+user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
+.fi
+.RE
+.PP
+See \[la]http://kb.mozillazine.org/Links_to_local_pages_do_not_work\[ra] for details.
+.SH ENVIRONMENT
+.TP
+\fB\fCDASHT_DOCSETS_DIR\fR
+Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
+If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
+or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.SH SEE ALSO
+.PP
+.BR socat (1), 
+.BR dasht-server-http (1), 
+.BR dasht-docsets (1), 
+.BR dasht (1), 
+Dash \[la]https://kapeli.com/dash\[ra]
+.SH AUTHOR
+.PP
+Written in 2016 by Suraj N. Kurapati \[la]https://github.com/sunaku/dasht\[ra]
+Distributed under the terms of the ISC license (see the LICENSE file).

@@ -1,0 +1,45 @@
+# DASHT-DOCSETS 1               2016-01-24                            1.0.0
+
+## NAME
+
+dasht-docsets - lists installed [Dash] docsets
+
+## SYNOPSIS
+
+`dasht-docsets` [*NAME*...]
+
+### Examples
+
+`dasht-docsets`
+  Lists all installed [Dash] docsets.
+
+`dasht-docsets` sh
+  Lists installed [Dash] docsets whose names contain "sh".
+
+`dasht-docsets` sh 'c$'
+  Lists installed [Dash] docsets whose names contain "sh" or end in "c".
+
+## DESCRIPTION
+
+Lists the names of [Dash] docsets installed under `DASHT_DOCSETS_DIR`.  The
+listing is optionally filtered to include only those docset names that match
+the *NAME* regex(7) patterns, if specified, before it is printed to stdout.
+
+## ENVIRONMENT
+
+`DASHT_DOCSETS_DIR`
+  Defines the filesystem location where your [Dash] docsets are installed.
+  If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
+  or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
+
+## SEE ALSO
+
+dasht-docsets-install(1), dasht-docsets-update(1), dasht-docsets-remove(1),
+dasht(1), [Dash]
+
+[Dash]: https://kapeli.com/dash
+
+## AUTHOR
+
+Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
+Distributed under the terms of the ISC license (see the LICENSE file).

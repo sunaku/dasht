@@ -1,0 +1,45 @@
+.TH DASHT\-SERVER\-HTTP 1           2016\-01\-24                            1.0.0
+.SH NAME
+.PP
+dasht\-server\-http \- simple search engine that powers 
+.BR dasht-server (1)
+.SH SYNOPSIS
+.PP
+\fB\fCdasht\-server\-http\fR
+.SS Examples
+.TP
+printf 'GET / HTTP/1.1\[rs]r\[rs]n' | \fB\fCdasht\-server\-http\fR
+Shows first 100 topics from all installed Dash \[la]https://kapeli.com/dash\[ra] docsets.
+.TP
+printf 'GET /?docsets=\fIDOCSETS\fP HTTP/1.1\[rs]r\[rs]n' | \fB\fCdasht\-server\-http\fR
+Shows first 100 topics from installed Dash \[la]https://kapeli.com/dash\[ra] docsets matching \fIDOCSETS\fP\&.
+.TP
+printf 'GET /?query=\fIPATTERN\fP HTTP/1.1\[rs]r\[rs]n' | \fB\fCdasht\-server\-http\fR
+Searches for \fIPATTERN\fP in all installed Dash \[la]https://kapeli.com/dash\[ra] docsets.
+.TP
+printf 'GET /?query=\fIPATTERN\fP&docsets=\fIDOCSETS\fP HTTP/1.1\[rs]r\[rs]n' | \fB\fCdasht\-server\-http\fR
+Searches for \fIPATTERN\fP in installed Dash \[la]https://kapeli.com/dash\[ra] docsets matching \fIDOCSETS\fP\&.
+.SH DESCRIPTION
+.PP
+Reads a single HTTP request from stdin and writes a HTTP response to stdout.
+Any \fB\fCquery=\fR\fIPATTERN\fP and \fB\fCdocsets=\fR\fIDOCSETS\fP parameters in the request URL
+are passed to 
+.BR dasht-query-html (1) 
+as its \fIPATTERN\fP and \fIDOCSETS\fP arguments.
+.SH ENVIRONMENT
+.TP
+\fB\fCDASHT_DOCSETS_DIR\fR
+Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
+If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
+or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.SH SEE ALSO
+.PP
+.BR dasht-query-html (1), 
+.BR dasht-server (1), 
+.BR dasht-docsets (1), 
+.BR dasht (1), 
+Dash \[la]https://kapeli.com/dash\[ra]
+.SH AUTHOR
+.PP
+Written in 2016 by Suraj N. Kurapati \[la]https://github.com/sunaku/dasht\[ra]
+Distributed under the terms of the ISC license (see the LICENSE file).

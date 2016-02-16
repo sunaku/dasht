@@ -1,0 +1,137 @@
+.RS
+.IP \(bu 2
+Code: \[la]https://github.com/sunaku/dasht\[ra]
+.IP \(bu 2
+Docs: \[la]https://sunaku.github.io/dasht/man\[ra]
+.IP \(bu 2
+Bugs: \[la]https://github.com/sunaku/dasht/issues\[ra]
+.RE
+.TH dasht \- API documentation in your terminal
+.PP
+dasht is a collection of shell scripts for searching, browsing, and managing
+API documentation (provided by Dash \[la]https://kapeli.com/dash\[ra] in the form of docsets \[la]https://kapeli.com/docset_links\[ra] for numerous
+languages, libraries, and tools) all from the comfort of your own terminal!
+.PP
+The name "dasht" is a portmanteau of Dash \[la]https://kapeli.com/dash\[ra] and the letter "t", for terminal.
+Etymologically, "dasht" is Persian for \fIplain\fP, as in an flat expanse of land,
+which aptly characterizes the terminal environment where everything is text.
+.SH Features
+.RS
+.IP \(bu 2
+You never have to leave your terminal!
+.IP \(bu 2
+Local search engine for web browsers.
+.IP \(bu 2
+Keep Dash \[la]https://kapeli.com/dash\[ra] docsets anywhere you like.
+.RE
+.SH Screenshots
+.PP
+[In your terminal](\[la]https://github.com/sunaku/dasht/raw/gh-pages/terminal.png\[ra])
+[In your browser](\[la]https://github.com/sunaku/dasht/raw/gh-pages/browser.png\[ra])
+.SH Dependencies
+.PP
+Required:
+.RS
+.IP \(bu 2
+POSIX \[la]http://pubs.opengroup.org/onlinepubs/9699919799/\[ra] environment (Linux, BSD, etc.)
+.IP \(bu 2
+sqlite3 \[la]https://www.sqlite.org/cli.html\[ra] to search inside Dash \[la]https://kapeli.com/dash\[ra] docsets
+.RE
+.PP
+Optional:
+.RS
+.IP \(bu 2
+w3m \[la]http://w3m.sourceforge.net/\[ra] to display 
+.BR dasht (1) 
+search results
+.IP \(bu 2
+wget \[la]https://www.gnu.org/software/wget/\[ra] to download docsets \[la]https://kapeli.com/docset_links\[ra] from Dash \[la]https://kapeli.com/dash\[ra]
+.IP \(bu 2
+socat \[la]http://www.dest-unreach.org/socat/\[ra] for 
+.BR dasht-server (1) 
+search engine
+.RE
+.PP
+Development:
+.RS
+.IP \(bu 2
+binman \[la]https://sunaku.github.io/binman/\[ra] and md2man \[la]https://sunaku.github.io/md2man/\[ra] to build manual pages
+.PP
+.RS
+.nf
+gem install binman md2man
+.fi
+.RE
+.RE
+.SH Installation
+.nr step0 0 1
+.RS
+.IP \n+[step0]
+Clone or download \[la]https://github.com/sunaku/dasht/archive/master.zip\[ra] this Git repository onto your system.
+.PP
+Note: Arch Linux \[la]https://www.archlinux.org\[ra] users may choose to install
+this AUR package \[la]https://aur.archlinux.org/packages/dasht-git/\[ra]
+maintained by Christian Höppner \[la]https://github.com/mkaito\[ra]\&.
+.IP \n+[step0]
+Add the \fB\fCbin/\fR folder to your \fB\fC$PATH\fR environment variable:
+.PP
+.RS
+.nf
+export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
+.fi
+.RE
+.RE
+.SH Configuration
+.SS \fB\fC$DASHT_DOCSETS_DIR\fR
+.PP
+This environment variable specifies where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
+If unspecified, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR, or
+\fB\fC$HOME/.local/share/dasht/docsets/\fR if \fB\fC$XDG_DATA_HOME\fR is also unspecified.
+.SH Usage
+.SS Tutorial
+.PP
+First, install some docsets \[la]https://kapeli.com/docset_links\[ra] using 
+.BR dasht-docsets-install (1):
+.PP
+.RS
+.nf
+dasht\-docsets\-install bash
+.fi
+.RE
+.PP
+Next, perform a direct search from the terminal using 
+.BR dasht (1):
+.PP
+.RS
+.nf
+dasht 'c \- x'
+.fi
+.RE
+.PP
+Then, repeat the search in a web browser using 
+.BR dasht-server (1):
+.PP
+.RS
+.nf
+dasht\-server
+.fi
+.RE
+.PP
+You are now ready to use dasht!  Read the manuals below to learn even more.
+.SS Manuals
+.RS
+.IP \(bu 2
+You can browse the manuals online at \[la]https://sunaku.github.io/dasht/man/\[ra]\&.
+.IP \(bu 2
+If you installed dasht from your system's package manager, run \fB\fCman dasht\fR\&.
+.IP \(bu 2
+Else, run \fB\fCman \-M location_where_you_cloned_or_downloaded_dasht/man dasht\fR\&.
+.RE
+.SH Development
+.PP
+If you make changes to the embedded manual pages found in the comment headers
+at the top of script files in the \fB\fCbin/\fR directory, then remember to run the
+\fB\fCbinman\-rake\fR command afterward to regenerate UNIX manual pages for packaging.
+.SH License
+.PP
+Distributed under the terms of the ISC license (see the LICENSE file).
