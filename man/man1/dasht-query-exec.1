@@ -1,0 +1,27 @@
+.TH DASHT\-QUERY\-EXEC 1            2016\-01\-24                            1.0.0
+.SH NAME
+.PP
+dasht\-query\-exec \- searches a Dash \[la]https://kapeli.com/dash\[ra] docset's SQLite3 database file
+.SH SYNOPSIS
+.PP
+\fB\fCdasht\-query\-exec\fR \fIPATTERN\fP \fIDATABASE\fP [\fIOPTIONS_FOR_SQLITE3\fP\&...]
+.SH DESCRIPTION
+.PP
+Searches for \fIPATTERN\fP in \fIDATABASE\fP, which is an SQLite3 database file
+located inside a Dash \[la]https://kapeli.com/dash\[ra] docset at \fB\fC/Contents/Resources/docSet.dsidx\fR, while
+passing the optional \fIOPTIONS_FOR_SQLITE3\fP arguments down to 
+.BR sqlite3 (1).
+.SS Searching
+.PP
+SQL LIKE wildcard characters in \fIPATTERN\fP can be escaped with a backslash.
+For example, \fB\fC\\%\fR and \fB\fC\\_\fR are escaped, whereas \fB\fC%\fR and \fB\fC_\fR are not escaped.
+.SH SEE ALSO
+.PP
+.BR sqlite3 (1), 
+.BR dasht-query-line (1), 
+.BR dasht (1), 
+Dash \[la]https://kapeli.com/dash\[ra]
+.SH AUTHOR
+.PP
+Written in 2016 by Suraj N. Kurapati \[la]https://github.com/sunaku/dasht\[ra]
+Distributed under the terms of the ISC license (see the LICENSE file).
