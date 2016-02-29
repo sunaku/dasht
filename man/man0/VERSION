@@ -1,0 +1,22 @@
+.SH Version 1.1.0 (2016\-02\-28)
+.PP
+This release adds UNIX manpages, improves the UI, and fixes MacOSX support.
+.SS Minor:
+.RS
+.IP \(bu 2
+Add "[y/N]" hint to xargs confirmation prompt.  Thanks to Christian
+Höppner \[la]https://github.com/mkaito\[ra] for suggesting this improvement.
+.IP \(bu 2
+Add UNIX manual pages for all scripts, generated using binman \[la]https://sunaku.github.io/binman\[ra]\&.
+.RE
+.SS Patch:
+.RS
+.IP \(bu 2
+.BR sed (1), 
+.BR awk (1), 
+et. al. differ in curious ways under MacOSX.  Thanks to
+Alaric Holloway \[la]https://github.com/skedastik\[ra] and Kareem Gan \[la]https://github.com/magicalbanana\[ra] for reporting bugs and testing fixes.
+.RE
+.SH Version 1.0.0 (2016\-01\-24)
+.PP
+Initial public release of dasht, with stable command line API. :birthday:
