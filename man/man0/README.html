@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="md2man 5.1.0 https://github.com/sunaku/md2man" />
+  <meta name="generator" content="md2man 5.1.1 https://github.com/sunaku/md2man" />
   <title>README &mdash; dasht</title>
   <link rel="stylesheet" href="../style.css"/>
   <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -12,9 +12,9 @@
 <li>Docs: <a href="https://sunaku.github.io/dasht/man">https://sunaku.github.io/dasht/man</a></li>
 <li>Bugs: <a href="https://github.com/sunaku/dasht/issues">https://github.com/sunaku/dasht/issues</a></li>
 </ul>
-<h1 id="dasht-api-documentation-in-your-terminal"><span class="md2man-title">dasht</span> <span class="md2man-section">-</span> <span class="md2man-date">API</span> <span class="md2man-source">documentation</span> <span class="md2man-manual">in</span> your terminal<a name="dasht-api-documentation-in-your-terminal" href="#dasht-api-documentation-in-your-terminal" class="md2man-permalink" title="permalink"></a></h1><p>dasht is a collection of shell scripts for searching, browsing, and managing
-API documentation (provided by <a href="https://kapeli.com/dash">Dash</a> in the form of <a href="https://kapeli.com/docset_links">docsets</a> for numerous
-languages, libraries, and tools) all from the comfort of your own terminal!</p><p>The name &quot;dasht&quot; is a portmanteau of <a href="https://kapeli.com/dash">Dash</a> and the letter &quot;t&quot;, for terminal.
+<h1 id="dasht-search-api-docs-offline-in-your-terminal-or-browser"><span class="md2man-title">dasht</span> <span class="md2man-section">-</span> <span class="md2man-date">Search</span> <span class="md2man-source">API</span> <span class="md2man-manual">docs</span> offline, in your terminal or browser<a name="dasht-search-api-docs-offline-in-your-terminal-or-browser" href="#dasht-search-api-docs-offline-in-your-terminal-or-browser" class="md2man-permalink" title="permalink"></a></h1><p>dasht is a collection of shell scripts for searching, browsing, and managing
+API documentation (in the form of <a href="https://kapeli.com/dash#docsets">150+ offline documentation sets</a>,
+courtesy of <a href="https://kapeli.com/dash">Dash for OS X</a>) all from the comfort of your own terminal!</p><p>The name &quot;dasht&quot; is a portmanteau of <a href="https://kapeli.com/dash">Dash</a> and the letter &quot;t&quot;, for terminal.
 Etymologically, &quot;dasht&quot; is Persian for <em>plain</em>, as in an flat expanse of land,
 which aptly characterizes the terminal environment where everything is text.</p><h2 id="features">Features<a name="features" href="#features" class="md2man-permalink" title="permalink"></a></h2>
 <ul>
@@ -30,8 +30,8 @@ which aptly characterizes the terminal environment where everything is text.</p>
 </ul>
 <p>Optional:</p>
 <ul>
+<li><p><a href="https://www.gnu.org/software/wget/">wget</a> to download <a href="https://kapeli.com/dash#docsets">docsets</a> from <a href="https://kapeli.com/dash">Dash</a></p></li>
 <li><p><a href="http://w3m.sourceforge.net/">w3m</a> to display <a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> search results</p></li>
-<li><p><a href="https://www.gnu.org/software/wget/">wget</a> to download <a href="https://kapeli.com/docset_links">docsets</a> from <a href="https://kapeli.com/dash">Dash</a></p></li>
 <li><p><a href="http://www.dest-unreach.org/socat/">socat</a> for <a class="md2man-reference" href="../man1/dasht-server.1.html">dasht-server(1)</a> search engine</p></li>
 </ul>
 <p>Development:</p>
@@ -39,17 +39,19 @@ which aptly characterizes the terminal environment where everything is text.</p>
 <li><p><a href="https://sunaku.github.io/binman/">binman</a> and <a href="https://sunaku.github.io/md2man/">md2man</a> to build manual pages</p><pre class="highlight plaintext"><code>gem install binman md2man
 </code></pre></li>
 </ul>
-<h2 id="installation">Installation<a name="installation" href="#installation" class="md2man-permalink" title="permalink"></a></h2>
+<h2 id="installation">Installation<a name="installation" href="#installation" class="md2man-permalink" title="permalink"></a></h2><p>In Arch Linux:</p>
+<ul>
+<li>Install <a href="https://aur.archlinux.org/packages/dasht/">dasht</a> or
+<a href="https://aur.archlinux.org/packages/dasht-git/">dasht-git</a> from the AUR,
+maintained by <a href="https://github.com/mkaito">Christian Höppner</a>.</li>
+</ul>
+<p>On any system:</p>
 <ol>
-<li><p> Clone or <a href="https://github.com/sunaku/dasht/archive/master.zip">download</a> this Git repository onto your system.</p><p>Note: <a href="https://www.archlinux.org">Arch Linux</a> users may choose to install
-<a href="https://aur.archlinux.org/packages/dasht-git/">this AUR package</a>
-maintained by <a href="https://github.com/mkaito">Christian Höppner</a>.</p></li>
-<li><p> Add the <code>bin/</code> folder to your <code>$PATH</code> environment variable:</p><pre class="highlight plaintext"><code>export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
+<li><p> <a href="https://github.com/sunaku/dasht/releases">Download</a> a stable release or <a href="https://github.com/sunaku/dasht.git">clone</a> this Git repository.</p></li>
+<li><p> Add the <code>bin/</code> folder to your <code>PATH</code> environment variable:</p><pre class="highlight plaintext"><code>export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 </code></pre></li>
 </ol>
-<h2 id="configuration">Configuration<a name="configuration" href="#configuration" class="md2man-permalink" title="permalink"></a></h2><h3 id="dasht_docsets_dir"><code>$DASHT_DOCSETS_DIR</code><a name="dasht_docsets_dir" href="#dasht_docsets_dir" class="md2man-permalink" title="permalink"></a></h3><p>This environment variable specifies where your <a href="https://kapeli.com/dash">Dash</a> docsets are installed.
-If unspecified, its value is assumed to be <code>$XDG_DATA_HOME/dasht/docsets/</code>, or
-<code>$HOME/.local/share/dasht/docsets/</code> if <code>$XDG_DATA_HOME</code> is also unspecified.</p><h2 id="usage">Usage<a name="usage" href="#usage" class="md2man-permalink" title="permalink"></a></h2><h3 id="tutorial">Tutorial<a name="tutorial" href="#tutorial" class="md2man-permalink" title="permalink"></a></h3><p>First, install some <a href="https://kapeli.com/docset_links">docsets</a> using <a class="md2man-reference" href="../man1/dasht-docsets-install.1.html">dasht-docsets-install(1)</a>:</p><pre class="highlight plaintext"><code>dasht-docsets-install bash
+<h2 id="usage">Usage<a name="usage" href="#usage" class="md2man-permalink" title="permalink"></a></h2><p>First, install some <a href="https://kapeli.com/dash#docsets">docsets</a> using <a class="md2man-reference" href="../man1/dasht-docsets-install.1.html">dasht-docsets-install(1)</a>:</p><pre class="highlight plaintext"><code>dasht-docsets-install bash
 </code></pre>
 <p>Next, perform a direct search from the terminal using <a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a>:</p><pre class="highlight plaintext"><code>dasht 'c - x'
 </code></pre>
@@ -61,7 +63,10 @@ If unspecified, its value is assumed to be <code>$XDG_DATA_HOME/dasht/docsets/</
 <li><p>If you installed dasht from your system&#39;s package manager, run <code>man dasht</code>.</p></li>
 <li><p>Else, run <code>man -M location_where_you_cloned_or_downloaded_dasht/man dasht</code>.</p></li>
 </ul>
-<h2 id="development">Development<a name="development" href="#development" class="md2man-permalink" title="permalink"></a></h2><p>If you make changes to the embedded manual pages found in the comment headers
+<h3 id="configuration">Configuration<a name="configuration" href="#configuration" class="md2man-permalink" title="permalink"></a></h3><p>You may optionally configure the <code>DASHT_DOCSETS_DIR</code> environment variable,
+which defines the filesystem location where your <a href="https://kapeli.com/dash">Dash</a> docsets are installed.
+If undefined, its value is assumed to be <code>$XDG_DATA_HOME/dasht/docsets/</code> or,
+if <code>XDG_DATA_HOME</code> is also undefined, <code>$HOME/.local/share/dasht/docsets/</code>.</p><h2 id="development">Development<a name="development" href="#development" class="md2man-permalink" title="permalink"></a></h2><p>If you make changes to the embedded manual pages found in the comment headers
 at the top of script files in the <code>bin/</code> directory, then remember to run the
 <code>binman-rake</code> command afterward to regenerate UNIX manual pages for packaging.</p><h2 id="license">License<a name="license" href="#license" class="md2man-permalink" title="permalink"></a></h2><p>Distributed under the terms of the ISC license (see the LICENSE file).</p></div></body>
 </html>
