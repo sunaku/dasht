@@ -2,18 +2,18 @@
 * Docs: <https://sunaku.github.io/dasht/man>
 * Bugs: <https://github.com/sunaku/dasht/issues>
 
-# dasht - API documentation in your terminal
+# dasht - Search API docs offline, in your terminal or browser
 
 dasht is a collection of shell scripts for searching, browsing, and managing
-API documentation (provided by [Dash] in the form of [docsets] for numerous
-languages, libraries, and tools) all from the comfort of your own terminal!
+API documentation (in the form of [150+ offline documentation sets][docsets],
+courtesy of [Dash for OS X][Dash]) all from the comfort of your own terminal!
 
 The name "dasht" is a portmanteau of [Dash] and the letter "t", for terminal.
 Etymologically, "dasht" is Persian for _plain_, as in an flat expanse of land,
 which aptly characterizes the terminal environment where everything is text.
 
 [Dash]: https://kapeli.com/dash
-[docsets]: https://kapeli.com/docset_links
+[docsets]: https://kapeli.com/dash#docsets
 
 ## Features
 
@@ -40,11 +40,11 @@ Required:
 
 Optional:
 
-* [w3m] to display dasht(1) search results
-  [w3m]: http://w3m.sourceforge.net/
-
 * [wget] to download [docsets] from [Dash]
   [wget]: https://www.gnu.org/software/wget/
+
+* [w3m] to display dasht(1) search results
+  [w3m]: http://w3m.sourceforge.net/
 
 * [socat] for dasht-server(1) search engine
   [socat]: http://www.dest-unreach.org/socat/
@@ -59,28 +59,23 @@ Development:
 
 ## Installation
 
-1.  Clone or [download] this Git repository onto your system.
-[download]: https://github.com/sunaku/dasht/archive/master.zip
+In Arch Linux:
 
-    Note: [Arch Linux](https://www.archlinux.org) users may choose to install
-    [this AUR package](https://aur.archlinux.org/packages/dasht-git/)
-    maintained by [Christian Höppner](https://github.com/mkaito).
+* Install [dasht](https://aur.archlinux.org/packages/dasht/) or
+  [dasht-git](https://aur.archlinux.org/packages/dasht-git/) from the AUR,
+  maintained by [Christian Höppner](https://github.com/mkaito).
 
-2.  Add the `bin/` folder to your `$PATH` environment variable:
+On any system:
+
+1.  [Download] a stable release or [clone] this Git repository.
+[download]: https://github.com/sunaku/dasht/releases
+[clone]: https://github.com/sunaku/dasht.git
+
+2.  Add the `bin/` folder to your `PATH` environment variable:
 
         export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 
-## Configuration
-
-### `$DASHT_DOCSETS_DIR`
-
-This environment variable specifies where your [Dash] docsets are installed.
-If unspecified, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`, or
-`$HOME/.local/share/dasht/docsets/` if `$XDG_DATA_HOME` is also unspecified.
-
 ## Usage
-
-### Tutorial
 
 First, install some [docsets] using dasht-docsets-install(1):
 
@@ -103,6 +98,13 @@ You are now ready to use dasht!  Read the manuals below to learn even more.
 * If you installed dasht from your system's package manager, run `man dasht`.
 
 * Else, run `man -M location_where_you_cloned_or_downloaded_dasht/man dasht`.
+
+### Configuration
+
+You may optionally configure the `DASHT_DOCSETS_DIR` environment variable,
+which defines the filesystem location where your [Dash] docsets are installed.
+If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/` or,
+if `XDG_DATA_HOME` is also undefined, `$HOME/.local/share/dasht/docsets/`.
 
 ## Development
 
