@@ -83,7 +83,7 @@ searchIndex_query="
 ztoken_query="
   SELECT ztokenname                          AS name,
          ztypename                           AS type,
-         zpath || ifnull('#' || zanchor, '') AS url
+         zpath || ifnull('#' || nullif(zanchor, ''), '') AS url
   FROM ztoken
   JOIN ztokenmetainformation
     ON ztokenmetainformation.z_pk = ztoken.zmetainformation
