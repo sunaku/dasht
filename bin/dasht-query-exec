@@ -108,4 +108,4 @@ then query=$searchIndex_query
 else query=$ztoken_query
 fi
 
-exec sqlite3 "$database" "$query" "$@"
+exec sqlite3 "$@" "$database" "$query"
