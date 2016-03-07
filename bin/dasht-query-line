@@ -98,10 +98,16 @@ dasht-docsets "$@" | while read -r docset; do
       # indicate the source of this result
       print "from = " docset
 
-      # skip navigation links in CSS docset
-      # when URI fragment is not available
-      if (docset ~ /^CSS/ && $3 !~ "#.+") {
-        $3 = $3 "#wiki-content"
+      # if search result lacks URI fragment,
+      # provide default one so user can skip
+      # past navigation links at top of page
+      if ($3 !~ "#.+$") {
+        if (docset == "C" || docset == "C++") {
+          $3 = $3 "#toc"
+        }
+        else if (docset == "CSS") {
+          $3 = $3 "#wiki-content"
+        }
       }
 
       # resolve URL to filesystem location
