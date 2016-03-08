@@ -25,9 +25,10 @@ dasht-docsets-extract - extracts [Dash] docset archives (`*.tgz` files)
 ## DESCRIPTION
 
 Extracts the given [Dash] docset archive *FILE*s (`*.tgz` files) into the
-location specified by the `DASHT_DOCSETS_DIR` environment variable after
-verifying that they are not corrupt or partially downloaded.  Afterwards, it
+location specified by the `DASHT_DOCSETS_DIR` environment variable and then
 renames their extracted directories to match their rootnames (sans `.tgz`).
+
+If an extracted directory already exists, its contents are updated in place.
 
 ## ENVIRONMENT
 
