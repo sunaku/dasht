@@ -23,6 +23,8 @@ located in a subdirectory one level above the current working directory.
 Extracts the given Dash \[la]https://kapeli.com/dash\[ra] docset archive \fIFILE\fPs (\fB\fC*.tgz\fR files) into the
 location specified by the \fB\fCDASHT_DOCSETS_DIR\fR environment variable and then
 renames their extracted directories to match their rootnames (sans \fB\fC\&.tgz\fR).
+.PP
+If an extracted directory already exists, its contents are updated in place.
 .SH ENVIRONMENT
 .TP
 \fB\fCDASHT_DOCSETS_DIR\fR
