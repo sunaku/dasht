@@ -33,7 +33,8 @@ patterns.  If no *NAME*s are given, all available docsets are matched.
 
 ## SEE ALSO
 
-dasht-docsets-install(1), dasht-docsets-remove(1), dasht-docsets(1), [Dash]
+dasht-docsets-extract(1), dasht-docsets-install(1), dasht-docsets-remove(1),
+dasht-docsets(1), [Dash]
 
 [Dash]: https://kapeli.com/dash
 

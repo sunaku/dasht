@@ -34,7 +34,8 @@ You are prompted to confirm this destructive operation for each match.
 
 ## SEE ALSO
 
-dasht-docsets-update(1), dasht-docsets-remove(1), dasht-docsets(1), [Dash]
+dasht-docsets-extract(1), dasht-docsets-update(1), dasht-docsets-remove(1),
+dasht-docsets(1), [Dash]
 
 [Dash]: https://kapeli.com/dash
 

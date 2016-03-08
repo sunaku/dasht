@@ -1,0 +1,41 @@
+.TH DASHT\-DOCSETS\-EXTRACT 1       2016\-02\-28                            1.1.0
+.SH NAME
+.PP
+dasht\-docsets\-extract \- extracts Dash \[la]https://kapeli.com/dash\[ra] docset archives (\fB\fC*.tgz\fR files)
+.SH SYNOPSIS
+.PP
+\fB\fCdasht\-docsets\-extract\fR \fIFILE\fP\&...
+.SS Examples
+.TP
+\fB\fCdasht\-docsets\-extract\fR NET_Framework.tgz
+Extracts the Dash \[la]https://kapeli.com/dash\[ra] docset archive file named "NET_Framework.tgz" that is
+located in the current working directory.
+.TP
+\fB\fCdasht\-docsets\-extract\fR NET_Framework.tgz Font_Awesome.tgz
+Extracts the Dash \[la]https://kapeli.com/dash\[ra] docset archive files named "NET_Framework.tgz" and
+"Font_Awesome.tgz" that are located in the current working directory.
+.TP
+\fB\fCdasht\-docsets\-extract\fR ../some_path_here/NET_Framework.tgz
+Extracts the Dash \[la]https://kapeli.com/dash\[ra] docset archive file named "NET_Framework.tgz" that is
+located in a subdirectory one level above the current working directory.
+.SH DESCRIPTION
+.PP
+Extracts the given Dash \[la]https://kapeli.com/dash\[ra] docset archive \fIFILE\fPs (\fB\fC*.tgz\fR files) into the
+location specified by the \fB\fCDASHT_DOCSETS_DIR\fR environment variable after
+verifying that they are not corrupt or partially downloaded.  Afterwards, it
+renames their extracted directories to match their rootnames (sans \fB\fC\&.tgz\fR).
+.SH ENVIRONMENT
+.TP
+\fB\fCDASHT_DOCSETS_DIR\fR
+Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
+If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
+or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.SH SEE ALSO
+.PP
+.BR dasht-docsets-install (1), 
+.BR dasht-docsets-update (1), 
+Dash \[la]https://kapeli.com/dash\[ra]
+.SH AUTHOR
+.PP
+Written in 2016 by Suraj N. Kurapati \[la]https://github.com/sunaku/dasht\[ra]
+Distributed under the terms of the ISC license (see the LICENSE file).

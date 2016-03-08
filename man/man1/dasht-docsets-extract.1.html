@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="md2man 5.1.1 https://github.com/sunaku/md2man" />
+  <title>dasht-docsets-extract(1) &mdash; extracts Dash docset archives (*.tgz files)</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body><div class="navbar"><div class="navbar-inner"><span class="brand"><a href="../index.html#man1">man1</a>/dasht-docsets-extract.1</span></div></div><div class="container-fluid"><h1 id="dasht-docsets-extract-1-2016-02-28-1-1-0"><span class="md2man-title">DASHT-DOCSETS-EXTRACT</span> <span class="md2man-section">1</span> <span class="md2man-date">2016-02-28</span> <span class="md2man-source">1.1.0</span><a name="dasht-docsets-extract-1-2016-02-28-1-1-0" href="#dasht-docsets-extract-1-2016-02-28-1-1-0" class="md2man-permalink" title="permalink"></a></h1><h2 id="name">NAME<a name="name" href="#name" class="md2man-permalink" title="permalink"></a></h2><p>dasht-docsets-extract - extracts <a href="https://kapeli.com/dash">Dash</a> docset archives (<code>*.tgz</code> files)</p><h2 id="synopsis">SYNOPSIS<a name="synopsis" href="#synopsis" class="md2man-permalink" title="permalink"></a></h2><p><code>dasht-docsets-extract</code> <em>FILE</em>...</p><h3 id="examples">Examples<a name="examples" href="#examples" class="md2man-permalink" title="permalink"></a></h3><dl><dt><code>dasht-docsets-extract</code> NET_Framework.tgz</dt><dd>Extracts the <a href="https://kapeli.com/dash">Dash</a> docset archive file named &quot;NET_Framework.tgz&quot; that is
+located in the current working directory.</dd></dl><dl><dt><code>dasht-docsets-extract</code> NET_Framework.tgz Font_Awesome.tgz</dt><dd>Extracts the <a href="https://kapeli.com/dash">Dash</a> docset archive files named &quot;NET_Framework.tgz&quot; and
+&quot;Font_Awesome.tgz&quot; that are located in the current working directory.</dd></dl><dl><dt><code>dasht-docsets-extract</code> ../some_path_here/NET_Framework.tgz</dt><dd>Extracts the <a href="https://kapeli.com/dash">Dash</a> docset archive file named &quot;NET_Framework.tgz&quot; that is
+located in a subdirectory one level above the current working directory.</dd></dl><h2 id="description">DESCRIPTION<a name="description" href="#description" class="md2man-permalink" title="permalink"></a></h2><p>Extracts the given <a href="https://kapeli.com/dash">Dash</a> docset archive <em>FILE</em>s (<code>*.tgz</code> files) into the
+location specified by the <code>DASHT_DOCSETS_DIR</code> environment variable after
+verifying that they are not corrupt or partially downloaded.  Afterwards, it
+renames their extracted directories to match their rootnames (sans <code>.tgz</code>).</p><h2 id="environment">ENVIRONMENT<a name="environment" href="#environment" class="md2man-permalink" title="permalink"></a></h2><dl><dt><code>DASHT_DOCSETS_DIR</code></dt><dd>Defines the filesystem location where your <a href="https://kapeli.com/dash">Dash</a> docsets are installed.
+If undefined, its value is assumed to be <code>$XDG_DATA_HOME/dasht/docsets/</code>
+or, if <code>XDG_DATA_HOME</code> is undefined, <code>$HOME/.local/share/dasht/docsets/</code>.</dd></dl><h2 id="see-also">SEE ALSO<a name="see-also" href="#see-also" class="md2man-permalink" title="permalink"></a></h2><p><a class="md2man-reference" href="../man1/dasht-docsets-install.1.html">dasht-docsets-install(1)</a>, <a class="md2man-reference" href="../man1/dasht-docsets-update.1.html">dasht-docsets-update(1)</a>, <a href="https://kapeli.com/dash">Dash</a></p><h2 id="author">AUTHOR<a name="author" href="#author" class="md2man-permalink" title="permalink"></a></h2><p>Written in 2016 by Suraj N. Kurapati <a href="https://github.com/sunaku/dasht">https://github.com/sunaku/dasht</a>
+Distributed under the terms of the ISC license (see the LICENSE file).</p></div></body>
+</html>
