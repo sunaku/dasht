@@ -55,6 +55,6 @@ for docset; do
   echo "Remove $docset docset [y/N]" | xargs -p | grep -q . || continue
 
   rootname="$DASHT_DOCSETS_DIR/$docset"
-  rm -f -r "$rootname".docset \
-           "$rootname".tgz
+  rm -v -f -r "$rootname".docset \
+              "$rootname".tgz
 done
