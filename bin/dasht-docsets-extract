@@ -27,8 +27,7 @@
 # ## DESCRIPTION
 #
 # Extracts the given [Dash] docset archive *FILE*s (`*.tgz` files) into the
-# location specified by the `DASHT_DOCSETS_DIR` environment variable after
-# verifying that they are not corrupt or partially downloaded.  Afterwards, it
+# location specified by the `DASHT_DOCSETS_DIR` environment variable and then
 # renames their extracted directories to match their rootnames (sans `.tgz`).
 #
 # ## ENVIRONMENT
@@ -53,7 +52,6 @@
 
 test $# -gt 0
 for tgz; do
-  gzip -t "$tgz" # reject corrupt or partially downloaded archives
   tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz" # extract archive
 
   # ensure that extracted directory has same rootname as archive
