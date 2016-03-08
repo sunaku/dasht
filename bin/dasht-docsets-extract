@@ -1,0 +1,63 @@
+#!/bin/sh -e
+#
+# # DASHT-DOCSETS-EXTRACT 1       2016-02-28                            1.1.0
+#
+# ## NAME
+#
+# dasht-docsets-extract - extracts [Dash] docset archives (`*.tgz` files)
+#
+# ## SYNOPSIS
+#
+# `dasht-docsets-extract` *FILE*...
+#
+# ### Examples
+#
+# `dasht-docsets-extract` NET\_Framework.tgz
+#   Extracts the [Dash] docset archive file named "NET\_Framework.tgz" that is
+#   located in the current working directory.
+#
+# `dasht-docsets-extract` NET\_Framework.tgz Font\_Awesome.tgz
+#   Extracts the [Dash] docset archive files named "NET\_Framework.tgz" and
+#   "Font\_Awesome.tgz" that are located in the current working directory.
+#
+# `dasht-docsets-extract` ../some\_path\_here/NET\_Framework.tgz
+#   Extracts the [Dash] docset archive file named "NET\_Framework.tgz" that is
+#   located in a subdirectory one level above the current working directory.
+#
+# ## DESCRIPTION
+#
+# Extracts the given [Dash] docset archive *FILE*s (`*.tgz` files) into the
+# location specified by the `DASHT_DOCSETS_DIR` environment variable after
+# verifying that they are not corrupt or partially downloaded.  Afterwards, it
+# renames their extracted directories to match their rootnames (sans `.tgz`).
+#
+# ## ENVIRONMENT
+#
+# `DASHT_DOCSETS_DIR`
+#   Defines the filesystem location where your [Dash] docsets are installed.
+#   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
+#   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
+#
+# ## SEE ALSO
+#
+# dasht-docsets-install(1), dasht-docsets-update(1), [Dash]
+#
+# [Dash]: https://kapeli.com/dash
+#
+# ## AUTHOR
+#
+# Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
+# Distributed under the terms of the ISC license (see the LICENSE file).
+
+: ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+
+test $# -gt 0
+for tgz; do
+  gzip -t "$tgz" # reject corrupt or partially downloaded archives
+  tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz" # extract archive
+
+  # ensure that extracted directory has same rootname as archive
+  actual="$DASHT_DOCSETS_DIR/$(tar -z -t -f "$tgz" | head -1 | sed 's,/.*,,')"
+  wanted="$DASHT_DOCSETS_DIR/$(basename "$tgz" .tgz).docset"
+  test "$actual" = "$wanted" || mv "$actual" "$wanted"
+done

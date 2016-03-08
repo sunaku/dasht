@@ -35,7 +35,8 @@
 #
 # ## SEE ALSO
 #
-# dasht-docsets-install(1), dasht-docsets-remove(1), dasht-docsets(1), [Dash]
+# dasht-docsets-extract(1), dasht-docsets-install(1), dasht-docsets-remove(1),
+# dasht-docsets(1), [Dash]
 #
 # [Dash]: https://kapeli.com/dash
 #
@@ -54,9 +55,6 @@ done | sort -u | while read -r tgz; do
 
   touch -r "$tgz" "$last_modified_at"
   wget -P "$DASHT_DOCSETS_DIR" -N "$url"
-  if test "$tgz" -nt "$last_modified_at"; then
-    gzip -t "$tgz" # verify the downloaded file
-    tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz"
-  fi
+  test "$tgz" -nt "$last_modified_at" && dasht-docsets-extract "$tgz"
   rm "$last_modified_at"
 done

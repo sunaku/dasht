@@ -36,7 +36,8 @@
 #
 # ## SEE ALSO
 #
-# dasht-docsets-update(1), dasht-docsets-remove(1), dasht-docsets(1), [Dash]
+# dasht-docsets-extract(1), dasht-docsets-update(1), dasht-docsets-remove(1),
+# dasht-docsets(1), [Dash]
 #
 # [Dash]: https://kapeli.com/dash
 #
@@ -70,6 +71,5 @@ for docset; do
   url="https://kapeli.com/feeds/$basename"
 
   wget -P "$DASHT_DOCSETS_DIR" -N -c "$url"
-  gzip -t "$tgz" # verify the downloaded file
-  tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz"
+  dasht-docsets-extract "$tgz"
 done
