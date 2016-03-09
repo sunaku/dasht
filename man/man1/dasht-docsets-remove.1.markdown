@@ -6,7 +6,7 @@ dasht-docsets-remove - removes installed [Dash] docsets
 
 ## SYNOPSIS
 
-`dasht-docsets-remove` [*NAME*...]
+`dasht-docsets-remove` [*OPTION*...] [*NAME*...]
 
 ### Examples
 
@@ -22,8 +22,13 @@ dasht-docsets-remove - removes installed [Dash] docsets
 ## DESCRIPTION
 
 Removes installed [Dash] docsets whose names match the *NAME* regex(7)
-patterns.  If no *NAME*s are given, all available docsets are matched.
-You are prompted to confirm this destructive operation for each match.
+patterns.  If no *NAME*s are given, all installed docsets are matched.
+Unless forced, this operation prompts you to confirm it for every match.
+
+## OPTIONS
+
+`-f`, `--force`
+  Forces the operation by overriding the interactive confirmation prompt.
 
 ## ENVIRONMENT
 

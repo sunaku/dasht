@@ -6,7 +6,7 @@ dasht-docsets-install - installs new [Dash] docsets
 
 ## SYNOPSIS
 
-`dasht-docsets-install` [*NAME*...]
+`dasht-docsets-install` [*OPTION*...] [*NAME*...]
 
 ### Examples
 
@@ -22,8 +22,13 @@ dasht-docsets-install - installs new [Dash] docsets
 ## DESCRIPTION
 
 Installs new [Dash] docsets whose names match the *NAME* regex(7) patterns.
-If no *NAME*s are given, all new docsets currently available are matched.
-You are prompted to confirm this destructive operation for each match.
+If no *NAME*s are given, all new docsets available for install are matched.
+Unless forced, this operation prompts you to confirm it for every match.
+
+## OPTIONS
+
+`-f`, `--force`
+  Forces the operation by overriding the interactive confirmation prompt.
 
 ## ENVIRONMENT
 
