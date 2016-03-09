@@ -8,7 +8,7 @@
 #
 # ## SYNOPSIS
 #
-# `dasht-docsets-install` [*NAME*...]
+# `dasht-docsets-install` [*OPTION*...] [*NAME*...]
 #
 # ### Examples
 #
@@ -24,8 +24,13 @@
 # ## DESCRIPTION
 #
 # Installs new [Dash] docsets whose names match the *NAME* regex(7) patterns.
-# If no *NAME*s are given, all new docsets currently available are matched.
-# You are prompted to confirm this destructive operation for each match.
+# If no *NAME*s are given, all new docsets available for install are matched.
+# Unless forced, this operation prompts you to confirm it for every match.
+#
+# ## OPTIONS
+#
+# `-f`, `--force`
+#   Forces the operation by overriding the interactive confirmation prompt.
 #
 # ## ENVIRONMENT
 #
@@ -48,6 +53,8 @@
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
+test "$1" = '-f' -o "$1" = '--force' && force=1 && shift || unset force
+
 # cache the docset download links page to avoid unnecessary network traffic
 docset_links_cache="$DASHT_DOCSETS_DIR/docset_links"
 wget -T 2 -t 1 -P "$DASHT_DOCSETS_DIR" -N https://kapeli.com/docset_links ||
@@ -64,6 +71,7 @@ printf "Installable docsets ($#):\n\n\t%s\n\n" "$(echo "$*" | sed 's/ /,&/g')"
 
 trap exit INT # let Control-C abort `xargs -p` when running under bash(1)
 for docset; do
+  test -n "$force" || # don't ask for confirmation when it's being forced
   echo "Install $docset docset [y/N]" | xargs -p | grep -q . || continue
 
   basename="$docset".tgz

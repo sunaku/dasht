@@ -4,7 +4,7 @@
 dasht\-docsets\-install \- installs new Dash \[la]https://kapeli.com/dash\[ra] docsets
 .SH SYNOPSIS
 .PP
-\fB\fCdasht\-docsets\-install\fR [\fINAME\fP\&...]
+\fB\fCdasht\-docsets\-install\fR [\fIOPTION\fP\&...] [\fINAME\fP\&...]
 .SS Examples
 .TP
 \fB\fCdasht\-docsets\-install\fR
@@ -20,8 +20,12 @@ Installs new Dash \[la]https://kapeli.com/dash\[ra] docsets whose names contain 
 Installs new Dash \[la]https://kapeli.com/dash\[ra] docsets whose names match the \fINAME\fP 
 .BR regex (7) 
 patterns.
-If no \fINAME\fPs are given, all new docsets currently available are matched.
-You are prompted to confirm this destructive operation for each match.
+If no \fINAME\fPs are given, all new docsets available for install are matched.
+Unless forced, this operation prompts you to confirm it for every match.
+.SH OPTIONS
+.TP
+\fB\fC\-f\fR, \fB\fC\-\-force\fR
+Forces the operation by overriding the interactive confirmation prompt.
 .SH ENVIRONMENT
 .TP
 \fB\fCDASHT_DOCSETS_DIR\fR
