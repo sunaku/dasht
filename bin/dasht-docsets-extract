@@ -61,7 +61,7 @@ for tgz; do
   # with the correct name, but we need to temporarily rename it back to the
   # wrong name so that the archive extraction below can update its contents
   # in place, rather than extracting out to a new (and different) directory
-  test "$have" = "$want" || test -d "$want" && mv "$want" "$have"
+  test "$have" = "$want" -o ! -e "$want" || mv "$want" "$have"
 
   # extract the archive; the extracted directory's path is defined by $have
   tar -v -C "$DASHT_DOCSETS_DIR" -z -x -f "$tgz"
