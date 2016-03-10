@@ -108,6 +108,9 @@ dasht-docsets "$@" | while read -r docset; do
         else if (docset == "CSS") {
           $3 = $3 "#wiki-content"
         }
+        else if (docset == "Perl") {
+          $3 = $3 "#from_search"
+        }
       }
 
       # resolve URL to filesystem location
