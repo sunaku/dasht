@@ -114,13 +114,8 @@ cat <<RESPONSE_BODY
   </head>
   <body>
     <style>
-      form {
-        top: 0;
-        position: fixed;
-        background-color: whitesmoke;
-      }
       table {
-        margin-top: 2em;
+        margin-top: 1em;
         border-collapse: collapse;
       }
       td:first-child {
