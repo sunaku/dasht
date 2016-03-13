@@ -123,8 +123,7 @@ cat <<RESPONSE_BODY
         padding-right: 2em;
       }
       tr:hover {
-        font-weight: bold;
-        background-color: whitesmoke;
+        background-color: LightYellow;
       }
       a {
         text-decoration: none;
@@ -134,7 +133,7 @@ cat <<RESPONSE_BODY
       }
       b > i {
         font-style: normal;
-        background-color: yellow;
+        background-color: Yellow;
       }
     </style>
     <form method="get" action="/" target="_self">
