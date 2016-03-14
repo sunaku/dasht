@@ -144,7 +144,7 @@ cat <<RESPONSE_BODY
                         list="docsets" multiple>
       <input type="submit">
     </form>
-    <table>$(dasht-query-html "$query" $docsets)</table>
+    $(dasht-query-html "$query" $docsets)
     <datalist id="docsets">
       $(dasht-docsets | sed 's|.*|<option value="&">&</option>|')
     </datalist>

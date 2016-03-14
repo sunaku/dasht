@@ -62,13 +62,15 @@ dasht-query-line "$@" | awk -v IGNORECASE=1 -v pattern="$1" '
     gsub("[\\^.[$()|*+?{]", "\\\\&", pattern) # escape normal regex(7) syntax
     gsub("[[:space:]]+", ".*", pattern)       # treat whitespace as wildcards
   }
-  $2 == "=" { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
+  NR == 1      { print "<table>" }
+  $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
   $1 == "name" { gsub(pattern, "<b><i>&</i></b>", result["name"]) }
-  $1 == "url" { print \
+  $1 == "url"  { print \
     "<tr>"\
       "<td><a href=\"" result["url"] "\">" result["name"] "</a></td>"\
       "<td align=\"right\">" result["from"] "</td>"\
       "<td>" tolower(result["type"]) "</td>"\
     "</tr>"
   }
+  END { if (NR > 0) print "</table>" }
 '

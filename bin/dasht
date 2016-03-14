@@ -30,6 +30,7 @@
 # only in those whose names match *DOCSET*s, by calling dasht-query-html(1).
 # The results, if any, are then displayed in the w3m(1) terminal web browser,
 # which terminates when you press the `q` key, just as typical UNIX pagers do.
+# If no results were found, says so on stderr and exits with a nonzero status.
 #
 # ### Searching
 #
@@ -58,15 +59,21 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
-rows=$(dasht-query-html "$@")
-if test -n "$rows"; then
-  echo "<table>${rows}</table>" |
-  w3m -T text/html \
-      -o confirm_qq=false \
-      -o color=true \
-      -o active_style=true \
-      -o visited_anchor=true \
-      -o label_topline=true \
-      -o wrap_search=true \
-      -o ignorecase_search=true
-fi
+dasht-query-html "$@" |
+{
+  # terminate if no results were found
+  # (this works around POSIX's lack of
+  # PIPEFAIL option found in GNU BASH)
+  grep . || {
+    echo 'dasht: no results found' >&2
+    kill -- -$$
+  }
+} |
+w3m -T text/html \
+    -o confirm_qq=false \
+    -o color=true \
+    -o active_style=true \
+    -o visited_anchor=true \
+    -o label_topline=true \
+    -o wrap_search=true \
+    -o ignorecase_search=true
