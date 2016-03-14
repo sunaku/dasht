@@ -66,5 +66,7 @@ if test -n "$rows"; then
       -o color=true \
       -o active_style=true \
       -o visited_anchor=true \
-      -o label_topline=true
+      -o label_topline=true \
+      -o wrap_search=true \
+      -o ignorecase_search=true
 fi
