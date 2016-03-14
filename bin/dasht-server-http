@@ -105,6 +105,7 @@ printf 'Content-Type: text/html\r\n'
 printf '\r\n'
 
 # emit response body
+set -- $(dasht-docsets)
 cat <<HEADER
 <!DOCTYPE html>
 <html>
@@ -115,7 +116,6 @@ cat <<HEADER
   <body>
     <style>
       table {
-        margin-top: 1em;
         border-collapse: collapse;
       }
       td:first-child {
@@ -140,18 +140,21 @@ cat <<HEADER
       Search for <input name="query" value="$query_html" type="search"
                         placeholder="spaces are wildcards" autofocus>
       in docsets <input name="docsets" value="$docsets_html" type="search"
-                        placeholder="$(dasht-docsets | tr '\n' ' ')"
+                        placeholder="$# installed: hover for list" title="$*"
                         list="docsets" multiple>
       <input type="submit">
     </form>
+    <br>
 HEADER
 
 dasht-query-html "$query" $docsets
 
 cat <<FOOTER
-    <datalist id="docsets">
-      $(dasht-docsets | sed 's|.*|<option value="&">&</option>|')
-    </datalist>
+    <datalist id="docsets">$(
+      for docset
+      do echo "<option value=\"$docset\">$docset</option>"
+      done
+    )</datalist>
   </body>
 </html>
 FOOTER
