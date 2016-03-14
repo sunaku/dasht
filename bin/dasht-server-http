@@ -105,7 +105,7 @@ printf 'Content-Type: text/html\r\n'
 printf '\r\n'
 
 # emit response body
-cat <<RESPONSE_BODY
+cat <<HEADER
 <!DOCTYPE html>
 <html>
   <head>
@@ -144,10 +144,14 @@ cat <<RESPONSE_BODY
                         list="docsets" multiple>
       <input type="submit">
     </form>
-    $(dasht-query-html "$query" $docsets)
+HEADER
+
+dasht-query-html "$query" $docsets
+
+cat <<FOOTER
     <datalist id="docsets">
       $(dasht-docsets | sed 's|.*|<option value="&">&</option>|')
     </datalist>
   </body>
 </html>
-RESPONSE_BODY
+FOOTER
