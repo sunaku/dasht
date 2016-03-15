@@ -137,11 +137,22 @@ cat <<HEADER
       }
     </style>
     <form method="get" action="/" target="_self">
-      Search for <input name="query" value="$query_html" type="search"
-                        placeholder="spaces are wildcards" autofocus>
-      in docsets <input name="docsets" value="$docsets_html" type="search"
-                        placeholder="$# installed: hover for list" title="$*"
-                        list="docsets" multiple>
+      <label>Search for
+        <input name="query" value="$query_html" type="search"
+               placeholder="spaces are wildcards" autofocus>
+      </label>
+      <label>in docsets
+        <input name="docsets" value="$docsets_html" type="search"
+               placeholder="$# installed: hover for list" title="$*"
+               list="docsets" multiple>
+        <span style="display: none"><!-- hide in HTML4 browsers -->
+          <datalist id="docsets">$(
+            for docset
+            do echo "<option value=\"$docset\">$docset</option>"
+            done
+          )</datalist>
+        </span>
+      </label>
       <input type="submit">
     </form>
     <br>
@@ -150,11 +161,6 @@ HEADER
 dasht-query-html "$query" $docsets
 
 cat <<FOOTER
-    <datalist id="docsets">$(
-      for docset
-      do echo "<option value=\"$docset\">$docset</option>"
-      done
-    )</datalist>
   </body>
 </html>
 FOOTER
