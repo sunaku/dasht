@@ -13,7 +13,7 @@
 # ### Examples
 #
 # `dasht`
-#   First 100 topics from each installed docset.
+#   Topics (A-Z) from each installed docset.
 #
 # `dasht` 'c - x'
 #   Search for "c - x" in all installed docsets.

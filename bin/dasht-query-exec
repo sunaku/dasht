@@ -16,6 +16,9 @@
 # located inside a [Dash] docset at `/Contents/Resources/docSet.dsidx`, while
 # passing the optional *OPTIONS\_FOR\_SQLITE3* arguments down to sqlite3(1).
 #
+# If *PATTERN* is empty or solely consists of unescaped wildcard characters,
+# topics having distinct leading characters are returned from the *DATABASE*.
+#
 # ### Searching
 #
 # SQL LIKE wildcard characters in *PATTERN* can be escaped with a backslash.
@@ -74,18 +77,17 @@ pattern=$(echo "$pattern" | sed "s/'/&&/g")
 #   You should have received a copy of the GNU General Public License
 #   along with Zeal. If not, see <http://www.gnu.org/licenses/>.
 #
+searchIndex_topic=name
 searchIndex_query="
-  SELECT name,
-         type,
+  SELECT name AS name,
+         type AS type,
          path AS url
   FROM searchIndex
-  WHERE name LIKE '$pattern' ESCAPE '\\'
-  ORDER BY name COLLATE NOCASE
-  LIMIT 100;
 "
+ztoken_topic=ztokenname
 ztoken_query="
-  SELECT ztokenname                          AS name,
-         ztypename                           AS type,
+  SELECT ztokenname                                      AS name,
+         ztypename                                       AS type,
          zpath || ifnull('#' || nullif(zanchor, ''), '') AS url
   FROM ztoken
   JOIN ztokenmetainformation
@@ -94,9 +96,6 @@ ztoken_query="
     ON zfilepath.z_pk = ztokenmetainformation.zfile
   JOIN ztokentype
     ON ztokentype.z_pk = ztoken.ztokentype
-  WHERE ztokenname LIKE '$pattern' ESCAPE '\\'
-  ORDER BY ztokenname COLLATE NOCASE
-  LIMIT 100;
 "
 #                 _          __    ____ ____  _                     _
 #   ___ _ __   __| |   ___  / _|  / ___|  _ \| |       ___ ___   __| | ___
@@ -106,9 +105,31 @@ ztoken_query="
 #
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-if sqlite3 "$database" .tables | grep -F -q searchIndex
-then query=$searchIndex_query
-else query=$ztoken_query
+if sqlite3 "$database" .tables | grep -F -q searchIndex; then
+  topic=$searchIndex_topic
+  query=$searchIndex_query
+else
+  topic=$ztoken_topic
+  query=$ztoken_query
 fi
+
+if echo "$pattern" | tr -d '%_' | grep -q . ; then
+  # something particular was searched; fetch first 100 matching topics
+  where="WHERE $topic LIKE '$pattern' ESCAPE '\\'"
+  group=
+  limit='LIMIT 100'
+else
+  # nothing particular was searched; group topics by leading character
+  query=$(echo "$query" | awk '
+    # min() gets FIRST topic from each group; else we get the LAST one
+    $1 == "SELECT" && $3 == "AS" { $2 = "min(" $2 " COLLATE NOCASE)" }
+    { print }
+  ')
+  where=
+  group="GROUP BY substr($topic,1,1)"
+  limit=
+fi
+order="ORDER BY $topic COLLATE NOCASE"
+query="$query $where $group $order $limit ;"
 
 exec sqlite3 "$@" "$database" "$query"

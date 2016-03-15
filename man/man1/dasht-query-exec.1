@@ -11,6 +11,9 @@ Searches for \fIPATTERN\fP in \fIDATABASE\fP, which is an SQLite3 database file
 located inside a Dash \[la]https://kapeli.com/dash\[ra] docset at \fB\fC/Contents/Resources/docSet.dsidx\fR, while
 passing the optional \fIOPTIONS_FOR_SQLITE3\fP arguments down to 
 .BR sqlite3 (1).
+.PP
+If \fIPATTERN\fP is empty or solely consists of unescaped wildcard characters,
+topics having distinct leading characters are returned from the \fIDATABASE\fP\&.
 .SS Searching
 .PP
 SQL LIKE wildcard characters in \fIPATTERN\fP can be escaped with a backslash.

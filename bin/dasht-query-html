@@ -13,7 +13,7 @@
 # ### Examples
 #
 # `dasht-query-html`
-#   First 100 topics from each installed docset.
+#   Topics (A-Z) from each installed docset.
 #
 # `dasht-query-html` 'c - x'
 #   Search for "c - x" in all installed docsets.
@@ -103,6 +103,7 @@ dasht-query-line "$@" | awk -v pattern="$1" '
     sub("[[:space:]]+$", "", pattern)         # strip trailing whitespace
     gsub("[[:space:]]+", ".*", pattern)       # treat whitespace as wildcards
     pattern = ignorecase(pattern)             # emulate IGNORECASE=1 for POSIX
+    if (pattern == "") pattern = "^."         # grouped by leading character
   }
   NR == 1      { print "<table>" }
   $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
