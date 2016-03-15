@@ -131,7 +131,8 @@ cat <<HEADER
       a:hover {
         text-decoration: underline;
       }
-      b > i {
+      b > i > u {
+        text-decoration: none;
         font-style: normal;
         font-weight: normal;
         color: Black;
