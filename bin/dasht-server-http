@@ -133,7 +133,10 @@ cat <<HEADER
       }
       b > i {
         font-style: normal;
+        font-weight: normal;
+        color: Black;
         background-color: Yellow;
+        border: thin dotted Silver;
       }
     </style>
     <form method="get" action="/" target="_self">
