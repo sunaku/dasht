@@ -92,7 +92,7 @@ eval "$(
       value=$(echo "$value" | tr '+' ' ' | # + is space
         sed 's/%\([[:xdigit:]]\{2\}\)/$(hex2byte \1)/g')
       if test -n "$value"; then
-        echo "$param=\"$value\""
+        echo "$param=\"\$$param\${$param:+ }$value\""
         echo "${param}_html=\$(entities \"\$$param\")"
       fi
     ;;esac
@@ -146,16 +146,18 @@ cat <<HEADER
                placeholder="spaces are wildcards" autofocus>
       </label>
       <label>in docsets
-        <input name="docsets" value="$docsets_html" type="search"
-               placeholder="$# installed: hover for list" title="$*"
-               list="docsets" multiple>
-        <span style="display: none"><!-- hide in HTML4 browsers -->
-          <datalist id="docsets">$(
+        <select name="docsets">
+          <option value="" selected>
+            $# installed, $(dasht-docsets $docsets | wc -l) selected
+          </option>
+          $(
             for docset
-            do echo "<option value=\"$docset\">$docset</option>"
+            do echo "<option value=\"^$docset\$\">$docset</option>"
             done
-          )</datalist>
-        </span>
+          )
+        </select>
+        <input name="docsets" value="$docsets_html" type="search"
+               placeholder="select at left OR type here" title="$*">
       </label>
       <input type="submit">
     </form>
