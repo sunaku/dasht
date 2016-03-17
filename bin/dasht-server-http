@@ -108,8 +108,14 @@ printf '\r\n'
 docsets_menu=$(
   { dasht-docsets           # all installed docsets
     dasht-docsets $docsets  # the current selection
-  } | sort | uniq -c | sed 's/^[[:space:]]*//'
+  } | sort | uniq -c | awk '{ $1 = $1 > 1; print }'
 )
+set -- $(echo "$docsets_menu" | awk '
+  BEGIN { matched = ignored = 0 }
+  $1    { matched++ }
+  !$1   { ignored++ }
+  END   { print matched, ignored, NR }
+')
 cat <<HEADER
 <!DOCTYPE html>
 <html>
@@ -149,13 +155,10 @@ cat <<HEADER
       <br>
       <label>in docsets
         <select name="docsets">
-          <option value="" selected>
-            matched $(echo "$docsets_menu" | grep -c '^2')
-            out of  $(echo "$docsets_menu" | wc -l)
-          </option>
-          $(echo "$docsets_menu" | awk '{
+          <option value="" selected>matched $1 out of $3</option>
+          $(echo "$docsets_menu" | awk -v were_any_ignored=$2 '{
             value = "^" $2 "$"
-            label = $1 == "2" ? "((( " $2 " )))" : $2
+            label = were_any_ignored && $1 ? "((( " $2 " )))" : $2
             print "<option value=\"" value "\">" label "</option>"
           }')
         </select>
