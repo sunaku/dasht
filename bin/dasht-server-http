@@ -112,8 +112,6 @@ cat <<HEADER
   <head>
     <title>dasht $query_html $docsets_html</title>
     <base target="_blank">
-  </head>
-  <body>
     <style>
       table {
         border-collapse: collapse;
@@ -140,6 +138,8 @@ cat <<HEADER
         border: thin dotted Silver;
       }
     </style>
+  </head>
+  <body>
     <form method="get" action="/" target="_self">
       <label>Search for
         <input name="query" value="$query_html" type="search"
