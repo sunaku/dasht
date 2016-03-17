@@ -38,6 +38,9 @@ database=$2
 shift 2
 test -f "$database"
 
+# escape SQL single quotes by doubling them
+pattern=$(echo "$pattern" | sed "s/'/&&/g")
+
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 #   _                _          ____ ____  _                     _
 #  | |__   ___  __ _(_)_ __    / ___|  _ \| |       ___ ___   __| | ___
