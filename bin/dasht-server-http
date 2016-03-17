@@ -113,12 +113,8 @@ cat <<HEADER
     <title>dasht $query_html $docsets_html</title>
     <base target="_blank">
     <style>
-      table {
-        border-collapse: collapse;
-      }
-      td:first-child {
+      body, input[type=search] {
         font-family: monospace;
-        padding-right: 2em;
       }
       tr:hover {
         background-color: LightYellow;
@@ -145,10 +141,11 @@ cat <<HEADER
         <input name="query" value="$query_html" type="search"
                placeholder="spaces are wildcards" autofocus>
       </label>
+      <br>
       <label>in docsets
         <select name="docsets">
           <option value="" selected>
-            $# installed, $(dasht-docsets $docsets | wc -l) selected
+            matched $(dasht-docsets $docsets | wc -l) out of $#
           </option>
           $(
             for docset
@@ -157,10 +154,12 @@ cat <<HEADER
           )
         </select>
       </label>
+      <br>
       <label>with names
         <input name="docsets" value="$docsets_html" type="search"
-               placeholder="select above or type here" title="$*">
+               placeholder="you can select above" title="$*">
       </label>
+      <br>
       <input type="submit">
     </form>
     <br>
