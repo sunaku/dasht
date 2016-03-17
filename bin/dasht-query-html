@@ -78,11 +78,24 @@ dasht-query-line "$@" | awk -v pattern="$1" '
          "[" extras "[:punct:]]+", "&" breaker, string)
     return string
   }
+  # Transforms alphabetical characters into bracketed regular expressions
+  # that match either lowercase or uppercase versions of those characters.
+  # This basically emulates the IGNORECASE feature in a POSIX environment.
+  function ignorecase(regex) {
+    answer = ""
+    for (i = 1; i <= length(regex); ++i) {
+      c = substr(regex, i, 1)
+      bre = match(c, "[[:alpha:]]") ? "[" tolower(c) toupper(c) "]" : c
+      answer = answer bre
+    }
+    return answer
+  }
   BEGIN {
     gsub("[\\^.[$()|*+?{]", "\\\\&", pattern) # escape normal regex(7) syntax
     sub("^[[:space:]]+", "", pattern)         # strip leading whitespace
     sub("[[:space:]]+$", "", pattern)         # strip trailing whitespace
     gsub("[[:space:]]+", ".*", pattern)       # treat whitespace as wildcards
+    pattern = ignorecase(pattern)             # emulate IGNORECASE=1 for POSIX
   }
   NR == 1      { print "<table>" }
   $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
@@ -90,9 +103,7 @@ dasht-query-line "$@" | awk -v pattern="$1" '
   $1 == "name" {
     # mark search terms with STX and ETX bytes which are ignored by escape()
     if (pattern) {
-      IGNORECASE = 1
       gsub(pattern, "\002&\003", result["name"])
-      IGNORECASE = 0
     }
 
     # mark word-wrappable points with VT bytes which are ignored by escape()
