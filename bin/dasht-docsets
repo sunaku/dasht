@@ -51,4 +51,4 @@
 ls "$DASHT_DOCSETS_DIR" |
 sed -n 's/\.docset$//p' |
 sort -u |
-grep -E -i "$(echo "$*" | tr -s ' ' '|')"
+grep -E -i "$(IFS='|'; echo "$*")"

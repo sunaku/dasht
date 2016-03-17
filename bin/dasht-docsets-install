@@ -64,7 +64,7 @@ test -s "$docset_links_cache"
 set -- $(
   sed -n 's|.*/\([^/]*\)\.tgz.*|\1|p' "$docset_links_cache" |
   sort -u |
-  grep -E -i "$(echo "$*" | tr -s ' ' '|')" |
+  grep -E -i "$(IFS='|'; echo "$*")" |
   sed "$(dasht-docsets | awk '{ print "/^" $0 "$/d" }')" # exclude installed
 )
 printf "Installable docsets ($#):\n\n\t%s\n\n" "$(echo "$*" | sed 's/ /,&/g')"
