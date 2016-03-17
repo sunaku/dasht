@@ -105,7 +105,11 @@ printf 'Content-Type: text/html\r\n'
 printf '\r\n'
 
 # emit response body
-set -- $(dasht-docsets)
+docsets_menu=$(
+  { dasht-docsets           # all installed docsets
+    dasht-docsets $docsets  # the current selection
+  } | sort | uniq -c | sed 's/^[[:space:]]*//'
+)
 cat <<HEADER
 <!DOCTYPE html>
 <html>
@@ -146,19 +150,20 @@ cat <<HEADER
       <label>in docsets
         <select name="docsets">
           <option value="" selected>
-            matched $(dasht-docsets $docsets | wc -l) out of $#
+            matched $(echo "$docsets_menu" | grep -c '^2')
+            out of  $(echo "$docsets_menu" | wc -l)
           </option>
-          $(
-            for docset
-            do echo "<option value=\"^$docset\$\">$docset</option>"
-            done
-          )
+          $(echo "$docsets_menu" | awk '{
+            value = "^" $2 "$"
+            label = $1 == "2" ? "((( " $2 " )))" : $2
+            print "<option value=\"" value "\">" label "</option>"
+          }')
         </select>
       </label>
       <br>
       <label>with names
         <input name="docsets" value="$docsets_html" type="search"
-               placeholder="you can select above" title="$*">
+               placeholder="you can select above">
       </label>
       <br>
       <input type="submit">
