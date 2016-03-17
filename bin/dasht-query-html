@@ -58,6 +58,16 @@
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
 dasht-query-line "$@" | awk -v IGNORECASE=1 -v pattern="$1" '
+  # Escapes XML "predefined entities" in given parameter.
+  # See http://www.w3.org/TR/REC-xml/#sec-predefined-ent
+  function escape(xml) {
+    gsub("&",    "\\&amp;",  xml)
+    gsub("\"",   "\\&quot;", xml)
+    gsub("\047", "\\&apos;", xml)
+    gsub("<",    "\\&lt;",   xml)
+    gsub(">",    "\\&gt;",   xml)
+    return xml
+  }
   BEGIN {
     gsub("[\\^.[$()|*+?{]", "\\\\&", pattern) # escape normal regex(7) syntax
     sub("^[[:space:]]+", "", pattern)         # strip leading whitespace
@@ -66,8 +76,21 @@ dasht-query-line "$@" | awk -v IGNORECASE=1 -v pattern="$1" '
   }
   NR == 1      { print "<table>" }
   $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
-  pattern &&
-  $1 == "name" { gsub(pattern, "<b><i><u>&</u></i></b>", result["name"]) }
+  $1 == "name" {
+    # mark search terms with STX and ETX bytes which are ignored by escape()
+    if (pattern) {
+      gsub(pattern, "\002&\003", result["name"])
+    }
+
+    # escape XML entities in search result to make them visible in browsers
+    result["name"] = escape(result["name"])
+
+    # highlight search terms in search result using the STX and ETX markers
+    if (pattern) {
+      gsub("\002", "<b><i><u>", result["name"])
+      gsub("\003", "</u></i></b>", result["name"])
+    }
+  }
   $1 == "url"  { print \
     "<tr>"\
       "<td><a href=\"" result["url"] "\">" result["name"] "</a></td>"\
