@@ -110,6 +110,7 @@ cat <<HEADER
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>dasht $query_html $docsets_html</title>
     <base target="_blank">
     <style>
