@@ -131,8 +131,8 @@ dasht-query-line "$@" | awk -v pattern="$1" '
   $1 == "url"  { print \
     "<tr>"\
       "<td><a href=\"" result["url"] "\">" result["name"] "</a></td>"\
-      "<td align=\"right\">" result["from"] "</td>"\
-      "<td>" tolower(result["type"]) "</td>"\
+      "<td valign=\"bottom\" align=\"right\">" result["from"] "</td>"\
+      "<td valign=\"bottom\">" tolower(result["type"]) "</td>"\
     "</tr>"
   }
   END { if (NR > 0) print "</table>" }
