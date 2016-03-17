@@ -78,6 +78,12 @@ dasht-query-line "$@" | awk -v pattern="$1" '
          "[" extras "[:punct:]]+", "&" breaker, string)
     return string
   }
+  # Try to fetch the answer from a cache to avoid repeating the same work.
+  function wordbreak_cached(key, breaker, extras) {
+    if (val = wordbreak_cache[key]) {}
+    else { val = wordbreak_cache[key] = wordbreak(key, breaker, extras) }
+    return val
+  }
   # Transforms alphabetical characters into bracketed regular expressions
   # that match either lowercase or uppercase versions of those characters.
   # This basically emulates the IGNORECASE feature in a POSIX environment.
@@ -100,7 +106,7 @@ dasht-query-line "$@" | awk -v pattern="$1" '
   }
   NR == 1      { print "<table>" }
   $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
-  $1 == "from" { result["from"] = wordbreak(result["from"], "<wbr>") }
+  $1 == "from" { result["from"] = wordbreak_cached(result["from"], "<wbr>") }
   $1 == "name" {
     # mark search terms with STX and ETX bytes which are ignored by escape()
     if (pattern) {
