@@ -82,13 +82,14 @@ dasht-query-line "$@" | awk -v pattern="$1" '
   # that match either lowercase or uppercase versions of those characters.
   # This basically emulates the IGNORECASE feature in a POSIX environment.
   function ignorecase(regex) {
-    answer = ""
-    for (i = 1; i <= length(regex); ++i) {
-      c = substr(regex, i, 1)
-      bre = match(c, "[[:alpha:]]") ? "[" tolower(c) toupper(c) "]" : c
-      answer = answer bre
+    buf = ""
+    tmp = regex
+    while (pos = match(tmp, "[[:alpha:]]")) {
+      chr = substr(tmp, pos, 1)
+      buf = buf substr(tmp, 1, pos - 1) "[" tolower(chr) toupper(chr) "]"
+      tmp = substr(tmp, pos + 1)
     }
-    return answer
+    return buf tmp
   }
   BEGIN {
     gsub("[\\^.[$()|*+?{]", "\\\\&", pattern) # escape normal regex(7) syntax
