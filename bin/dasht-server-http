@@ -156,8 +156,10 @@ cat <<HEADER
             done
           )
         </select>
+      </label>
+      <label>with names
         <input name="docsets" value="$docsets_html" type="search"
-               placeholder="select at left OR type here" title="$*">
+               placeholder="select above or type here" title="$*">
       </label>
       <input type="submit">
     </form>
