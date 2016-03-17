@@ -68,6 +68,16 @@ dasht-query-line "$@" | awk -v pattern="$1" '
     gsub(">",    "\\&gt;",   xml)
     return xml
   }
+  # Inserts the given breaker at the end of capitalized words, runs of
+  # lowercase text, numbers, and punctuation marks in the given string.
+  # Characters in the extras string are considered to be part of words.
+  function wordbreak(string, breaker, extras) {
+    gsub("[" extras "[:upper:]]+[" extras "[:lower:]]*|"\
+         "[" extras "[:lower:]]+|"\
+         "[" extras "[:digit:]]+|"\
+         "[" extras "[:punct:]]+", "&" breaker, string)
+    return string
+  }
   BEGIN {
     gsub("[\\^.[$()|*+?{]", "\\\\&", pattern) # escape normal regex(7) syntax
     sub("^[[:space:]]+", "", pattern)         # strip leading whitespace
@@ -76,6 +86,7 @@ dasht-query-line "$@" | awk -v pattern="$1" '
   }
   NR == 1      { print "<table>" }
   $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
+  $1 == "from" { result["from"] = wordbreak(result["from"], "<wbr>") }
   $1 == "name" {
     # mark search terms with STX and ETX bytes which are ignored by escape()
     if (pattern) {
@@ -85,10 +96,7 @@ dasht-query-line "$@" | awk -v pattern="$1" '
     }
 
     # mark word-wrappable points with VT bytes which are ignored by escape()
-    gsub("[\002\003[:upper:]]+[\002\003[:lower:]]*|"\
-         "[\002\003[:lower:]]+|"\
-         "[\002\003[:digit:]]+|"\
-         "[\002\003[:punct:]]+", "&\v", result["name"])
+    result["name"] = wordbreak(result["name"], "\v", "\002\003")
 
     # escape XML entities in search result to make them visible in browsers
     result["name"] = escape(result["name"])
