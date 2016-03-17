@@ -57,7 +57,7 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
-dasht-query-line "$@" | awk -v IGNORECASE=1 -v pattern="$1" '
+dasht-query-line "$@" | awk -v pattern="$1" '
   # Escapes XML "predefined entities" in given parameter.
   # See http://www.w3.org/TR/REC-xml/#sec-predefined-ent
   function escape(xml) {
@@ -79,11 +79,22 @@ dasht-query-line "$@" | awk -v IGNORECASE=1 -v pattern="$1" '
   $1 == "name" {
     # mark search terms with STX and ETX bytes which are ignored by escape()
     if (pattern) {
+      IGNORECASE = 1
       gsub(pattern, "\002&\003", result["name"])
+      IGNORECASE = 0
     }
+
+    # mark word-wrappable points with VT bytes which are ignored by escape()
+    gsub("[\002\003[:upper:]]+[\002\003[:lower:]]*|"\
+         "[\002\003[:lower:]]+|"\
+         "[\002\003[:digit:]]+|"\
+         "[\002\003[:punct:]]+", "&\v", result["name"])
 
     # escape XML entities in search result to make them visible in browsers
     result["name"] = escape(result["name"])
+
+    # insert word-break opportunity <wbr> tags at points marked by VT bytes
+    gsub("\v", "<wbr>", result["name"])
 
     # highlight search terms in search result using the STX and ETX markers
     if (pattern) {
