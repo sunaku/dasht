@@ -83,8 +83,7 @@
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 
 pattern=$(echo " $1 " | sed 's/[%_]/\\&/g; s/[[:space:]][[:space:]]*/%/g')
-test $# -gt 0 && shift      # done with the PATTERN argument; move it away
-test $# -gt 0 || set -- .   # no DOCSETs were specified; match all of them
+test $# -gt 0 && shift # shift off PATTERN so argv contains solely DOCSETs
 
 dasht-docsets "$@" | while read -r docset; do
   database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
