@@ -24,7 +24,11 @@ Local search engine for web browsers.
 .IP \(bu 2
 Keep Dash \[la]https://kapeli.com/dash\[ra] docsets anywhere you like.
 .RE
-.SH Screenshots
+.SS Preview
+.PP
+Watch "dasht in a terminal \[la]https://vimeo.com/159462598\[ra]"
+and "dasht in a browser \[la]https://vimeo.com/159462774\[ra]"
+screencasts on Vimeo.
 .PP
 [In your terminal](\[la]https://github.com/sunaku/dasht/raw/gh-pages/terminal.png\[ra])
 [In your browser](\[la]https://github.com/sunaku/dasht/raw/gh-pages/browser.png\[ra])
