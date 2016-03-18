@@ -1,4 +1,4 @@
-.TH DASHT\-SERVER\-HTTP 1           2016\-03\-14                            1.2.0
+.TH DASHT\-SERVER\-HTTP 1           2016\-03\-17                            2.0.0
 .SH NAME
 .PP
 dasht\-server\-http \- simple search engine that powers 
@@ -9,10 +9,10 @@ dasht\-server\-http \- simple search engine that powers
 .SS Examples
 .TP
 printf 'GET / HTTP/1.1\[rs]r\[rs]n' | \fB\fCdasht\-server\-http\fR
-Shows first 100 topics from all installed Dash \[la]https://kapeli.com/dash\[ra] docsets.
+Shows topics (A\-Z) from each installed Dash \[la]https://kapeli.com/dash\[ra] docset.
 .TP
 printf 'GET /?docsets=\fIDOCSETS\fP HTTP/1.1\[rs]r\[rs]n' | \fB\fCdasht\-server\-http\fR
-Shows first 100 topics from installed Dash \[la]https://kapeli.com/dash\[ra] docsets matching \fIDOCSETS\fP\&.
+Shows topics (A\-Z) from installed Dash \[la]https://kapeli.com/dash\[ra] docsets matching \fIDOCSETS\fP\&.
 .TP
 printf 'GET /?query=\fIPATTERN\fP HTTP/1.1\[rs]r\[rs]n' | \fB\fCdasht\-server\-http\fR
 Searches for \fIPATTERN\fP in all installed Dash \[la]https://kapeli.com/dash\[ra] docsets.

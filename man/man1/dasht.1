@@ -1,4 +1,4 @@
-.TH DASHT 1                       2016\-03\-14                            1.2.0
+.TH DASHT 1                       2016\-03\-17                            2.0.0
 .SH NAME
 .PP
 dasht \- API documentation in your terminal
@@ -8,7 +8,7 @@ dasht \- API documentation in your terminal
 .SS Examples
 .TP
 \fB\fCdasht\fR
-First 100 topics from each installed docset.
+Topics (A\-Z) from each installed docset.
 .TP
 \fB\fCdasht\fR 'c \- x'
 Search for "c \- x" in all installed docsets.
@@ -28,6 +28,7 @@ The results, if any, are then displayed in the
 .BR w3m (1) 
 terminal web browser,
 which terminates when you press the \fB\fCq\fR key, just as typical UNIX pagers do.
+If no results were found, says so on stderr and exits with a nonzero status.
 .SS Searching
 .PP
 Whitespace characters in \fIPATTERN\fP are treated as wildcards, whereas the

@@ -1,4 +1,4 @@
-# DASHT-QUERY-LINE 1            2016-03-14                            1.2.0
+# DASHT-QUERY-LINE 1            2016-03-17                            2.0.0
 
 ## NAME
 
@@ -11,7 +11,7 @@ dasht-query-line - searches [Dash] docsets and emits groups of lines
 ### Examples
 
 `dasht-query-line`
-  First 100 topics from each installed docset.
+  Topics (A-Z) from each installed docset.
 
 `dasht-query-line` 'c - x'
   Search for "c - x" in all installed docsets.

@@ -7,7 +7,49 @@
   <link rel="stylesheet" href="../style.css"/>
   <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
-<body><div class="navbar"><div class="navbar-inner"><span class="brand"><a href="../index.html#man0">man0</a>/VERSION</span></div></div><div class="container-fluid"><h2 id="version-1-2-0-2016-03-14">Version 1.2.0 (2016-03-14)<a name="version-1-2-0-2016-03-14" href="#version-1-2-0-2016-03-14" class="md2man-permalink" title="permalink"></a></h2><h3 id="minor">Minor:<a name="minor" href="#minor" class="md2man-permalink" title="permalink"></a></h3>
+<body><div class="navbar"><div class="navbar-inner"><span class="brand"><a href="../index.html#man0">man0</a>/VERSION</span></div></div><div class="container-fluid"><h2 id="version-2-0-0-2016-03-17">Version 2.0.0 (2016-03-17)<a name="version-2-0-0-2016-03-17" href="#version-2-0-0-2016-03-17" class="md2man-permalink" title="permalink"></a></h2><p>This release improves the local search engine&#39;s responsiveness, usability, and
+appearance (especially on small displays, like those found in mobile devices);
+improves search term highlighting; and fixes escaping bugs and HTML5 validity.</p><h3 id="major">Major:<a name="major" href="#major" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-exec.1.html">dasht-query-exec(1)</a> now groups by first letter when nothing is searched.</p><p>This gives you a better overview of the breadth of available topics (A-Z)
+than the previous approach of simply returning the first 100 topics did.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a> now wraps its HTML output, if any, in <code>&lt;table&gt;</code> tags.</p><p>This moves the printing of HTML <code>&lt;table&gt;</code> tags into <a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>
+and makes <a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> run <a class="md2man-reference">w3m(1)</a> eagerly, which provides visual feedback to
+the user when a large HTML document is being read and buffered, and in
+the case where no results are found: terminate with a message on stderr.</p></li>
+</ul>
+<h3 id="minor">Minor:<a name="minor" href="#minor" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a> now streams search results to you as they are found.</p><p>Serve the HTML header and search form immediately---before the search is
+even performed---so that the user instantly (and at the very least) sees
+the search form in case they decide to abort the HTTP transfer partway.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a> now provides a drop-down menu for docset selection.</p><p>Drop the HTML5 <code>&lt;datalist&gt;</code> because it can only suggest a single item, and
+that too only when the text field is empty!  Instead, provide a <code>&lt;select&gt;</code>
+drop-down menu from which the user can choose a single item and build up
+multiple docset selections iteratively, with repeated form submissions.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a> now word-wraps search results to fit small displays.</p><p>Insert word-break opportunity <code>&lt;wbr&gt;</code> tags at the end of capitalized
+words, runs of lowercase text, numbers, and punctuation marks to help the
+browser fit search results to small displays, as found in mobile devices.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>: Underline search terms so they stand out in <a class="md2man-reference">w3m(1)</a>.</p></li>
+</ul>
+<h3 id="patch">Patch:<a name="patch" href="#patch" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-exec.1.html">dasht-query-exec(1)</a>: escape SQL single quotes in the search pattern.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>: escape HTML entities in search result token name.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-line.1.html">dasht-query-line(1)</a>: <code>tr -s</code> squeezes <em>after</em> translation, not beforehand.</p><p>Searching for <code>% %</code> resulted in SQL LIKE <code>%\%\%</code> instead of <code>%\%%\%%</code>.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Fix W3C Validator error on scoped <code>&lt;style&gt;</code> element.</p>
+<blockquote>
+<p>Error: Element style is missing required attribute scoped.</p></blockquote></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Fix W3C Validator error on docsets <code>&lt;label&gt;</code> element.</p>
+<blockquote>
+<p>Error: The label element may contain at most one button, input, keygen,
+meter, output, progress, select, or textarea descendant.</p></blockquote></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Specify UTF-8 charset for special chars in docsets.</p><p>Bash and Docker docsets use the special &quot;…&quot; ellipsis Unicode character.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>: Optimize search term highlighting and rework style.</p><p>When an empty pattern was given, useless empty highlights (bold and
+italic) were added between every single character in a search result.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>: Emulate the IGNORECASE=1 feature for POSIX <a class="md2man-reference">awk(1)</a>.</p></li>
+</ul>
+<h2 id="version-1-2-0-2016-03-14">Version 1.2.0 (2016-03-14)<a name="version-1-2-0-2016-03-14" href="#version-1-2-0-2016-03-14" class="md2man-permalink" title="permalink"></a></h2><h3 id="minor-1">Minor:<a name="minor-1" href="#minor-1" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p>Added <a class="md2man-reference" href="../man1/dasht-docsets-extract.1.html">dasht-docsets-extract(1)</a> script for installing third-party docsets
 and for making sure extracted directory names match docset <code>*.tgz</code> files.</p><p>Docset tarballs downloaded by <a class="md2man-reference">dasht-docset-install(1)</a> have no spaces in
@@ -42,7 +84,7 @@ Xamarin, Xojo, YUI, Yii, Zend</em>Framework<em>1, Zend</em>Framework<em>2, jQuer
 jQuery</em>Mobile, jQuery_UI.</p></blockquote></li>
 <li><p><a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> now sets <a class="md2man-reference">w3m(1)</a> options to make find-on-page more forgiving.</p></li>
 </ul>
-<h3 id="patch">Patch:<a name="patch" href="#patch" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="patch-1">Patch:<a name="patch-1" href="#patch-1" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p><a class="md2man-reference" href="../man1/dasht-query-exec.1.html">dasht-query-exec(1)</a>: Guides in C++ docset have 0-length zanchor values.</p><p>This produced URLs with a stray &quot;#&quot; URI fragment separator at the end,
 which in turn broke <a class="md2man-reference">w3m(1)</a>&#39;s ability to follow links in search results.</p></li>
@@ -53,13 +95,13 @@ downloaded because <a class="md2man-reference">tar(1)</a> will subsequently fail
 <li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Search form obscured results in mobile browsers.</p></li>
 <li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Bold effect on hover slowed graphical browsers.</p></li>
 </ul>
-<h2 id="version-1-1-0-2016-02-28">Version 1.1.0 (2016-02-28)<a name="version-1-1-0-2016-02-28" href="#version-1-1-0-2016-02-28" class="md2man-permalink" title="permalink"></a></h2><p>This release adds UNIX manpages, improves the UI, and fixes MacOSX support.</p><h3 id="minor-1">Minor:<a name="minor-1" href="#minor-1" class="md2man-permalink" title="permalink"></a></h3>
+<h2 id="version-1-1-0-2016-02-28">Version 1.1.0 (2016-02-28)<a name="version-1-1-0-2016-02-28" href="#version-1-1-0-2016-02-28" class="md2man-permalink" title="permalink"></a></h2><p>This release adds UNIX manpages, improves the UI, and fixes MacOSX support.</p><h3 id="minor-2">Minor:<a name="minor-2" href="#minor-2" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p>Add &quot;[y/N]&quot; hint to xargs confirmation prompt.  Thanks to <a href="https://github.com/mkaito">Christian
 Höppner</a> for suggesting this improvement.</p></li>
 <li><p>Add UNIX manual pages for all scripts, generated using <a href="https://sunaku.github.io/binman">binman</a>.</p></li>
 </ul>
-<h3 id="patch-1">Patch:<a name="patch-1" href="#patch-1" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="patch-2">Patch:<a name="patch-2" href="#patch-2" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><a class="md2man-reference">sed(1)</a>, <a class="md2man-reference">awk(1)</a>, et. al. differ in curious ways under MacOSX.  Thanks to
 <a href="https://github.com/skedastik">Alaric Holloway</a> and <a href="https://github.com/magicalbanana">Kareem Gan</a> for reporting bugs and testing fixes.</li>

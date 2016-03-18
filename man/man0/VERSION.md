@@ -1,3 +1,76 @@
+## Version 2.0.0 (2016-03-17)
+
+This release improves the local search engine's responsiveness, usability, and
+appearance (especially on small displays, like those found in mobile devices);
+improves search term highlighting; and fixes escaping bugs and HTML5 validity.
+
+### Major:
+
+  * dasht-query-exec(1) now groups by first letter when nothing is searched.
+
+    This gives you a better overview of the breadth of available topics (A-Z)
+    than the previous approach of simply returning the first 100 topics did.
+
+  * dasht-query-html(1) now wraps its HTML output, if any, in `<table>` tags.
+
+    This moves the printing of HTML `<table>` tags into dasht-query-html(1)
+    and makes dasht(1) run w3m(1) eagerly, which provides visual feedback to
+    the user when a large HTML document is being read and buffered, and in
+    the case where no results are found: terminate with a message on stderr.
+
+### Minor:
+
+  * dasht-server-http(1) now streams search results to you as they are found.
+
+    Serve the HTML header and search form immediately---before the search is
+    even performed---so that the user instantly (and at the very least) sees
+    the search form in case they decide to abort the HTTP transfer partway.
+
+  * dasht-server-http(1) now provides a drop-down menu for docset selection.
+
+    Drop the HTML5 `<datalist>` because it can only suggest a single item, and
+    that too only when the text field is empty!  Instead, provide a `<select>`
+    drop-down menu from which the user can choose a single item and build up
+    multiple docset selections iteratively, with repeated form submissions.
+
+  * dasht-server-http(1) now word-wraps search results to fit small displays.
+
+    Insert word-break opportunity `<wbr>` tags at the end of capitalized
+    words, runs of lowercase text, numbers, and punctuation marks to help the
+    browser fit search results to small displays, as found in mobile devices.
+
+  * dasht-query-html(1): Underline search terms so they stand out in w3m(1).
+
+### Patch:
+
+  * dasht-query-exec(1): escape SQL single quotes in the search pattern.
+
+  * dasht-query-html(1): escape HTML entities in search result token name.
+
+  * dasht-query-line(1): `tr -s` squeezes _after_ translation, not beforehand.
+
+    Searching for `% %` resulted in SQL LIKE `%\%\%` instead of `%\%%\%%`.
+
+  * dasht-server-http(1): Fix W3C Validator error on scoped `<style>` element.
+
+    > Error: Element style is missing required attribute scoped.
+
+  * dasht-server-http(1): Fix W3C Validator error on docsets `<label>` element.
+
+    > Error: The label element may contain at most one button, input, keygen,
+    > meter, output, progress, select, or textarea descendant.
+
+  * dasht-server-http(1): Specify UTF-8 charset for special chars in docsets.
+
+    Bash and Docker docsets use the special "…" ellipsis Unicode character.
+
+  * dasht-query-html(1): Optimize search term highlighting and rework style.
+
+    When an empty pattern was given, useless empty highlights (bold and
+    italic) were added between every single character in a search result.
+
+  * dasht-query-html(1): Emulate the IGNORECASE=1 feature for POSIX awk(1).
+
 ## Version 1.2.0 (2016-03-14)
 
 ### Minor:

@@ -1,4 +1,4 @@
-# DASHT-SERVER-HTTP 1           2016-03-14                            1.2.0
+# DASHT-SERVER-HTTP 1           2016-03-17                            2.0.0
 
 ## NAME
 
@@ -11,10 +11,10 @@ dasht-server-http - simple search engine that powers dasht-server(1)
 ### Examples
 
 printf 'GET / HTTP/1.1\r\n' | `dasht-server-http`
-  Shows first 100 topics from all installed [Dash] docsets.
+  Shows topics (A-Z) from each installed [Dash] docset.
 
 printf 'GET /?docsets=*DOCSETS* HTTP/1.1\r\n' | `dasht-server-http`
-  Shows first 100 topics from installed [Dash] docsets matching *DOCSETS*.
+  Shows topics (A-Z) from installed [Dash] docsets matching *DOCSETS*.
 
 printf 'GET /?query=*PATTERN* HTTP/1.1\r\n' | `dasht-server-http`
   Searches for *PATTERN* in all installed [Dash] docsets.

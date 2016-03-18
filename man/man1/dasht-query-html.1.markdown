@@ -1,4 +1,4 @@
-# DASHT-QUERY-HTML 1            2016-03-14                            1.2.0
+# DASHT-QUERY-HTML 1            2016-03-17                            2.0.0
 
 ## NAME
 
@@ -11,7 +11,7 @@ dasht-query-html - searches [Dash] docsets and emits HTML table rows
 ### Examples
 
 `dasht-query-html`
-  First 100 topics from each installed docset.
+  Topics (A-Z) from each installed docset.
 
 `dasht-query-html` 'c - x'
   Search for "c - x" in all installed docsets.

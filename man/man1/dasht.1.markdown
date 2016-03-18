@@ -1,4 +1,4 @@
-# DASHT 1                       2016-03-14                            1.2.0
+# DASHT 1                       2016-03-17                            2.0.0
 
 ## NAME
 
@@ -11,7 +11,7 @@ dasht - API documentation in your terminal
 ### Examples
 
 `dasht`
-  First 100 topics from each installed docset.
+  Topics (A-Z) from each installed docset.
 
 `dasht` 'c - x'
   Search for "c - x" in all installed docsets.
@@ -28,6 +28,7 @@ Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 only in those whose names match *DOCSET*s, by calling dasht-query-html(1).
 The results, if any, are then displayed in the w3m(1) terminal web browser,
 which terminates when you press the `q` key, just as typical UNIX pagers do.
+If no results were found, says so on stderr and exits with a nonzero status.
 
 ### Searching
 

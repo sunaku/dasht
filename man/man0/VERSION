@@ -1,3 +1,104 @@
+.SH Version 2.0.0 (2016\-03\-17)
+.PP
+This release improves the local search engine's responsiveness, usability, and
+appearance (especially on small displays, like those found in mobile devices);
+improves search term highlighting; and fixes escaping bugs and HTML5 validity.
+.SS Major:
+.RS
+.IP \(bu 2
+.BR dasht-query-exec (1) 
+now groups by first letter when nothing is searched.
+.PP
+This gives you a better overview of the breadth of available topics (A\-Z)
+than the previous approach of simply returning the first 100 topics did.
+.IP \(bu 2
+.BR dasht-query-html (1) 
+now wraps its HTML output, if any, in \fB\fC<table>\fR tags.
+.PP
+This moves the printing of HTML \fB\fC<table>\fR tags into 
+.BR dasht-query-html (1)
+
+and makes 
+.BR dasht (1) 
+run 
+.BR w3m (1) 
+eagerly, which provides visual feedback to
+the user when a large HTML document is being read and buffered, and in
+the case where no results are found: terminate with a message on stderr.
+.RE
+.SS Minor:
+.RS
+.IP \(bu 2
+.BR dasht-server-http (1) 
+now streams search results to you as they are found.
+.PP
+Serve the HTML header and search form immediately\-\-\-before the search is
+even performed\-\-\-so that the user instantly (and at the very least) sees
+the search form in case they decide to abort the HTTP transfer partway.
+.IP \(bu 2
+.BR dasht-server-http (1) 
+now provides a drop\-down menu for docset selection.
+.PP
+Drop the HTML5 \fB\fC<datalist>\fR because it can only suggest a single item, and
+that too only when the text field is empty!  Instead, provide a \fB\fC<select>\fR
+drop\-down menu from which the user can choose a single item and build up
+multiple docset selections iteratively, with repeated form submissions.
+.IP \(bu 2
+.BR dasht-server-http (1) 
+now word\-wraps search results to fit small displays.
+.PP
+Insert word\-break opportunity \fB\fC<wbr>\fR tags at the end of capitalized
+words, runs of lowercase text, numbers, and punctuation marks to help the
+browser fit search results to small displays, as found in mobile devices.
+.IP \(bu 2
+.BR dasht-query-html (1): 
+Underline search terms so they stand out in 
+.BR w3m (1).
+.RE
+.SS Patch:
+.RS
+.IP \(bu 2
+.BR dasht-query-exec (1): 
+escape SQL single quotes in the search pattern.
+.IP \(bu 2
+.BR dasht-query-html (1): 
+escape HTML entities in search result token name.
+.IP \(bu 2
+.BR dasht-query-line (1): 
+\fB\fCtr \-s\fR squeezes \fIafter\fP translation, not beforehand.
+.PP
+Searching for \fB\fC% %\fR resulted in SQL LIKE \fB\fC%\\%\\%\fR instead of \fB\fC%\\%%\\%%\fR\&.
+.IP \(bu 2
+.BR dasht-server-http (1): 
+Fix W3C Validator error on scoped \fB\fC<style>\fR element.
+.PP
+.RS
+Error: Element style is missing required attribute scoped.
+.RE
+.IP \(bu 2
+.BR dasht-server-http (1): 
+Fix W3C Validator error on docsets \fB\fC<label>\fR element.
+.PP
+.RS
+Error: The label element may contain at most one button, input, keygen,
+meter, output, progress, select, or textarea descendant.
+.RE
+.IP \(bu 2
+.BR dasht-server-http (1): 
+Specify UTF\-8 charset for special chars in docsets.
+.PP
+Bash and Docker docsets use the special "…" ellipsis Unicode character.
+.IP \(bu 2
+.BR dasht-query-html (1): 
+Optimize search term highlighting and rework style.
+.PP
+When an empty pattern was given, useless empty highlights (bold and
+italic) were added between every single character in a search result.
+.IP \(bu 2
+.BR dasht-query-html (1): 
+Emulate the IGNORECASE=1 feature for POSIX 
+.BR awk (1).
+.RE
 .SH Version 1.2.0 (2016\-03\-14)
 .SS Minor:
 .RS

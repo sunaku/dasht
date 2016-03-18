@@ -1,4 +1,4 @@
-# DASHT-QUERY-EXEC 1            2016-03-14                            1.2.0
+# DASHT-QUERY-EXEC 1            2016-03-17                            2.0.0
 
 ## NAME
 
@@ -13,6 +13,9 @@ dasht-query-exec - searches a [Dash] docset's SQLite3 database file
 Searches for *PATTERN* in *DATABASE*, which is an SQLite3 database file
 located inside a [Dash] docset at `/Contents/Resources/docSet.dsidx`, while
 passing the optional *OPTIONS\_FOR\_SQLITE3* arguments down to sqlite3(1).
+
+If *PATTERN* is empty or solely consists of unescaped wildcard characters,
+topics having distinct leading characters are returned from the *DATABASE*.
 
 ### Searching
 
