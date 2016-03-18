@@ -1,3 +1,97 @@
+.SH Version 1.2.0 (2016\-03\-14)
+.SS Minor:
+.RS
+.IP \(bu 2
+Added 
+.BR dasht-docsets-extract (1) 
+script for installing third\-party docsets
+and for making sure extracted directory names match docset \fB\fC*.tgz\fR files.
+.PP
+Docset tarballs downloaded by 
+.BR dasht-docset-install (1) 
+have no spaces in
+their names, so use the same naming scheme for their extracted folders.
+Thanks to Martijn Hoogendoorn (@mhoogendoorn) for reporting that such
+naming mismatches occur and for suggesting a potential fix in issue #5.
+.IP \(bu 2
+.BR dasht-docsets-install (1) 
+and 
+.BR dasht-docsets-remove (1) 
+learned \fB\fC\-\-force\fR\&.
+.PP
+The \fB\fCxargs \-p\fR prompt reads from \fB\fC/dev/tty\fR so it's not easy to automate.
+.IP \(bu 2
+.BR dasht-docsets-remove (1) 
+is now verbose when deleting files because large
+docsets (like the Mono docset, sized at 7.6 GiB) take a while to delete.
+.IP \(bu 2
+.BR dasht-query-line (1) 
+now adds default URI fragments to search result URLs,
+letting you skip past the mess of navigation links atop these 138 docsets:
+.PP
+.RS
+AWS\fIJavaScript, ActionScript, Akka, Android, Angular.dart, AngularJS,
+Ansible, Apache\fPHTTP\fIServer, Appcelerator\fPTitanium, Arduino, Bash,
+Boost, Bootstrap\fI2, C, C++, CMake, CSS, CakePHP, Cappuccino, Chai, Chef,
+Clojure, Cocos2D, Cocos2D\-X, Cocos3D, CodeIgniter, CoffeeScript,
+ColdFusion, Compass, Cordova, Corona, CouchDB, Craft, D3JS, Dart,
+Docker, Dojo, Drupal\fP7, Drupal\fI8, ElasticSearch, Elixir, EmberJS,
+Erlang, Express, ExpressionEngine, ExtJS, Font\fPAwesome, Foundation,
+GLib, Go, Grails, Groovy, Groovy\fIJDK, Grunt, Gulp, HTML, Handlebars,
+Haskell, Ionic, Jasmine, JavaFX, JavaScript, Java\fPEE6, Java\fIEE7,
+Java\fPSE6, Java\fISE7, Java\fPSE8, Jekyll, Joomla, KnockoutJS, Kobold2D,
+Laravel, Less, MarionetteJS, Meteor, MongoDB, Mongoose, Mono, Nginx,
+OpenCV\fIC, OpenCV\fPC++, OpenCV\fIJava, OpenCV\fPPython, PHP, PHPUnit, Perl,
+Phalcon, PhoneGap, Play\fIJava, Play\fPScala, Polymer.dart, Processing,
+PrototypeJS, Puppet, Qt\fI4, Qt\fP5, R, React, Redis, Ruby, Ruby\fI2,
+Ruby\fPon\fIRails\fP3, Ruby\fIon\fPRails\fI4, Ruby\fPon\fIRails\fP5, Rust, SQLite, SVG,
+SailsJS, Scala, Semantic\fIUI, Sencha\fPTouch, Smarty, Sparrow,
+Spring\fIFramework, Statamic, Stylus, Susy, Swift, Symfony, TYPO3, Tcl,
+Twig, Twisted, Unity\fP3D, VMware\fIvSphere, VueJS, WordPress, XSLT, XUL,
+Xamarin, Xojo, YUI, Yii, Zend\fPFramework\fI1, Zend\fPFramework\fI2, jQuery,
+jQuery\fPMobile, jQuery_UI.
+.RE
+.IP \(bu 2
+.BR dasht (1) 
+now sets 
+.BR w3m (1) 
+options to make find\-on\-page more forgiving.
+.RE
+.SS Patch:
+.RS
+.IP \(bu 2
+.BR dasht-query-exec (1): 
+Guides in C++ docset have 0\-length zanchor values.
+.PP
+This produced URLs with a stray "#" URI fragment separator at the end,
+which in turn broke 
+.BR w3m (1)'s 
+ability to follow links in search results.
+.IP \(bu 2
+.BR dasht-query-exec (1): 
+sqlite 3.7.9 wants options \fIbefore\fP arguments.
+.PP
+Thanks to @joshpy for reporting this in issue #3 and suggesting the fix.
+.IP \(bu 2
+.BR dasht-docsets-install (1): 
+fix gotcha in shell short\-circuit evaluation.
+.PP
+Thanks to Edgar Hipp (@netei) for reporting and fixing this in issue #6.
+.IP \(bu 2
+.BR dasht-docsets-install (1) 
+is now visibly faster to install large docsets.
+.PP
+Don't bother checking whether the docset archive is corrupt or partially
+downloaded because 
+.BR tar (1) 
+will subsequently fail under such cases anyway.
+.IP \(bu 2
+.BR dasht-server-http (1): 
+Search form obscured results in mobile browsers.
+.IP \(bu 2
+.BR dasht-server-http (1): 
+Bold effect on hover slowed graphical browsers.
+.RE
 .SH Version 1.1.0 (2016\-02\-28)
 .PP
 This release adds UNIX manpages, improves the UI, and fixes MacOSX support.

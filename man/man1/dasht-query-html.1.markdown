@@ -1,4 +1,4 @@
-# DASHT-QUERY-HTML 1            2016-02-28                            1.1.0
+# DASHT-QUERY-HTML 1            2016-03-14                            1.2.0
 
 ## NAME
 

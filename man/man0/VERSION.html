@@ -7,13 +7,59 @@
   <link rel="stylesheet" href="../style.css"/>
   <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
-<body><div class="navbar"><div class="navbar-inner"><span class="brand"><a href="../index.html#man0">man0</a>/VERSION</span></div></div><div class="container-fluid"><h2 id="version-1-1-0-2016-02-28">Version 1.1.0 (2016-02-28)<a name="version-1-1-0-2016-02-28" href="#version-1-1-0-2016-02-28" class="md2man-permalink" title="permalink"></a></h2><p>This release adds UNIX manpages, improves the UI, and fixes MacOSX support.</p><h3 id="minor">Minor:<a name="minor" href="#minor" class="md2man-permalink" title="permalink"></a></h3>
+<body><div class="navbar"><div class="navbar-inner"><span class="brand"><a href="../index.html#man0">man0</a>/VERSION</span></div></div><div class="container-fluid"><h2 id="version-1-2-0-2016-03-14">Version 1.2.0 (2016-03-14)<a name="version-1-2-0-2016-03-14" href="#version-1-2-0-2016-03-14" class="md2man-permalink" title="permalink"></a></h2><h3 id="minor">Minor:<a name="minor" href="#minor" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p>Added <a class="md2man-reference" href="../man1/dasht-docsets-extract.1.html">dasht-docsets-extract(1)</a> script for installing third-party docsets
+and for making sure extracted directory names match docset <code>*.tgz</code> files.</p><p>Docset tarballs downloaded by <a class="md2man-reference">dasht-docset-install(1)</a> have no spaces in
+their names, so use the same naming scheme for their extracted folders.
+Thanks to Martijn Hoogendoorn (@mhoogendoorn) for reporting that such
+naming mismatches occur and for suggesting a potential fix in issue #5.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-docsets-install.1.html">dasht-docsets-install(1)</a> and <a class="md2man-reference" href="../man1/dasht-docsets-remove.1.html">dasht-docsets-remove(1)</a> learned <code>--force</code>.</p><p>The <code>xargs -p</code> prompt reads from <code>/dev/tty</code> so it&#39;s not easy to automate.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-docsets-remove.1.html">dasht-docsets-remove(1)</a> is now verbose when deleting files because large
+docsets (like the Mono docset, sized at 7.6 GiB) take a while to delete.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-line.1.html">dasht-query-line(1)</a> now adds default URI fragments to search result URLs,
+letting you skip past the mess of navigation links atop these 138 docsets:</p>
+<blockquote>
+<p>AWS<em>JavaScript, ActionScript, Akka, Android, Angular.dart, AngularJS,
+Ansible, Apache</em>HTTP<em>Server, Appcelerator</em>Titanium, Arduino, Bash,
+Boost, Bootstrap<em>2, C, C++, CMake, CSS, CakePHP, Cappuccino, Chai, Chef,
+Clojure, Cocos2D, Cocos2D-X, Cocos3D, CodeIgniter, CoffeeScript,
+ColdFusion, Compass, Cordova, Corona, CouchDB, Craft, D3JS, Dart,
+Docker, Dojo, Drupal</em>7, Drupal<em>8, ElasticSearch, Elixir, EmberJS,
+Erlang, Express, ExpressionEngine, ExtJS, Font</em>Awesome, Foundation,
+GLib, Go, Grails, Groovy, Groovy<em>JDK, Grunt, Gulp, HTML, Handlebars,
+Haskell, Ionic, Jasmine, JavaFX, JavaScript, Java</em>EE6, Java<em>EE7,
+Java</em>SE6, Java<em>SE7, Java</em>SE8, Jekyll, Joomla, KnockoutJS, Kobold2D,
+Laravel, Less, MarionetteJS, Meteor, MongoDB, Mongoose, Mono, Nginx,
+OpenCV<em>C, OpenCV</em>C++, OpenCV<em>Java, OpenCV</em>Python, PHP, PHPUnit, Perl,
+Phalcon, PhoneGap, Play<em>Java, Play</em>Scala, Polymer.dart, Processing,
+PrototypeJS, Puppet, Qt<em>4, Qt</em>5, R, React, Redis, Ruby, Ruby<em>2,
+Ruby</em>on<em>Rails</em>3, Ruby<em>on</em>Rails<em>4, Ruby</em>on<em>Rails</em>5, Rust, SQLite, SVG,
+SailsJS, Scala, Semantic<em>UI, Sencha</em>Touch, Smarty, Sparrow,
+Spring<em>Framework, Statamic, Stylus, Susy, Swift, Symfony, TYPO3, Tcl,
+Twig, Twisted, Unity</em>3D, VMware<em>vSphere, VueJS, WordPress, XSLT, XUL,
+Xamarin, Xojo, YUI, Yii, Zend</em>Framework<em>1, Zend</em>Framework<em>2, jQuery,
+jQuery</em>Mobile, jQuery_UI.</p></blockquote></li>
+<li><p><a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> now sets <a class="md2man-reference">w3m(1)</a> options to make find-on-page more forgiving.</p></li>
+</ul>
+<h3 id="patch">Patch:<a name="patch" href="#patch" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-exec.1.html">dasht-query-exec(1)</a>: Guides in C++ docset have 0-length zanchor values.</p><p>This produced URLs with a stray &quot;#&quot; URI fragment separator at the end,
+which in turn broke <a class="md2man-reference">w3m(1)</a>&#39;s ability to follow links in search results.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-query-exec.1.html">dasht-query-exec(1)</a>: sqlite 3.7.9 wants options <em>before</em> arguments.</p><p>Thanks to @joshpy for reporting this in issue #3 and suggesting the fix.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-docsets-install.1.html">dasht-docsets-install(1)</a>: fix gotcha in shell short-circuit evaluation.</p><p>Thanks to Edgar Hipp (@netei) for reporting and fixing this in issue #6.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-docsets-install.1.html">dasht-docsets-install(1)</a> is now visibly faster to install large docsets.</p><p>Don&#39;t bother checking whether the docset archive is corrupt or partially
+downloaded because <a class="md2man-reference">tar(1)</a> will subsequently fail under such cases anyway.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Search form obscured results in mobile browsers.</p></li>
+<li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Bold effect on hover slowed graphical browsers.</p></li>
+</ul>
+<h2 id="version-1-1-0-2016-02-28">Version 1.1.0 (2016-02-28)<a name="version-1-1-0-2016-02-28" href="#version-1-1-0-2016-02-28" class="md2man-permalink" title="permalink"></a></h2><p>This release adds UNIX manpages, improves the UI, and fixes MacOSX support.</p><h3 id="minor-1">Minor:<a name="minor-1" href="#minor-1" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p>Add &quot;[y/N]&quot; hint to xargs confirmation prompt.  Thanks to <a href="https://github.com/mkaito">Christian
 Höppner</a> for suggesting this improvement.</p></li>
 <li><p>Add UNIX manual pages for all scripts, generated using <a href="https://sunaku.github.io/binman">binman</a>.</p></li>
 </ul>
-<h3 id="patch">Patch:<a name="patch" href="#patch" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="patch-1">Patch:<a name="patch-1" href="#patch-1" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><a class="md2man-reference">sed(1)</a>, <a class="md2man-reference">awk(1)</a>, et. al. differ in curious ways under MacOSX.  Thanks to
 <a href="https://github.com/skedastik">Alaric Holloway</a> and <a href="https://github.com/magicalbanana">Kareem Gan</a> for reporting bugs and testing fixes.</li>
