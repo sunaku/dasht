@@ -23,7 +23,11 @@ which aptly characterizes the terminal environment where everything is text.
 
 * Keep [Dash] docsets anywhere you like.
 
-## Screenshots
+### Preview
+
+Watch "[dasht in a terminal](https://vimeo.com/159462598)"
+and "[dasht in a browser](https://vimeo.com/159462774)"
+screencasts on Vimeo.
 
 ![In your terminal](https://github.com/sunaku/dasht/raw/gh-pages/terminal.png)
 ![In your browser](https://github.com/sunaku/dasht/raw/gh-pages/browser.png)
