@@ -79,6 +79,17 @@ On any system:
 
         export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 
+### ZSH integration
+
+Source this file in ZSH to activate TAB completion for dasht:
+
+    source location_where_you_cloned_or_downloaded_dasht/etc/zsh/completions.zsh
+
+Or simply add the completions/ directory to your ZSH $fpath
+if you've already set up ZSH's completion system elsewhere:
+
+    fpath+=location_where_you_cloned_or_downloaded_dasht/etc/zsh/completions/
+
 ## Usage
 
 First, install some [docsets] using dasht-docsets-install(1):

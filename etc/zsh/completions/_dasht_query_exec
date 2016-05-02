@@ -1,0 +1,7 @@
+#compdef dasht-query-exec
+
+if (( CURRENT == 2 )); then
+  _dasht_pattern
+elif (( CURRENT == 3 )); then
+  _files
+fi

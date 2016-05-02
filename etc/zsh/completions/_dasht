@@ -1,0 +1,7 @@
+#compdef dasht dasht-query-html dasht-query-line
+
+if (( CURRENT == 2 )); then
+  _dasht_pattern
+else
+  _dasht_docsets
+fi
