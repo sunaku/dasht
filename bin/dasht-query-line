@@ -136,7 +136,7 @@ dasht-docsets "$@" | while read -r docset; do
       fragment_by_docset["ElasticSearch"]           = "#pageheader"              # FIXME: needs improvement
       fragment_by_docset["Elixir"]                  = "#content"
       fragment_by_docset["EmberJS"]                 = "#content"                 # FIXME: needs improvement
-      # fragment_by_docset["Erlang"]                = "#"                        # works fine without it
+      fragment_by_docset["Erlang"]                  = "#content"
       fragment_by_docset["Express"]                 = "#overlay"
       fragment_by_docset["ExpressionEngine"]        = "#content"
       # fragment_by_docset["ExtJS"]                 = "#"                        # works fine without it
