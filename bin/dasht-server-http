@@ -122,7 +122,6 @@ cat <<HEADER
   <head>
     <meta charset="utf-8">
     <title>dasht $query_html $docsets_html</title>
-    <base target="_blank">
     <style>
       body, input[type=search] {
         font-family: monospace;
@@ -147,7 +146,7 @@ cat <<HEADER
     </style>
   </head>
   <body>
-    <form method="get" action="/" target="_self">
+    <form method="get" action="/">
       <label>Search for
         <input name="query" value="$query_html" type="search"
                placeholder="spaces are wildcards" autofocus>
