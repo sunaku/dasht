@@ -174,7 +174,7 @@ cat <<HEADER
     <br>
 HEADER
 
-dasht-query-html "$query" $docsets
+dasht-query-html "$query" $docsets 2>&1
 
 cat <<FOOTER
   </body>
