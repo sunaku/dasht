@@ -136,5 +136,10 @@ dasht-query-line "$@" | awk -v pattern="$1" '
       "<td valign=\"bottom\">" tolower(result["type"]) "</td>"\
     "</tr>"
   }
-  END { if (NR > 0) print "</table>" }
+  END {
+    if (NR > 0) print "</table>"
+    # there was only one search result, so automatically visit its url
+    if (NR == 4) print \
+      "<meta http-equiv=\"refresh\" content=\"0;url=" result["url"] "\">"
+  }
 '

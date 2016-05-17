@@ -75,5 +75,6 @@ w3m -T text/html \
     -o active_style=true \
     -o visited_anchor=true \
     -o label_topline=true \
+    -o meta_refresh=true \
     -o wrap_search=true \
     -o ignorecase_search=true
