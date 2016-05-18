@@ -59,8 +59,13 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
-# the kill(1) here emulates pipefail, which POSIX lacks
-{ dasht-query-html "$@" || kill -- -$$ 2>/dev/null ;} |
+{
+  dasht-query-html "$@" ||
+  # emulate pipefail (which POSIX lacks) by killing off the w3m(1) process
+  # below (which starts up simultaneously alongside this pipeline segment)
+  # and then proceed to kill this script to generate a nonzero exit status
+  kill $(ps -e -o comm,ppid,pid | sed -n "s/^w3m *$$ //p") $$
+} |
 w3m -T text/html \
     -o confirm_qq=false \
     -o color=true \
