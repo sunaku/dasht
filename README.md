@@ -79,6 +79,10 @@ On any system:
 
         export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 
+### Vim integration
+
+Use this (Neo)Vim plugin: https://github.com/sunaku/vim-dasht
+
 ### ZSH integration
 
 Source this file in ZSH to activate TAB completion for dasht:
