@@ -143,6 +143,9 @@ cat <<HEADER
         background-color: Yellow;
         border: thin dotted Silver;
       }
+      h1 > i {
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -173,7 +176,8 @@ cat <<HEADER
     <br>
 HEADER
 
-dasht-query-html "$query" $docsets 2>&1
+dasht-query-html "$query" $docsets ||
+echo "<h1><i>$query_html</i> not found in ${docsets_html:-any} docsets</h1>"
 
 cat <<FOOTER
   </body>

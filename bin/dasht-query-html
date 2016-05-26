@@ -29,7 +29,7 @@
 # Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 # only in those whose names match *DOCSET*s, by calling dasht-query-line(1).
 # The results are then printed, one per line, to stdout as HTML table rows.
-# If no results were found, says so on stderr and exits with a nonzero status.
+# However, if no results were found, this program exits with a nonzero status.
 #
 # ### Searching
 #
@@ -146,8 +146,7 @@ dasht-query-line "$@" | awk -v pattern="$1" '
       }
     }
     else {
-      print "no results found" > "/dev/fd/2"
-      exit(1)
+      exit(1) # the search found no results, so exit with a nonzero status
     }
   }
 '
