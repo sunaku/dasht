@@ -48,6 +48,11 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# ## EXIT STATUS
+#
+# 44
+#   No results were found.
+#
 # ## SEE ALSO
 #
 # w3m(1), dasht-query-html(1), dasht-docsets(1), [Dash]
@@ -59,15 +64,17 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
-trap 'exit 1' TERM # exit silently when killed by pipefail emulation below
+trap 'exit 44' USR1 # exit with a nonzero status when no results are found
 if ! dasht-query-html "$@"; then
   # notify user when no results are found so they can refine their search
   pat=$1; shift; echo "dasht: '$pat' not found in ${*:-any} docsets" >&2
 
   # emulate pipefail (which POSIX lacks) by killing off the w3m(1) process
   # below (which starts up simultaneously alongside this pipeline segment)
-  # and then proceed to kill this script to generate a nonzero exit status
-  kill $(ps -e -o comm,ppid,pid | sed -n "s/^w3m *$$ //p") $$
+  kill $(ps -e -o comm,ppid,pid | sed -n "s/^w3m *$$ //p")
+
+  # and then proceed to tell this script to generate a nonzero exit status
+  kill -s USR1 $$
 fi |
 w3m -T text/html \
     -o confirm_qq=false \

@@ -29,6 +29,7 @@
 # Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 # only in those whose names match *DOCSET*s, by calling dasht-query-exec(1)
 # and emits the results in groups of lines, as described in "Results" below.
+# However, if no results were found, this program exits with a nonzero status.
 #
 # ### Searching
 #
@@ -69,6 +70,11 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# ## EXIT STATUS
+#
+# 44
+#   No results were found.
+#
 # ## SEE ALSO
 #
 # dasht-query-exec(1), dasht-query-html(1), dasht-docsets(1), dasht(1), [Dash]
@@ -84,6 +90,9 @@
 
 pattern=$(echo " $1 " | sed 's/[%_]/\\&/g; s/[[:space:]][[:space:]]*/%/g')
 test $# -gt 0 && shift # shift off PATTERN so argv contains solely DOCSETs
+
+status=44 # (default) exit with a nonzero status when no results are found
+trap 'status=0' USR1 # override default exit status when results are found
 
 dasht-docsets "$@" | while read -r docset; do
   database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
@@ -236,7 +245,7 @@ dasht-docsets "$@" | while read -r docset; do
 
     { $1 = $1 } # strip whitespace from key
 
-    $1 == "url" {
+    $1 == "url" { were_any_results_found=1
       # indicate the source of this result
       print "from = " docset
 
@@ -250,5 +259,9 @@ dasht-docsets "$@" | while read -r docset; do
     }
 
     /./ # reject any empty lines from input
-  '
+
+    END { exit !were_any_results_found }
+  ' && kill -s USR1 $$ || : # notify this script if any results were found
 done
+
+exit $status

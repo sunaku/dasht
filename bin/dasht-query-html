@@ -47,6 +47,11 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# ## EXIT STATUS
+#
+# 44
+#   No results were found.
+#
 # ## SEE ALSO
 #
 # dasht-query-line(1), dasht-docsets(1), dasht(1), [Dash]
@@ -58,7 +63,8 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
-dasht-query-line "$@" | awk -v pattern="$1" '
+trap 'exit 44' USR1 # exit with a nonzero status when no results found
+{ dasht-query-line "$@" || kill -s USR1 $$ ;} | awk -v pattern="$1" '
   # Escapes XML "predefined entities" in given parameter.
   # See http://www.w3.org/TR/REC-xml/#sec-predefined-ent
   function escape(xml) {
@@ -144,9 +150,6 @@ dasht-query-line "$@" | awk -v pattern="$1" '
         # there was only one search result, so automatically visit its url
         print "<meta http-equiv=\"refresh\" content=\"0;url=" result["url"] "\">"
       }
-    }
-    else {
-      exit(1) # the search found no results, so exit with a nonzero status
     }
   }
 '
