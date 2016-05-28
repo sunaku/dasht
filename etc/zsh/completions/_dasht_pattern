@@ -1,3 +1,3 @@
 #compdef
 
-compadd -Q -- "''" '""'
+compadd -i "'" -I "'" -- ''
