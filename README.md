@@ -2,7 +2,7 @@
 * Docs: <https://sunaku.github.io/dasht/man>
 * Bugs: <https://github.com/sunaku/dasht/issues>
 
-# dasht - Search API docs offline, in your terminal or browser
+# Search API docs offline, in your terminal or browser
 
 dasht is a collection of shell scripts for searching, browsing, and managing
 API documentation (in the form of [150+ offline documentation sets][docsets],
@@ -25,9 +25,8 @@ which aptly characterizes the terminal environment where everything is text.
 
 ### Preview
 
-Watch "[dasht in a terminal](https://vimeo.com/159462598)"
-and "[dasht in a browser](https://vimeo.com/159462774)"
-screencasts on Vimeo.
+Watch the "[dasht in a terminal](https://vimeo.com/159462598)"
+and "[dasht in a browser](https://vimeo.com/159462774)" screencasts.
 
 ![In your terminal](https://github.com/sunaku/dasht/raw/gh-pages/terminal.png)
 ![In your browser](https://github.com/sunaku/dasht/raw/gh-pages/browser.png)
@@ -81,7 +80,7 @@ On any system:
 
 ### Vim integration
 
-Use this (Neo)Vim plugin: https://github.com/sunaku/vim-dasht
+Use the [vim-dasht](https://github.com/sunaku/vim-dasht) plugin for (Neo)Vim.
 
 ### ZSH integration
 
