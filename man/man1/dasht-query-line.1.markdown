@@ -1,4 +1,4 @@
-# DASHT-QUERY-LINE 1            2016-03-17                            2.0.0
+# DASHT-QUERY-LINE 1            2016-05-28                            2.1.0
 
 ## NAME
 
@@ -27,6 +27,7 @@ dasht-query-line - searches [Dash] docsets and emits groups of lines
 Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 only in those whose names match *DOCSET*s, by calling dasht-query-exec(1)
 and emits the results in groups of lines, as described in "Results" below.
+However, if no results were found, this program exits with a nonzero status.
 
 ### Searching
 
@@ -66,6 +67,11 @@ For example, here is a search result for "c - x" from the "bash" docset:
   Defines the filesystem location where your [Dash] docsets are installed.
   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
+
+## EXIT STATUS
+
+44
+  No results were found.
 
 ## SEE ALSO
 

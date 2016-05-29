@@ -1,4 +1,4 @@
-.TH DASHT\-QUERY\-LINE 1            2016\-03\-17                            2.0.0
+.TH DASHT\-QUERY\-LINE 1            2016\-05\-28                            2.1.0
 .SH NAME
 .PP
 dasht\-query\-line \- searches Dash \[la]https://kapeli.com/dash\[ra] docsets and emits groups of lines
@@ -25,6 +25,7 @@ only in those whose names match \fIDOCSET\fPs, by calling
 .BR dasht-query-exec (1)
 
 and emits the results in groups of lines, as described in "Results" below.
+However, if no results were found, this program exits with a nonzero status.
 .SS Searching
 .PP
 Whitespace characters in \fIPATTERN\fP are treated as wildcards, whereas the
@@ -65,6 +66,10 @@ url = file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resourc
 Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
 If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
 or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.SH EXIT STATUS
+.TP
+44
+No results were found.
 .SH SEE ALSO
 .PP
 .BR dasht-query-exec (1), 

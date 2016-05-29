@@ -1,3 +1,64 @@
+## Version 2.1.0 (2016-05-28)
+
+This release improves the feedback users and scripts get from dasht scripts,
+fixes the ability to run dasht from non-setpgid() environments like (Neo)Vim,
+adds TAB completion for ZSH, and provides screencasts for prospective users.
+
+### Minor:
+
+  * dasht(1) now automatically opens the first search result if only one.
+
+  * dasht-query-\* scripts now exit with status 44 when no results found.
+
+  * TAB completion for ZSH (see `etc/zsh/` folder) for all dasht scripts.
+
+    Pressing TAB at the first argument completes `''` and puts you on the
+    second argument, which is perfect for skipping the pattern altogether.
+    Pressing TAB at the second argument completes installed docset names.
+
+    Thanks to Tobias Mersmann (@tmerse) for suggesting this feature and
+    providing starter code at <https://github.com/sunaku/dasht/issues/10>.
+
+  * dasht-server-http(1) now shows "no results found" message in browser.
+
+### Patch:
+
+  * dasht-query-line(1) now sets default URI fragment for Erlang docset.
+
+    This affects modules, like the "dets" result in `dasht dets erlang`.
+
+  * dasht-server-http(1) now opens search result links in the same window.
+
+    w3m(1) opens search result links in the _same_ window, so don't make
+    the experience any different in browsers connected to dasht-server(1).
+
+  * dasht(1) has revised pipefail emulation since Vim doesn't setpgid().
+
+    When `:!dasht some_query_that_has_no_results_here` is run inside Vim,
+    the w3m(1) instance still lives on, even though no results were found,
+    because the child processes of dasht(1) don't inherit its pid as pgid.
+
+    That's why terminating all children with kill(1) on pgid doesn't work.
+    Instead, the new strategy is to selectively kill w3m(1) first and then
+    dasht(1) to achieve the desired effect: no more w3m(1) and nonzero exit.
+
+  * dasht(1) now avoids `/bin/sh: line 1: Terminated` warning under BASH.
+
+    To ensure normal SIGTERM propagation to children, trap SIGUSR1 instead.
+
+  * Revised "no results found" messages for HTML and text user interfaces.
+
+### Other:
+
+  * README: add screencasts of dasht in the terminal and browser:
+
+    Watch the "[dasht in a terminal](https://vimeo.com/159462598)"
+    and "[dasht in a browser](https://vimeo.com/159462774)" screencasts.
+
+  * README: add link to vim-dasht plugin for (Neo)Vim integration:
+
+    https://github.com/sunaku/vim-dasht
+
 ## Version 2.0.0 (2016-03-17)
 
 This release improves the local search engine's responsiveness, usability, and

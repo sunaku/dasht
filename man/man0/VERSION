@@ -1,3 +1,85 @@
+.SH Version 2.1.0 (2016\-05\-28)
+.PP
+This release improves the feedback users and scripts get from dasht scripts,
+fixes the ability to run dasht from non\-setpgid() environments like (Neo)Vim,
+adds TAB completion for ZSH, and provides screencasts for prospective users.
+.SS Minor:
+.RS
+.IP \(bu 2
+.BR dasht (1) 
+now automatically opens the first search result if only one.
+.IP \(bu 2
+dasht\-query\-* scripts now exit with status 44 when no results found.
+.IP \(bu 2
+TAB completion for ZSH (see \fB\fCetc/zsh/\fR folder) for all dasht scripts.
+.PP
+Pressing TAB at the first argument completes \fB\fC\&''\fR and puts you on the
+second argument, which is perfect for skipping the pattern altogether.
+Pressing TAB at the second argument completes installed docset names.
+.PP
+Thanks to Tobias Mersmann (@tmerse) for suggesting this feature and
+providing starter code at \[la]https://github.com/sunaku/dasht/issues/10\[ra]\&.
+.IP \(bu 2
+.BR dasht-server-http (1) 
+now shows "no results found" message in browser.
+.RE
+.SS Patch:
+.RS
+.IP \(bu 2
+.BR dasht-query-line (1) 
+now sets default URI fragment for Erlang docset.
+.PP
+This affects modules, like the "dets" result in \fB\fCdasht dets erlang\fR\&.
+.IP \(bu 2
+.BR dasht-server-http (1) 
+now opens search result links in the same window.
+.PP
+.BR w3m (1) 
+opens search result links in the \fIsame\fP window, so don't make
+the experience any different in browsers connected to 
+.BR dasht-server (1).
+.IP \(bu 2
+.BR dasht (1) 
+has revised pipefail emulation since Vim doesn't setpgid().
+.PP
+When \fB\fC:!dasht some_query_that_has_no_results_here\fR is run inside Vim,
+the 
+.BR w3m (1) 
+instance still lives on, even though no results were found,
+because the child processes of 
+.BR dasht (1) 
+don't inherit its pid as pgid.
+.PP
+That's why terminating all children with 
+.BR kill (1) 
+on pgid doesn't work.
+Instead, the new strategy is to selectively kill 
+.BR w3m (1) 
+first and then
+.BR dasht (1) 
+to achieve the desired effect: no more 
+.BR w3m (1) 
+and nonzero exit.
+.IP \(bu 2
+.BR dasht (1) 
+now avoids \fB\fC/bin/sh: line 1: Terminated\fR warning under BASH.
+.PP
+To ensure normal SIGTERM propagation to children, trap SIGUSR1 instead.
+.IP \(bu 2
+Revised "no results found" messages for HTML and text user interfaces.
+.RE
+.SS Other:
+.RS
+.IP \(bu 2
+README: add screencasts of dasht in the terminal and browser:
+.PP
+Watch the "dasht in a terminal \[la]https://vimeo.com/159462598\[ra]"
+and "dasht in a browser \[la]https://vimeo.com/159462774\[ra]" screencasts.
+.IP \(bu 2
+README: add link to vim\-dasht plugin for (Neo)Vim integration:
+.PP
+\[la]https://github.com/sunaku/vim-dasht\[ra]
+.RE
 .SH Version 2.0.0 (2016\-03\-17)
 .PP
 This release improves the local search engine's responsiveness, usability, and

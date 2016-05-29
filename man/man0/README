@@ -6,7 +6,7 @@ Docs: \[la]https://sunaku.github.io/dasht/man\[ra]
 .IP \(bu 2
 Bugs: \[la]https://github.com/sunaku/dasht/issues\[ra]
 .RE
-.TH dasht \- Search API docs offline, in your terminal or browser
+.TH Search API docs offline, in your terminal or browser
 .PP
 dasht is a collection of shell scripts for searching, browsing, and managing
 API documentation (in the form of 150+ offline documentation sets \[la]https://kapeli.com/dash#docsets\[ra],
@@ -26,9 +26,8 @@ Keep Dash \[la]https://kapeli.com/dash\[ra] docsets anywhere you like.
 .RE
 .SS Preview
 .PP
-Watch "dasht in a terminal \[la]https://vimeo.com/159462598\[ra]"
-and "dasht in a browser \[la]https://vimeo.com/159462774\[ra]"
-screencasts on Vimeo.
+Watch the "dasht in a terminal \[la]https://vimeo.com/159462598\[ra]"
+and "dasht in a browser \[la]https://vimeo.com/159462774\[ra]" screencasts.
 .PP
 [In your terminal](\[la]https://github.com/sunaku/dasht/raw/gh-pages/terminal.png\[ra])
 [In your browser](\[la]https://github.com/sunaku/dasht/raw/gh-pages/browser.png\[ra])
@@ -90,6 +89,27 @@ Add the \fB\fCbin/\fR folder to your \fB\fCPATH\fR environment variable:
 export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 .fi
 .RE
+.RE
+.SS Vim integration
+.PP
+Use the vim\-dasht \[la]https://github.com/sunaku/vim-dasht\[ra] plugin for (Neo)Vim.
+.SS ZSH integration
+.PP
+Source this file in ZSH to activate TAB completion for dasht:
+.PP
+.RS
+.nf
+source location_where_you_cloned_or_downloaded_dasht/etc/zsh/completions.zsh
+.fi
+.RE
+.PP
+Or simply add the completions/ directory to your ZSH $fpath
+if you've already set up ZSH's completion system elsewhere:
+.PP
+.RS
+.nf
+fpath+=location_where_you_cloned_or_downloaded_dasht/etc/zsh/completions/
+.fi
 .RE
 .SH Usage
 .PP

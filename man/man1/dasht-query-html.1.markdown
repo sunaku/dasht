@@ -1,4 +1,4 @@
-# DASHT-QUERY-HTML 1            2016-03-17                            2.0.0
+# DASHT-QUERY-HTML 1            2016-05-28                            2.1.0
 
 ## NAME
 
@@ -27,6 +27,7 @@ dasht-query-html - searches [Dash] docsets and emits HTML table rows
 Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 only in those whose names match *DOCSET*s, by calling dasht-query-line(1).
 The results are then printed, one per line, to stdout as HTML table rows.
+However, if no results were found, this program exits with a nonzero status.
 
 ### Searching
 
@@ -43,6 +44,11 @@ undefined, it becomes a whitespace wildcard and thereby matches everything.
   Defines the filesystem location where your [Dash] docsets are installed.
   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
+
+## EXIT STATUS
+
+44
+  No results were found.
 
 ## SEE ALSO
 

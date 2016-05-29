@@ -1,4 +1,4 @@
-# DASHT 1                       2016-03-17                            2.0.0
+# DASHT 1                       2016-05-28                            2.1.0
 
 ## NAME
 
@@ -45,6 +45,11 @@ undefined, it becomes a whitespace wildcard and thereby matches everything.
   Defines the filesystem location where your [Dash] docsets are installed.
   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
+
+## EXIT STATUS
+
+44
+  No results were found.
 
 ## SEE ALSO
 
