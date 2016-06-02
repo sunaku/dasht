@@ -78,6 +78,10 @@ On any system:
 
         export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 
+3.  Add the `man/` folder to your `MANPATH` environment variable:
+
+        export MANPATH=location_where_you_cloned_or_downloaded_dasht/man:$MANPATH
+
 ### Vim integration
 
 Use the [vim-dasht](https://github.com/sunaku/vim-dasht) plugin for (Neo)Vim.
@@ -113,7 +117,7 @@ You are now ready to use dasht!  Read the manuals below to learn even more.
 
 * You can browse the manuals online at <https://sunaku.github.io/dasht/man/>.
 
-* If you installed dasht from your system's package manager, run `man dasht`.
+* If you set `$MANPATH` or installed from a package manager, run `man dasht`.
 
 * Else, run `man -M location_where_you_cloned_or_downloaded_dasht/man dasht`.
 
