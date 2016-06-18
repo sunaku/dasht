@@ -49,6 +49,6 @@
 
 docset_paths=$(find -L "$DASHT_DOCSETS_DIR" -name '*.docset' -type d -prune)
 line_numbers=$(echo "$docset_paths" | sed 's|.*/||; s/\.docset$//' |
-               grep -E -i -n "$(IFS='|'; echo "$*")" |
-               sed 's/:.*/p;/')
+               grep -E -i -n "$(IFS='|'; echo "$*")" | sed 's/:.*/p;/')
+
 echo "$docset_paths" | sed -n "$line_numbers" | sort
