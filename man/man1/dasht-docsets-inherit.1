@@ -1,0 +1,48 @@
+.TH DASHT\-DOCSETS\-INHERIT 1       2016\-05\-28                            2.1.0
+.SH NAME
+.PP
+dasht\-docsets\-inherit \- inherits Dash \[la]https://kapeli.com/dash\[ra] docsets from other locations
+.SH SYNOPSIS
+.PP
+\fB\fCdasht\-docsets\-inherit\fR [\fIOPTION\fP\&...] [\fILOCATION\fP\&...]
+.SS Examples
+.TP
+\fB\fCdasht\-docsets\-inherit\fR
+Inherits existing docsets from Dash \[la]https://kapeli.com/dash\[ra], Zeal \[la]https://zealdocs.org\[ra], and helm\-dash \[la]https://github.com/areina/helm-dash\[ra]\&.
+.TP
+\fB\fCdasht\-docsets\-inherit\fR /some/location/here
+Inherits existing docsets found in or under \fB\fC/some/location/here\fR\&.
+.TP
+\fB\fCdasht\-docsets\-inherit\fR location1 location2
+Inherits existing docsets found in or under \fB\fClocation1\fR and \fB\fClocation2\fR\&.
+.SH DESCRIPTION
+.PP
+Inherits existing Dash \[la]https://kapeli.com/dash\[ra] docsets found in or under the given \fILOCATION\fPs.
+If no \fILOCATION\fPs are given, then the default docset installation locations
+for Dash \[la]https://kapeli.com/dash\[ra], Zeal \[la]https://zealdocs.org\[ra], and helm\-dash \[la]https://github.com/areina/helm-dash\[ra] will be searched.  Unless this operation
+is forced, you will be prompted to confirm it for every inheritable docset.
+.PP
+If the name of a parent directory of an existing docset contains only digits
+and dashes, then it is considered to be a version number.  This number will
+be appended to the inherited docset's name preceded by an "@" symbol.  In
+particular, "versioned docsets" inherited from Dash \[la]https://kapeli.com/dash\[ra] undergo this renaming.
+.SH OPTIONS
+.TP
+\fB\fC\-f\fR, \fB\fC\-\-force\fR
+Forces the operation by overriding the interactive confirmation prompt.
+.SH ENVIRONMENT
+.TP
+\fB\fCDASHT_DOCSETS_DIR\fR
+Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are inherited.
+If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
+or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.SH SEE ALSO
+.PP
+.BR dasht-docsets-install (1), 
+.BR dasht-docsets-remove (1), 
+.BR dasht-docsets (1), 
+Dash \[la]https://kapeli.com/dash\[ra]
+.SH AUTHOR
+.PP
+Written in 2016 by Suraj N. Kurapati \[la]https://github.com/sunaku/dasht\[ra]
+Distributed under the terms of the ISC license (see the LICENSE file).
