@@ -68,4 +68,16 @@ for tgz; do
 
   # rename the extracted directory to have the same rootname as the archive
   test "$have" = "$want" || mv "$have" "$want"
+
+  # remove any stale files that were left behind by the previous extraction
+  { find "$want" -print
+    tar -z -t -f "$tgz" | sed -e "s|^[^/]*|$want|" -e 's,/$,,'
+  } | sort -r | uniq -c | sed -n 's/^ *1 //p' | xargs sh -e -u -c '
+    for arg; do
+      if test -d "$arg"
+      then rmdir -v "$arg"
+      else rm -v "$arg"
+      fi
+    done
+  ' :
 done
