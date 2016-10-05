@@ -55,7 +55,7 @@
 test $# -gt 0
 for tgz; do
   want="$DASHT_DOCSETS_DIR/$(basename "$tgz" .tgz).docset"
-  have="$DASHT_DOCSETS_DIR/$(tar -t -f "$tgz" -z | head -1 | sed 's,/.*,,')"
+  have="$DASHT_DOCSETS_DIR/$(tar -t -f "$tgz" -z | head -1 | sed 's|/.*||')"
 
   # for dasht-docsets-update(1), the extracted directory will already exist
   # with the correct name, but we need to temporarily rename it back to the
@@ -71,7 +71,7 @@ for tgz; do
 
   # remove any stale files that were left behind by the previous extraction
   { find "$want" -print
-    tar -t -f "$tgz" -z | sed -e "s|^[^/]*|$want|" -e 's,/$,,'
+    tar -t -f "$tgz" -z | sed -e "s|^[^/]*|$want|" -e 's|/$||'
   } | sort -r | uniq -c | sed -n 's/^ *1 //p' | xargs sh -e -u -c '
     for arg; do
       if test -d "$arg"
