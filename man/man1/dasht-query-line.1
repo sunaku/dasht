@@ -66,6 +66,11 @@ url = file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resourc
 Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
 If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
 or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.TP
+\fB\fCDASHT_DOCSETS_PATH\fR
+Defines additional filesystem locations where Dash \[la]https://kapeli.com/dash\[ra] docsets may be found.
+These locations are \fInot recursively\fP searched and they must be delimited
+by one or more colon \fB\fC:\fR characters, like the \fB\fCPATH\fR environment variable.
 .SH EXIT STATUS
 .TP
 44

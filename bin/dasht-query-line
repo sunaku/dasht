@@ -70,6 +70,11 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_DOCSETS_PATH`
+#   Defines additional filesystem locations where [Dash] docsets may be found.
+#   These locations are _not recursively_ searched and they must be delimited
+#   by one or more colon `:` characters, like the `PATH` environment variable.
+#
 # ## EXIT STATUS
 #
 # 44
@@ -94,8 +99,13 @@ test $# -gt 0 && shift # shift off PATTERN so argv contains solely DOCSETs
 status=44 # (default) exit with a nonzero status when no results are found
 trap 'status=0' USR1 # override default exit status when results are found
 
-dasht-docsets "$@" | while read -r docset; do
-  database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
+echo "$DASHT_DOCSETS_DIR:$DASHT_DOCSETS_PATH" | tr -s : '\n' |
+while read -r dirname; do ls -d "$dirname"/*.docset 2>/dev/null || :; done |
+while read -r pathname; do
+  docset=$(basename "$pathname" .docset)
+  echo "$docset" | grep -E -i -q "$(IFS='|'; echo "$*")" || continue
+
+  database="$pathname"/Contents/Resources/docSet.dsidx
   file_url="file://$(dirname "$database")/Documents/"
 
   dasht-query-exec "$pattern" "$database" -line |
