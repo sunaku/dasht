@@ -51,6 +51,8 @@ maintained by <a href="https://github.com/mkaito">Christian Höppner</a>.</li>
 <li><p> <a href="https://github.com/sunaku/dasht/releases">Download</a> a stable release or <a href="https://github.com/sunaku/dasht.git">clone</a> this Git repository.</p></li>
 <li><p> Add the <code>bin/</code> folder to your <code>PATH</code> environment variable:</p><pre class="highlight plaintext"><code>export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 </code></pre></li>
+<li><p> Add the <code>man/</code> folder to your <code>MANPATH</code> environment variable:</p><pre class="highlight plaintext"><code>export MANPATH=location_where_you_cloned_or_downloaded_dasht/man:$MANPATH
+</code></pre></li>
 </ol>
 <h3 id="vim-integration">Vim integration<a name="vim-integration" href="#vim-integration" class="md2man-permalink" title="permalink"></a></h3><p>Use the <a href="https://github.com/sunaku/vim-dasht">vim-dasht</a> plugin for (Neo)Vim.</p><h3 id="zsh-integration">ZSH integration<a name="zsh-integration" href="#zsh-integration" class="md2man-permalink" title="permalink"></a></h3><p>Source this file in ZSH to activate TAB completion for dasht:</p><pre class="highlight plaintext"><code>source location_where_you_cloned_or_downloaded_dasht/etc/zsh/completions.zsh
 </code></pre>
@@ -66,7 +68,7 @@ if you&#39;ve already set up ZSH&#39;s completion system elsewhere:</p><pre clas
 <p>You are now ready to use dasht!  Read the manuals below to learn even more.</p><h3 id="manuals">Manuals<a name="manuals" href="#manuals" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p>You can browse the manuals online at <a href="https://sunaku.github.io/dasht/man/">https://sunaku.github.io/dasht/man/</a>.</p></li>
-<li><p>If you installed dasht from your system&#39;s package manager, run <code>man dasht</code>.</p></li>
+<li><p>If you set <code>$MANPATH</code> or installed from a package manager, run <code>man dasht</code>.</p></li>
 <li><p>Else, run <code>man -M location_where_you_cloned_or_downloaded_dasht/man dasht</code>.</p></li>
 </ul>
 <h3 id="configuration">Configuration<a name="configuration" href="#configuration" class="md2man-permalink" title="permalink"></a></h3><p>You may optionally configure the <code>DASHT_DOCSETS_DIR</code> environment variable,

@@ -47,7 +47,11 @@ Recommended graphical web browsers:
 
 * [NetSurf]( http://www.netsurf-browser.org )
 
-* [Firefox]( http://www.mozilla.org/firefox ) needs a workaround (see below)
+* [Chrome]( https://www.google.com/chrome/ ) using the [LocalLinks extension](
+  https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida
+  )
+
+* [Firefox]( http://www.mozilla.org/firefox ) using the following workaround
 
 #### Firefox
 
