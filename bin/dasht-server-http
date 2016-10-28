@@ -123,8 +123,11 @@ cat <<HEADER
     <meta charset="utf-8">
     <title>dasht $query_html $docsets_html</title>
     <style>
-      body, input[type=search] {
+      body, input, select {
         font-family: monospace;
+      }
+      form {
+        display: flex;
       }
       tr:hover {
         background-color: LightYellow;
@@ -150,9 +153,10 @@ cat <<HEADER
   </head>
   <body>
     <form method="get" action="/">
+      <div>
       <label>Search for
         <input name="query" value="$query_html" type="search"
-               placeholder="spaces are wildcards" autofocus>
+               placeholder="space is wildcard" autofocus>
       </label>
       <br>
       <label>in docsets
@@ -168,9 +172,10 @@ cat <<HEADER
       <br>
       <label>with names
         <input name="docsets" value="$docsets_html" type="search"
-               placeholder="you can select above">
+               placeholder="chosen from above">
       </label>
       <br>
+      </div>
       <input type="submit">
     </form>
     <br>
