@@ -32,6 +32,11 @@ Forces the operation by overriding the interactive confirmation prompt.
 Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
 If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
 or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.TP
+\fB\fCDASHT_CACHE_DIR\fR
+Defines the filesystem location where download links are cached.
+If undefined, its value is assumed to be \fB\fC$XDG_CACHE_HOME/dasht/\fR
+or, if \fB\fCXDG_CACHE_HOME\fR is also undefined, \fB\fC$HOME/.cache/dasht/\fR\&.
 .SH SEE ALSO
 .PP
 .BR dasht-docsets-extract (1), 

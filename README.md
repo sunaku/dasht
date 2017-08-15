@@ -135,6 +135,11 @@ which defines the filesystem location where your [Dash] docsets are installed.
 If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/` or,
 if `XDG_DATA_HOME` is also undefined, `$HOME/.local/share/dasht/docsets/`.
 
+You may optionally configure the `DASHT_CACHE_DIR` environment variable,
+which defines the filesystem location where download links are cached.
+If undefined, its value is assumed to be `$XDG_CACHE_HOME/dasht/`
+or, if `XDG_CACHE_HOME` is also undefined, `$HOME/.cache/dasht/`.
+
 ## Development
 
 If you make changes to the embedded manual pages found in the comment headers

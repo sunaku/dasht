@@ -39,6 +39,11 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_CACHE_DIR`
+#   Defines the filesystem location where download links are cached.
+#   If undefined, its value is assumed to be `$XDG_CACHE_HOME/dasht/`
+#   or, if `XDG_CACHE_HOME` is also undefined, `$HOME/.cache/dasht/`.
+#
 # ## SEE ALSO
 #
 # dasht-docsets-extract(1), dasht-docsets-update(1), dasht-docsets-remove(1),
@@ -52,17 +57,26 @@
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+: ${DASHT_CACHE_DIR:=${XDG_CACHE_HOME:-$HOME/.cache}/dasht}
 
 test "$1" = '-f' -o "$1" = '--force' && force=1 && shift || unset force
 
-# cache the docset download links page to avoid unnecessary network traffic
-docset_links_cache="$DASHT_DOCSETS_DIR/docset_links"
-wget -T 2 -t 1 -P "$DASHT_DOCSETS_DIR" -N https://kapeli.com/docset_links ||
-test -s "$docset_links_cache"
+# cache the docset download links list to avoid unnecessary network traffic
+cache() {
+  url=$1
+  file="$DASHT_CACHE_DIR/${url##*/}"
+  wget -T 2 -t 1 -P "${file%/*}" -N "$url" || test -s "$file"
+  echo "$file"
+}
+master_url=https://api.github.com/repos/Kapeli/feeds/git/refs/heads/master
+master_cache=$(cache "$master_url")
+master_sha=$(sed -n 's/"sha"://p' "$master_cache" | tr -d '":, ')
+tree_url="https://api.github.com/repos/Kapeli/feeds/git/trees/$master_sha"
+tree_cache=$(cache "$tree_url")
 
-# extract and filter installable docset names from the download links page
+# extract and filter installable docset names from the download links list
 set -- $(
-  sed -n 's|.*/\([^/]*\)\.tgz.*|\1|p' "$docset_links_cache" |
+  sed -n 's/"path"://p' "$tree_cache" | tr -d '":, ' | sed -n 's/.xml$//p' |
   sort -u |
   grep -E -i "$(IFS='|'; echo "$*")" |
   sed "$(dasht-docsets | awk '{ print "/^" $0 "$/d" }')" # exclude installed
