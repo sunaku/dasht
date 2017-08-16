@@ -1,4 +1,4 @@
-# DASHT-DOCSETS-INSTALL 1       2016-05-28                            2.1.0
+# DASHT-DOCSETS-INSTALL 1       2017-08-15                            2.2.0
 
 ## NAME
 
@@ -36,6 +36,11 @@ Unless forced, this operation prompts you to confirm it for every match.
   Defines the filesystem location where your [Dash] docsets are installed.
   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
+
+`DASHT_CACHE_DIR`
+  Defines the filesystem location where download links are cached.
+  If undefined, its value is assumed to be `$XDG_CACHE_HOME/dasht/`
+  or, if `XDG_CACHE_HOME` is also undefined, `$HOME/.cache/dasht/`.
 
 ## SEE ALSO
 

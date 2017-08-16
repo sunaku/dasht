@@ -1,3 +1,47 @@
+## Version 2.2.0 (2017-08-15)
+
+This release fixes the ability to install new docsets (which was broken since
+July 2017 due to unannounced, incompatible upstream changes in docset hosting),
+improves portability, search form usability, and saves space updating docsets.
+
+### Minor:
+
+  * When a docset is updated, any obsolete files left behind by the previous
+    version of the docset's installation are now deleted to save disk space.
+
+  * `dasht-server`: update styling for a more user-friendly search form:
+    * Make submit button as tall as the entire form so it's easy to hit.
+    * Use monospace font throughout the form to enhance ilIO0o variance.
+    * Shorten placeholder text to fit default width of popular browsers.
+
+### Patch:
+
+  * GH-23: Kapeli moved docset download links into Git, breaking our ability
+    to install new docsets (because the download links page no longer exists).
+
+    https://github.com/zealdocs/zeal/issues/294#issuecomment-84435400
+
+  * POSIX sed(1) reserves the right to reject the semicolon command separator.
+
+    Per http://pubs.opengroup.org/onlinepubs/009695399/utilities/sed.html
+
+    > Historically, the sed ! and } editing commands did not permit multiple
+    > commands on a single line using a semicolon as a command delimiter.
+    > Implementations are permitted, but not required, to support this
+    > extension.
+
+### Other:
+
+  * `dasht-server`: recommend Chrome browser with [LocalLinks extension](
+    https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida
+    ).
+
+  * README: show how to set up $MANPATH for easy man(1).
+
+  * tar: use UNIX-style invocation syntax: -z after -f.
+
+  * sed: use pipe delimiters when dealing with slashes.
+
 ## Version 2.1.0 (2016-05-28)
 
 This release improves the feedback users and scripts get from dasht scripts,

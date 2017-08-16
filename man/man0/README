@@ -164,11 +164,23 @@ You may optionally configure the \fB\fCDASHT_DOCSETS_DIR\fR environment variable
 which defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
 If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR or,
 if \fB\fCXDG_DATA_HOME\fR is also undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.PP
+You may optionally configure the \fB\fCDASHT_CACHE_DIR\fR environment variable,
+which defines the filesystem location where download links are cached.
+If undefined, its value is assumed to be \fB\fC$XDG_CACHE_HOME/dasht/\fR
+or, if \fB\fCXDG_CACHE_HOME\fR is also undefined, \fB\fC$HOME/.cache/dasht/\fR\&.
 .SH Development
 .PP
 If you make changes to the embedded manual pages found in the comment headers
 at the top of script files in the \fB\fCbin/\fR directory, then remember to run the
 \fB\fCbinman\-rake\fR command afterward to regenerate UNIX manual pages for packaging.
 .SH License
+.PP
+.RS
+Like my work? :+1:  Please spare a life \[la]https://sunaku.github.io/vegan-for-life.html\[ra] today as thanks!
+:cow::pig::chicken::fish::speak\fIno\fPevil::v::revolving_hearts:
+.RE
+.PP
+Copyright 2016 Suraj N. Kurapati \[la]https://github.com/sunaku\[ra]
 .PP
 Distributed under the terms of the ISC license (see the LICENSE file).

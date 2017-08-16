@@ -1,3 +1,57 @@
+.SH Version 2.2.0 (2017\-08\-15)
+.PP
+This release fixes the ability to install new docsets (which was broken since
+July 2017 due to unannounced, incompatible upstream changes in docset hosting),
+improves portability, search form usability, and saves space updating docsets.
+.SS Minor:
+.RS
+.IP \(bu 2
+When a docset is updated, any obsolete files left behind by the previous
+version of the docset's installation are now deleted to save disk space.
+.IP \(bu 2
+\fB\fCdasht\-server\fR: update styling for a more user\-friendly search form:
+.RS
+.IP \(bu 2
+Make submit button as tall as the entire form so it's easy to hit.
+.IP \(bu 2
+Use monospace font throughout the form to enhance ilIO0o variance.
+.IP \(bu 2
+Shorten placeholder text to fit default width of popular browsers.
+.RE
+.RE
+.SS Patch:
+.RS
+.IP \(bu 2
+GH\-23: Kapeli moved docset download links into Git, breaking our ability
+to install new docsets (because the download links page no longer exists).
+.PP
+\[la]https://github.com/zealdocs/zeal/issues/294#issuecomment-84435400\[ra]
+.IP \(bu 2
+POSIX 
+.BR sed (1) 
+reserves the right to reject the semicolon command separator.
+.PP
+Per \[la]http://pubs.opengroup.org/onlinepubs/009695399/utilities/sed.html\[ra]
+.PP
+.RS
+Historically, the sed ! and } editing commands did not permit multiple
+commands on a single line using a semicolon as a command delimiter.
+Implementations are permitted, but not required, to support this
+extension.
+.RE
+.RE
+.SS Other:
+.RS
+.IP \(bu 2
+\fB\fCdasht\-server\fR: recommend Chrome browser with LocalLinks extension \[la]https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida\[ra]\&.
+.IP \(bu 2
+README: show how to set up $MANPATH for easy 
+.BR man (1).
+.IP \(bu 2
+tar: use UNIX\-style invocation syntax: \-z after \-f.
+.IP \(bu 2
+sed: use pipe delimiters when dealing with slashes.
+.RE
 .SH Version 2.1.0 (2016\-05\-28)
 .PP
 This release improves the feedback users and scripts get from dasht scripts,

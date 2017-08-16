@@ -7,9 +7,40 @@
   <link rel="stylesheet" href="../style.css"/>
   <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
-<body><div class="navbar"><div class="navbar-inner"><span class="brand"><a href="../index.html#man0">man0</a>/VERSION</span></div></div><div class="container-fluid"><h2 id="version-2-1-0-2016-05-28">Version 2.1.0 (2016-05-28)<a name="version-2-1-0-2016-05-28" href="#version-2-1-0-2016-05-28" class="md2man-permalink" title="permalink"></a></h2><p>This release improves the feedback users and scripts get from dasht scripts,
+<body><div class="navbar"><div class="navbar-inner"><span class="brand"><a href="../index.html#man0">man0</a>/VERSION</span></div></div><div class="container-fluid"><h2 id="version-2-2-0-2017-08-15">Version 2.2.0 (2017-08-15)<a name="version-2-2-0-2017-08-15" href="#version-2-2-0-2017-08-15" class="md2man-permalink" title="permalink"></a></h2><p>This release fixes the ability to install new docsets (which was broken since
+July 2017 due to unannounced, incompatible upstream changes in docset hosting),
+improves portability, search form usability, and saves space updating docsets.</p><h3 id="minor">Minor:<a name="minor" href="#minor" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p>When a docset is updated, any obsolete files left behind by the previous
+version of the docset&#39;s installation are now deleted to save disk space.</p></li>
+<li><p><code>dasht-server</code>: update styling for a more user-friendly search form:</p>
+<ul>
+<li>Make submit button as tall as the entire form so it&#39;s easy to hit.</li>
+<li>Use monospace font throughout the form to enhance ilIO0o variance.</li>
+<li>Shorten placeholder text to fit default width of popular browsers.</li>
+</ul></li>
+</ul>
+<h3 id="patch">Patch:<a name="patch" href="#patch" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p>GH-23: Kapeli moved docset download links into Git, breaking our ability
+to install new docsets (because the download links page no longer exists).</p><p><a href="https://github.com/zealdocs/zeal/issues/294#issuecomment-84435400">https://github.com/zealdocs/zeal/issues/294#issuecomment-84435400</a></p></li>
+<li><p>POSIX <a class="md2man-reference">sed(1)</a> reserves the right to reject the semicolon command separator.</p><p>Per <a href="http://pubs.opengroup.org/onlinepubs/009695399/utilities/sed.html">http://pubs.opengroup.org/onlinepubs/009695399/utilities/sed.html</a></p>
+<blockquote>
+<p>Historically, the sed ! and } editing commands did not permit multiple
+commands on a single line using a semicolon as a command delimiter.
+Implementations are permitted, but not required, to support this
+extension.</p></blockquote></li>
+</ul>
+<h3 id="other">Other:<a name="other" href="#other" class="md2man-permalink" title="permalink"></a></h3>
+<ul>
+<li><p><code>dasht-server</code>: recommend Chrome browser with <a href="https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida">LocalLinks extension</a>.</p></li>
+<li><p>README: show how to set up $MANPATH for easy <a class="md2man-reference">man(1)</a>.</p></li>
+<li><p>tar: use UNIX-style invocation syntax: -z after -f.</p></li>
+<li><p>sed: use pipe delimiters when dealing with slashes.</p></li>
+</ul>
+<h2 id="version-2-1-0-2016-05-28">Version 2.1.0 (2016-05-28)<a name="version-2-1-0-2016-05-28" href="#version-2-1-0-2016-05-28" class="md2man-permalink" title="permalink"></a></h2><p>This release improves the feedback users and scripts get from dasht scripts,
 fixes the ability to run dasht from non-setpgid() environments like (Neo)Vim,
-adds TAB completion for ZSH, and provides screencasts for prospective users.</p><h3 id="minor">Minor:<a name="minor" href="#minor" class="md2man-permalink" title="permalink"></a></h3>
+adds TAB completion for ZSH, and provides screencasts for prospective users.</p><h3 id="minor-1">Minor:<a name="minor-1" href="#minor-1" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p><a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> now automatically opens the first search result if only one.</p></li>
 <li><p>dasht-query-* scripts now exit with status 44 when no results found.</p></li>
@@ -19,7 +50,7 @@ Pressing TAB at the second argument completes installed docset names.</p><p>Than
 providing starter code at <a href="https://github.com/sunaku/dasht/issues/10">https://github.com/sunaku/dasht/issues/10</a>.</p></li>
 <li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a> now shows &quot;no results found&quot; message in browser.</p></li>
 </ul>
-<h3 id="patch">Patch:<a name="patch" href="#patch" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="patch-1">Patch:<a name="patch-1" href="#patch-1" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p><a class="md2man-reference" href="../man1/dasht-query-line.1.html">dasht-query-line(1)</a> now sets default URI fragment for Erlang docset.</p><p>This affects modules, like the &quot;dets&quot; result in <code>dasht dets erlang</code>.</p></li>
 <li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a> now opens search result links in the same window.</p><p><a class="md2man-reference">w3m(1)</a> opens search result links in the <em>same</em> window, so don&#39;t make
@@ -32,7 +63,7 @@ Instead, the new strategy is to selectively kill <a class="md2man-reference">w3m
 <li><p><a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> now avoids <code>/bin/sh: line 1: Terminated</code> warning under BASH.</p><p>To ensure normal SIGTERM propagation to children, trap SIGUSR1 instead.</p></li>
 <li><p>Revised &quot;no results found&quot; messages for HTML and text user interfaces.</p></li>
 </ul>
-<h3 id="other">Other:<a name="other" href="#other" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="other-1">Other:<a name="other-1" href="#other-1" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p>README: add screencasts of dasht in the terminal and browser:</p><p>Watch the &quot;<a href="https://vimeo.com/159462598">dasht in a terminal</a>&quot;
 and &quot;<a href="https://vimeo.com/159462774">dasht in a browser</a>&quot; screencasts.</p></li>
@@ -49,7 +80,7 @@ and makes <a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> r
 the user when a large HTML document is being read and buffered, and in
 the case where no results are found: terminate with a message on stderr.</p></li>
 </ul>
-<h3 id="minor-1">Minor:<a name="minor-1" href="#minor-1" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="minor-2">Minor:<a name="minor-2" href="#minor-2" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a> now streams search results to you as they are found.</p><p>Serve the HTML header and search form immediately---before the search is
 even performed---so that the user instantly (and at the very least) sees
@@ -63,7 +94,7 @@ words, runs of lowercase text, numbers, and punctuation marks to help the
 browser fit search results to small displays, as found in mobile devices.</p></li>
 <li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>: Underline search terms so they stand out in <a class="md2man-reference">w3m(1)</a>.</p></li>
 </ul>
-<h3 id="patch-1">Patch:<a name="patch-1" href="#patch-1" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="patch-2">Patch:<a name="patch-2" href="#patch-2" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p><a class="md2man-reference" href="../man1/dasht-query-exec.1.html">dasht-query-exec(1)</a>: escape SQL single quotes in the search pattern.</p></li>
 <li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>: escape HTML entities in search result token name.</p></li>
@@ -80,7 +111,7 @@ meter, output, progress, select, or textarea descendant.</p></blockquote></li>
 italic) were added between every single character in a search result.</p></li>
 <li><p><a class="md2man-reference" href="../man1/dasht-query-html.1.html">dasht-query-html(1)</a>: Emulate the IGNORECASE=1 feature for POSIX <a class="md2man-reference">awk(1)</a>.</p></li>
 </ul>
-<h2 id="version-1-2-0-2016-03-14">Version 1.2.0 (2016-03-14)<a name="version-1-2-0-2016-03-14" href="#version-1-2-0-2016-03-14" class="md2man-permalink" title="permalink"></a></h2><h3 id="minor-2">Minor:<a name="minor-2" href="#minor-2" class="md2man-permalink" title="permalink"></a></h3>
+<h2 id="version-1-2-0-2016-03-14">Version 1.2.0 (2016-03-14)<a name="version-1-2-0-2016-03-14" href="#version-1-2-0-2016-03-14" class="md2man-permalink" title="permalink"></a></h2><h3 id="minor-3">Minor:<a name="minor-3" href="#minor-3" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p>Added <a class="md2man-reference" href="../man1/dasht-docsets-extract.1.html">dasht-docsets-extract(1)</a> script for installing third-party docsets
 and for making sure extracted directory names match docset <code>*.tgz</code> files.</p><p>Docset tarballs downloaded by <a class="md2man-reference">dasht-docset-install(1)</a> have no spaces in
@@ -115,7 +146,7 @@ Xamarin, Xojo, YUI, Yii, Zend</em>Framework<em>1, Zend</em>Framework<em>2, jQuer
 jQuery</em>Mobile, jQuery_UI.</p></blockquote></li>
 <li><p><a class="md2man-reference" href="../man1/dasht.1.html">dasht(1)</a> now sets <a class="md2man-reference">w3m(1)</a> options to make find-on-page more forgiving.</p></li>
 </ul>
-<h3 id="patch-2">Patch:<a name="patch-2" href="#patch-2" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="patch-3">Patch:<a name="patch-3" href="#patch-3" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p><a class="md2man-reference" href="../man1/dasht-query-exec.1.html">dasht-query-exec(1)</a>: Guides in C++ docset have 0-length zanchor values.</p><p>This produced URLs with a stray &quot;#&quot; URI fragment separator at the end,
 which in turn broke <a class="md2man-reference">w3m(1)</a>&#39;s ability to follow links in search results.</p></li>
@@ -126,13 +157,13 @@ downloaded because <a class="md2man-reference">tar(1)</a> will subsequently fail
 <li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Search form obscured results in mobile browsers.</p></li>
 <li><p><a class="md2man-reference" href="../man1/dasht-server-http.1.html">dasht-server-http(1)</a>: Bold effect on hover slowed graphical browsers.</p></li>
 </ul>
-<h2 id="version-1-1-0-2016-02-28">Version 1.1.0 (2016-02-28)<a name="version-1-1-0-2016-02-28" href="#version-1-1-0-2016-02-28" class="md2man-permalink" title="permalink"></a></h2><p>This release adds UNIX manpages, improves the UI, and fixes MacOSX support.</p><h3 id="minor-3">Minor:<a name="minor-3" href="#minor-3" class="md2man-permalink" title="permalink"></a></h3>
+<h2 id="version-1-1-0-2016-02-28">Version 1.1.0 (2016-02-28)<a name="version-1-1-0-2016-02-28" href="#version-1-1-0-2016-02-28" class="md2man-permalink" title="permalink"></a></h2><p>This release adds UNIX manpages, improves the UI, and fixes MacOSX support.</p><h3 id="minor-4">Minor:<a name="minor-4" href="#minor-4" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><p>Add &quot;[y/N]&quot; hint to xargs confirmation prompt.  Thanks to <a href="https://github.com/mkaito">Christian
 Höppner</a> for suggesting this improvement.</p></li>
 <li><p>Add UNIX manual pages for all scripts, generated using <a href="https://sunaku.github.io/binman">binman</a>.</p></li>
 </ul>
-<h3 id="patch-3">Patch:<a name="patch-3" href="#patch-3" class="md2man-permalink" title="permalink"></a></h3>
+<h3 id="patch-4">Patch:<a name="patch-4" href="#patch-4" class="md2man-permalink" title="permalink"></a></h3>
 <ul>
 <li><a class="md2man-reference">sed(1)</a>, <a class="md2man-reference">awk(1)</a>, et. al. differ in curious ways under MacOSX.  Thanks to
 <a href="https://github.com/skedastik">Alaric Holloway</a> and <a href="https://github.com/magicalbanana">Kareem Gan</a> for reporting bugs and testing fixes.</li>

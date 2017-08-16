@@ -35,28 +35,34 @@ and "[dasht in a browser](https://vimeo.com/159462774)" screencasts.
 
 Required:
 
+[POSIX]: http://pubs.opengroup.org/onlinepubs/9699919799/
+
 * [POSIX] environment (Linux, BSD, etc.)
-  [POSIX]: http://pubs.opengroup.org/onlinepubs/9699919799/
+
+[sqlite3]: https://www.sqlite.org/cli.html
 
 * [sqlite3] to search inside [Dash] docsets
-  [sqlite3]: https://www.sqlite.org/cli.html
 
 Optional:
 
+[wget]: https://www.gnu.org/software/wget/
+
 * [wget] to download [docsets] from [Dash]
-  [wget]: https://www.gnu.org/software/wget/
+
+[w3m]: http://w3m.sourceforge.net/
 
 * [w3m] to display dasht(1) search results
-  [w3m]: http://w3m.sourceforge.net/
+
+[socat]: http://www.dest-unreach.org/socat/
 
 * [socat] for dasht-server(1) search engine
-  [socat]: http://www.dest-unreach.org/socat/
 
 Development:
 
+[binman]: https://sunaku.github.io/binman/
+[md2man]: https://sunaku.github.io/md2man/
+
 * [binman] and [md2man] to build manual pages
-  [binman]: https://sunaku.github.io/binman/
-  [md2man]: https://sunaku.github.io/md2man/
 
         gem install binman md2man
 
@@ -70,9 +76,10 @@ In Arch Linux:
 
 On any system:
 
-1.  [Download] a stable release or [clone] this Git repository.
 [download]: https://github.com/sunaku/dasht/releases
 [clone]: https://github.com/sunaku/dasht.git
+
+1.  [Download] a stable release or [clone] this Git repository.
 
 2.  Add the `bin/` folder to your `PATH` environment variable:
 
@@ -128,6 +135,11 @@ which defines the filesystem location where your [Dash] docsets are installed.
 If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/` or,
 if `XDG_DATA_HOME` is also undefined, `$HOME/.local/share/dasht/docsets/`.
 
+You may optionally configure the `DASHT_CACHE_DIR` environment variable,
+which defines the filesystem location where download links are cached.
+If undefined, its value is assumed to be `$XDG_CACHE_HOME/dasht/`
+or, if `XDG_CACHE_HOME` is also undefined, `$HOME/.cache/dasht/`.
+
 ## Development
 
 If you make changes to the embedded manual pages found in the comment headers
@@ -135,5 +147,11 @@ at the top of script files in the `bin/` directory, then remember to run the
 `binman-rake` command afterward to regenerate UNIX manual pages for packaging.
 
 ## License
+
+[Spare A Life]: https://sunaku.github.io/vegan-for-life.html
+> Like my work? :+1:  Please [spare a life] today as thanks!
+:cow::pig::chicken::fish::speak_no_evil::v::revolving_hearts:
+
+Copyright 2016 Suraj N. Kurapati <https://github.com/sunaku>
 
 Distributed under the terms of the ISC license (see the LICENSE file).

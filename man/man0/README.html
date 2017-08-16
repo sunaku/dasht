@@ -74,7 +74,14 @@ if you&#39;ve already set up ZSH&#39;s completion system elsewhere:</p><pre clas
 <h3 id="configuration">Configuration<a name="configuration" href="#configuration" class="md2man-permalink" title="permalink"></a></h3><p>You may optionally configure the <code>DASHT_DOCSETS_DIR</code> environment variable,
 which defines the filesystem location where your <a href="https://kapeli.com/dash">Dash</a> docsets are installed.
 If undefined, its value is assumed to be <code>$XDG_DATA_HOME/dasht/docsets/</code> or,
-if <code>XDG_DATA_HOME</code> is also undefined, <code>$HOME/.local/share/dasht/docsets/</code>.</p><h2 id="development">Development<a name="development" href="#development" class="md2man-permalink" title="permalink"></a></h2><p>If you make changes to the embedded manual pages found in the comment headers
+if <code>XDG_DATA_HOME</code> is also undefined, <code>$HOME/.local/share/dasht/docsets/</code>.</p><p>You may optionally configure the <code>DASHT_CACHE_DIR</code> environment variable,
+which defines the filesystem location where download links are cached.
+If undefined, its value is assumed to be <code>$XDG_CACHE_HOME/dasht/</code>
+or, if <code>XDG_CACHE_HOME</code> is also undefined, <code>$HOME/.cache/dasht/</code>.</p><h2 id="development">Development<a name="development" href="#development" class="md2man-permalink" title="permalink"></a></h2><p>If you make changes to the embedded manual pages found in the comment headers
 at the top of script files in the <code>bin/</code> directory, then remember to run the
-<code>binman-rake</code> command afterward to regenerate UNIX manual pages for packaging.</p><h2 id="license">License<a name="license" href="#license" class="md2man-permalink" title="permalink"></a></h2><p>Distributed under the terms of the ISC license (see the LICENSE file).</p></div></body>
+<code>binman-rake</code> command afterward to regenerate UNIX manual pages for packaging.</p><h2 id="license">License<a name="license" href="#license" class="md2man-permalink" title="permalink"></a></h2>
+<blockquote>
+<p>Like my work? :+1:  Please <a href="https://sunaku.github.io/vegan-for-life.html">spare a life</a> today as thanks!
+:cow::pig::chicken::fish::speak<em>no</em>evil::v::revolving_hearts:</p></blockquote>
+<p>Copyright 2016 Suraj N. Kurapati <a href="https://github.com/sunaku">https://github.com/sunaku</a></p><p>Distributed under the terms of the ISC license (see the LICENSE file).</p></div></body>
 </html>
