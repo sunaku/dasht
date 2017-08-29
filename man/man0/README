@@ -76,6 +76,14 @@ dasht\-git \[la]https://aur.archlinux.org/packages/dasht-git/\[ra] from the AUR,
 maintained by Christian Höppner \[la]https://github.com/mkaito\[ra]\&.
 .RE
 .PP
+In macOS using Homebrew \[la]https://brew.sh\[ra]:
+.PP
+.RS
+.nf
+brew install dasht
+.fi
+.RE
+.PP
 On any system:
 .nr step0 0 1
 .RS

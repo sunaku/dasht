@@ -74,6 +74,10 @@ In Arch Linux:
   [dasht-git](https://aur.archlinux.org/packages/dasht-git/) from the AUR,
   maintained by [Christian Höppner](https://github.com/mkaito).
 
+In macOS using [Homebrew](https://brew.sh):
+
+    brew install dasht
+
 On any system:
 
 [download]: https://github.com/sunaku/dasht/releases
