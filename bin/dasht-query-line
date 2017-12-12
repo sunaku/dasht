@@ -249,6 +249,9 @@ dasht-docsets "$@" | while read -r docset; do
       # indicate the source of this result
       print "from = " docset
 
+      # strip embedded XML from result URL
+      gsub("<.*>", "", $3)
+
       # use default URI fragment if absent
       if ($3 !~ "#.+$") {
         $3 = $3 fragment_by_docset[docset]
