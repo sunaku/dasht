@@ -70,7 +70,7 @@ trap 'exit 44' USR1 # exit with a nonzero status when no results found
   function escape(xml) {
     gsub("&",    "\\&amp;",  xml)
     gsub("\"",   "\\&quot;", xml)
-    gsub("\047", "\\&apos;", xml)
+    gsub("\047", "\\&#39;",  xml) # https://www.w3.org/TR/xhtml1/#C_16
     gsub("<",    "\\&lt;",   xml)
     gsub(">",    "\\&gt;",   xml)
     return xml
