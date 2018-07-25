@@ -181,8 +181,13 @@ cat <<HEADER
     <br>
 HEADER
 
-dasht-query-html "$query" $docsets ||
-echo "<h1><i>$query_html</i> not found in ${docsets_html:-any} docsets</h1>"
+if test $1 -eq 0; then
+  # notify user when no docsets are installed so they can go install them
+  echo "<h1><i>${docsets_html}</i> docsets not installed so <i>$query_html</i> not searched</h1>"
+elif ! dasht-query-html "$query" $docsets; then
+  # notify user when no results are found so they can refine their search
+  echo "<h1><i>$query_html</i> not found in $1 docsets matching <i>${docsets_html:-.*}</i></h1>"
+fi
 
 cat <<FOOTER
   </body>

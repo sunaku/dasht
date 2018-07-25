@@ -53,6 +53,9 @@
 # 44
 #   No results were found.
 #
+# 45
+#   No docsets were searched.
+#
 # ## SEE ALSO
 #
 # w3m(1), dasht-query-html(1), dasht-docsets(1), [Dash]
@@ -64,10 +67,22 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
+if test $# -gt 0; then
+  pattern=$1
+  shift
+fi
+
+count=$(dasht-docsets "$@" | wc -l)
+if test $count -eq 0; then
+  # notify user when no docsets are installed so they can go install them
+  echo "dasht: '$*' docsets not installed so '$pattern' not searched" >&2
+  exit 45
+fi
+
 trap 'exit 44' USR1 # exit with a nonzero status when no results are found
-if ! dasht-query-html "$@"; then
+if ! dasht-query-html "$pattern" "$@"; then
   # notify user when no results are found so they can refine their search
-  pat=$1; shift; echo "dasht: '$pat' not found in ${*:-any} docsets" >&2
+  echo "dasht: '$pattern' not found in $count docsets matching '${*:-.*}'" >&2
 
   # emulate pipefail (which POSIX lacks) by killing off the w3m(1) process
   # below (which starts up simultaneously alongside this pipeline segment)
