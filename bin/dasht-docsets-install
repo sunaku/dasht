@@ -65,7 +65,7 @@ test "$1" = '-f' -o "$1" = '--force' && force=1 && shift || unset force
 cache() {
   url=$1
   file="$DASHT_CACHE_DIR/${url##*/}"
-  wget -T 2 -t 1 -P "${file%/*}" -N "$url" || test -s "$file"
+  wget -T 2 -t 1 -P "${file%/*}" -N "$url" --no-verbose || test -s "$file"
   echo "$file"
 }
 master_url=https://api.github.com/repos/Kapeli/feeds/git/refs/heads/master
@@ -92,6 +92,6 @@ for docset; do
   tgz="$DASHT_DOCSETS_DIR/$basename"
   url="https://kapeli.com/feeds/$basename"
 
-  wget -P "$DASHT_DOCSETS_DIR" -N -c "$url"
+  wget -P "$DASHT_DOCSETS_DIR" -N -c "$url" --no-verbose --show-progress
   dasht-docsets-extract "$tgz"
 done

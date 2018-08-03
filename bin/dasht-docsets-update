@@ -54,7 +54,7 @@ done | sort -u | while read -r tgz; do
   url="https://kapeli.com/feeds/$(basename "$tgz")"
 
   touch -r "$tgz" "$last_modified_at"
-  wget -P "$DASHT_DOCSETS_DIR" -N "$url"
+  wget -P "$DASHT_DOCSETS_DIR" -N "$url" --no-verbose --show-progress
   test "$tgz" -nt "$last_modified_at" && dasht-docsets-extract "$tgz"
   rm "$last_modified_at"
 done
