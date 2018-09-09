@@ -75,7 +75,7 @@ for tgz; do
   } | sort -r | uniq -c | sed -n 's/^ *1 //p' | xargs sh -e -u -c '
     for arg; do
       if test -d "$arg"
-      then rmdir -v "$arg"
+      then rmdir "$arg"
       else rm -v "$arg"
       fi
     done
