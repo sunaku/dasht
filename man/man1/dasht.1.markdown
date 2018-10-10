@@ -1,4 +1,4 @@
-# DASHT 1                       2017-08-15                            2.2.0
+# DASHT 1                       2018-10-09                            2.3.0
 
 ## NAME
 
@@ -50,6 +50,9 @@ undefined, it becomes a whitespace wildcard and thereby matches everything.
 
 44
   No results were found.
+
+45
+  No docsets were searched.
 
 ## SEE ALSO
 

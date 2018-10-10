@@ -57,6 +57,10 @@ Optional:
 
 * [socat] for dasht-server(1) search engine
 
+[gawk]: https://www.gnu.org/software/gawk/
+
+* [gawk] for dasht-server(1) search engine
+
 Development:
 
 [binman]: https://sunaku.github.io/binman/

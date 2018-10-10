@@ -53,6 +53,10 @@ search results
 socat \[la]http://www.dest-unreach.org/socat/\[ra] for 
 .BR dasht-server (1) 
 search engine
+.IP \(bu 2
+gawk \[la]https://www.gnu.org/software/gawk/\[ra] for 
+.BR dasht-server (1) 
+search engine
 .RE
 .PP
 Development:
