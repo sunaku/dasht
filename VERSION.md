@@ -1,3 +1,41 @@
+## Version 2.3.0 (2018-10-09)
+
+This release provides better error messaging for first-time users who try to
+search immediately after installing dasht but before they install any docsets.
+It also fixes some HTML rendering issues and improves portability under macOS.
+
+### Minor:
+
+  * Notify user when no docsets installed for searching.
+
+  * wget: don't be verbose but show download progress.
+
+### Patch:
+
+  * GH-28: some docsets embed `<dash>` XML in URL fields.
+
+  * GH-25: HTML 4 browsers don't support `&apos;` entity.
+
+    See https://stackoverflow.com/a/2083770 which refers to this spec:
+
+      C.16. The Named Character Reference `&apos;`
+            https://www.w3.org/TR/xhtml1/#C_16
+
+      The named character reference `&apos;` (the apostrophe, U+0027) was
+      introduced in XML 1.0 but does not appear in HTML. Authors should
+      therefore use `&#39;` instead of `&apos;` to work as expected in HTML
+      4 user agents.
+
+  * GH-31: macOS error upon rmdir: illegal option -- v.
+
+    Thanks to Frode Aannevik (@frodeaa) for reporting this issue.
+
+### Other:
+
+  * README: add installation method for macOS Homebrew.
+
+  * README: require gawk; Debian's default mawk hangs.
+
 ## Version 2.2.0 (2017-08-15)
 
 This release fixes the ability to install new docsets (which was broken since
