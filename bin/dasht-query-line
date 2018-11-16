@@ -70,6 +70,16 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_FRAGMENTS_CONF`
+#   Defines the filesystem location where custom URI fragment definition for
+#   your [Dash] docsets are stored. These file has the format
+#     *DOCSET* `=` *FRAGMENT*
+#   where *DOCTSET* and *FRAGMENT* are separated by a space followed by a
+#   `=` followed by another space character. The *FRAGMENT* starts with a
+#   `#` character. If the environment variable is undefined, its value is
+#   assumed to be `$XDG_DATA_HOME/dasht/fragments.conf` or, if `XDG_DATA_HOME`
+#   is undefined, `$HOME/.local/share/dasht/fragments.conf`.
+#
 # ## EXIT STATUS
 #
 # 44
@@ -87,19 +97,21 @@
 # Distributed under the terms of the ISC license (see the LICENSE file).
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+: ${DASHT_FRAGMENTS_CONF:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/fragments.conf}
 
 pattern=$(echo " $1 " | sed -e 's/[%_]/\\&/g' -e 's/[[:space:]]\{1,\}/%/g')
 test $# -gt 0 && shift # shift off PATTERN so argv contains solely DOCSETs
 
 status=44 # (default) exit with a nonzero status when no results are found
 trap 'status=0' USR1 # override default exit status when results are found
+[ -r "$DASHT_FRAGMENTS_CONF" ] && fragments_conf="$DASHT_FRAGMENTS_CONF" || fragments_conf=
 
 dasht-docsets "$@" | while read -r docset; do
   database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
   file_url="file://$(dirname "$database")/Documents/"
 
   dasht-query-exec "$pattern" "$database" -line |
-  awk -v docset="$docset" -v file_url="$file_url" '
+  awk -v docset="$docset" -v file_url="$file_url" -v fragments_conf="$fragments_conf" '
     BEGIN {
       # default URI fragments that move user
       # past navigation links at top of page
@@ -241,6 +253,14 @@ dasht-docsets "$@" | while read -r docset; do
       fragment_by_docset["jQuery"]                  = "#content"
       fragment_by_docset["jQuery_Mobile"]           = "#content"
       fragment_by_docset["jQuery_UI"]               = "#content"
+
+      if (fragments_conf != "") {
+        while (getline < fragments_conf)
+        {
+         split($0,field," = ");
+         fragment_by_docset[field[1]] = field[2];
+        }
+      }
     }
 
     { $1 = $1 } # strip whitespace from key
