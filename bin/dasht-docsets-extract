@@ -72,12 +72,10 @@ for tgz; do
   # remove any stale files that were left behind by the previous extraction
   { find "$want" -print
     tar -t -f "$tgz" -z | sed -e "s|^[^/]*|$want|" -e 's|/$||'
-  } | sort -r | uniq -c | sed -n 's/^ *1 //p' | xargs sh -e -u -c '
-    for arg; do
+  } | sort -r | uniq -c | sed -n 's/^ *1 //p' | while read -r arg; do
       if test -d "$arg"
       then rmdir "$arg"
       else rm -v "$arg"
       fi
-    done
-  ' :
+  done
 done
