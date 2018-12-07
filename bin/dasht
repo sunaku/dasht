@@ -80,23 +80,47 @@ if test $count -eq 0; then
 fi
 
 trap 'exit 44' USR1 # exit with a nonzero status when no results are found
-if ! dasht-query-html "$pattern" "$@"; then
-  # notify user when no results are found so they can refine their search
-  echo "dasht: '$pattern' not found in $count docsets matching '${*:-.*}'" >&2
+if [ "$DASHT_USE_FZF" -ne 0 ]; then
+    url="$(if ! ./dasht-query-fzf "$pattern" "$@"; then
+      # notify user when no results are found so they can refine their search
+      echo "dasht: '$pattern' not found in $count docsets matching '${*:-.*}'" >&2
 
-  # emulate pipefail (which POSIX lacks) by killing off the w3m(1) process
-  # below (which starts up simultaneously alongside this pipeline segment)
-  kill $(ps -e -o comm,ppid,pid | sed -n "s/^w3m *$$ //p")
+      # emulate pipefail (which POSIX lacks) by killing off the w3m(1) process
+      # below (which starts up simultaneously alongside this pipeline segment)
+      kill $(ps -e -o comm,ppid,pid | sed -n "s/^w3m *$$ //p")
 
-  # and then proceed to tell this script to generate a nonzero exit status
-  kill -s USR1 $$
-fi |
-w3m -T text/html \
-    -o confirm_qq=false \
-    -o color=true \
-    -o active_style=true \
-    -o visited_anchor=true \
-    -o label_topline=true \
-    -o meta_refresh=true \
-    -o wrap_search=true \
-    -o ignorecase_search=true
+      # and then proceed to tell this script to generate a nonzero exit status
+      kill -s USR1 $$
+    fi)"
+    w3m -T text/html \
+        -o confirm_qq=false \
+        -o color=true \
+        -o active_style=true \
+        -o visited_anchor=true \
+        -o label_topline=true \
+        -o meta_refresh=true \
+        -o wrap_search=true \
+        -o ignorecase_search=true \
+        "$url"
+else
+    if ! dasht-query-html "$pattern" "$@"; then
+      # notify user when no results are found so they can refine their search
+      echo "dasht: '$pattern' not found in $count docsets matching '${*:-.*}'" >&2
+
+      # emulate pipefail (which POSIX lacks) by killing off the w3m(1) process
+      # below (which starts up simultaneously alongside this pipeline segment)
+      kill $(ps -e -o comm,ppid,pid | sed -n "s/^w3m *$$ //p")
+
+      # and then proceed to tell this script to generate a nonzero exit status
+      kill -s USR1 $$
+    fi |
+    w3m -T text/html \
+        -o confirm_qq=false \
+        -o color=true \
+        -o active_style=true \
+        -o visited_anchor=true \
+        -o label_topline=true \
+        -o meta_refresh=true \
+        -o wrap_search=true \
+        -o ignorecase_search=true
+fi

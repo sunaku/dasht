@@ -1,0 +1,107 @@
+#!/bin/sh -e
+#
+# # DASHT-QUERY-HTML 1            2018-10-09                            2.3.0
+#
+# ## NAME
+# dasht-query-html - searches [Dash] docsets and emits HTML table rows
+#
+# ## SYNOPSIS
+#
+# `dasht-query-html` [*PATTERN*] [*DOCSET*]...
+#
+# ### Examples
+#
+# `dasht-query-html`
+#   Topics (A-Z) from each installed docset.
+#
+# `dasht-query-html` 'c - x'
+#   Search for "c - x" in all installed docsets.
+#
+# `dasht-query-html` 'c - x' bash
+#   Search for "c - x" only in the "bash" docset.
+#
+# `dasht-query-html` 'c - x' bash css
+#   Search for "c - x" only in the "bash" and "css" docsets.
+#
+# ## DESCRIPTION
+#
+# Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
+# only in those whose names match *DOCSET*s, by calling dasht-query-line(1).
+# The results are then printed, one per line, to stdout as HTML table rows.
+# However, if no results were found, this program exits with a nonzero status.
+#
+# ### Searching
+#
+# Whitespace characters in *PATTERN* are treated as wildcards, whereas the
+# SQL LIKE wildcard characters `%` and `_` are not: they are taken literally.
+#
+# Before searching, *PATTERN* is surrounded by whitespace wildcards so that it
+# can match anywhere: beginning, middle, or end.  As a result, if *PATTERN* is
+# undefined, it becomes a whitespace wildcard and thereby matches everything.
+#
+# ## ENVIRONMENT
+#
+# `DASHT_DOCSETS_DIR`
+#   Defines the filesystem location where your [Dash] docsets are installed.
+#   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
+#   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
+#
+# ## EXIT STATUS
+#
+# 44
+#   No results were found.
+#
+# ## SEE ALSO
+#
+# dasht-query-line(1), dasht-docsets(1), dasht(1), [Dash]
+#
+# [Dash]: https://kapeli.com/dash
+#
+# ## AUTHOR
+#
+# Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
+# Distributed under the terms of the ISC license (see the LICENSE file).
+
+trap 'exit 44' USR1 # exit with a nonzero status when no results found
+{ dasht-query-line "$@" || kill -s USR1 $$ ;} | awk \
+    -v style_reset="$(tput sgr 0)" \
+    -v style_name="$(tput bold)$(tput setaf 2)" \
+    -v style_from="$(tput setaf 4)" \
+    -v style_type="$(tput setaf 3)" \
+    -v pattern="$1" '
+  # Transforms alphabetical characters into bracketed regular expressions
+  # that match either lowercase or uppercase versions of those characters.
+  # This basically emulates the IGNORECASE feature in a POSIX environment.
+  function ignorecase(regex) {
+    buf = ""
+    tmp = regex
+    while (pos = match(tmp, "[[:alpha:]]")) {
+      chr = substr(tmp, pos, 1)
+      buf = buf substr(tmp, 1, pos - 1) "[" tolower(chr) toupper(chr) "]"
+      tmp = substr(tmp, pos + 1)
+    }
+    return buf tmp
+  }
+  BEGIN {
+    gsub("[\\^.[$()|*+?{]", "\\\\&", pattern) # escape normal regex(7) syntax
+    sub("^[[:space:]]+", "", pattern)         # strip leading whitespace
+    sub("[[:space:]]+$", "", pattern)         # strip trailing whitespace
+    gsub("[[:space:]]+", ".*", pattern)       # treat whitespace as wildcards
+    pattern = ignorecase(pattern)             # emulate IGNORECASE=1 for POSIX
+    if (pattern == "") pattern = "^."         # grouped by leading character
+  }
+  NR == 1      {}
+  $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
+  $1 == "name" {
+    # mark search terms with STX and ETX bytes which are ignored by escape()
+    if (pattern) {
+      gsub(pattern, "\002&\003", result["name"])
+    }
+  }
+  $1 == "url"  { print \
+      result["url"] "\t" \
+      style_name result["name"] style_reset " " \
+      style_from "[" result["from"] "]" style_reset " " \
+      style_type "[" result["type"] "]" style_reset
+  }
+' | { fzf --with-nth=2,3,4 --ansi || kill -s USR1 $$ ; } | cut -f 1
