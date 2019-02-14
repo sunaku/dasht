@@ -74,9 +74,8 @@ Development:
 
 In Arch Linux:
 
-* Install [dasht](https://aur.archlinux.org/packages/dasht/) or
-  [dasht-git](https://aur.archlinux.org/packages/dasht-git/) from the AUR,
-  maintained by [Christian Höppner](https://github.com/mkaito).
+* Install [dasht](https://aur.archlinux.org/packages/dasht/)
+  maintained by [Shane Forster](https://github.com/Shane4STER).
 
 In macOS using [Homebrew](https://brew.sh):
 
