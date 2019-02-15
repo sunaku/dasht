@@ -75,9 +75,8 @@ gem install binman md2man
 In Arch Linux:
 .RS
 .IP \(bu 2
-Install dasht \[la]https://aur.archlinux.org/packages/dasht/\[ra] or
-dasht\-git \[la]https://aur.archlinux.org/packages/dasht-git/\[ra] from the AUR,
-maintained by Christian Höppner \[la]https://github.com/mkaito\[ra]\&.
+Install dasht \[la]https://aur.archlinux.org/packages/dasht/\[ra]
+maintained by Shane Forster \[la]https://github.com/Shane4STER\[ra]\&.
 .RE
 .PP
 In macOS using Homebrew \[la]https://brew.sh\[ra]:
