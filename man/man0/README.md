@@ -72,16 +72,11 @@ Development:
 
 ## Installation
 
-In Arch Linux:
+Using a package manager:
 
-* Install [dasht](https://aur.archlinux.org/packages/dasht/)
-  maintained by [Shane Forster](https://github.com/Shane4STER).
+[![Packaging status](https://repology.org/badge/vertical-allrepos/dasht.svg)](https://repology.org/project/dasht/versions)
 
-In macOS using [Homebrew](https://brew.sh):
-
-    brew install dasht
-
-On any system:
+Manually, on any system:
 
 [download]: https://github.com/sunaku/dasht/releases
 [clone]: https://github.com/sunaku/dasht.git

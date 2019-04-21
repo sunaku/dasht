@@ -72,22 +72,11 @@ gem install binman md2man
 .RE
 .SH Installation
 .PP
-In Arch Linux:
-.RS
-.IP \(bu 2
-Install dasht \[la]https://aur.archlinux.org/packages/dasht/\[ra]
-maintained by Shane Forster \[la]https://github.com/Shane4STER\[ra]\&.
-.RE
+Using a package manager:
 .PP
-In macOS using Homebrew \[la]https://brew.sh\[ra]:
+[Packaging status](https://repology.org/badge/vertical\-allrepos/dasht.svg) \[la]https://repology.org/project/dasht/versions\[ra]
 .PP
-.RS
-.nf
-brew install dasht
-.fi
-.RE
-.PP
-On any system:
+Manually, on any system:
 .nr step0 0 1
 .RS
 .IP \n+[step0]
