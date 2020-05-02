@@ -67,11 +67,29 @@ hex2byte() {
   printf "\\$oct"
 }
 
-# parse URL out of HTTP request
+# parse URL from request: only GET is supported
 url=$(awk '
   /^GET [[:print:]]+ HTTP\/1.+\r$/ { print $2 }
   /^\r$/ { exit } # reached end of HTTP request
 ')
+
+# serve translated local file:// URLs over HTTP
+# (skip the / homepage and /? form submissions)
+if ! echo "$url" | grep -q '^/$\|^/?'; then
+  file=${url%#*} # strip URI fragment, if any
+
+  if test -f "$file"; then
+    printf 'HTTP/1.0 200 OK\r\n'
+    printf 'Content-Type: %s\r\n' "$(file -b --mime "$file" 2>&1)"
+    printf '\r\n'
+    cat "$file" 2>&1 || :
+  else
+    printf 'HTTP/1.0 400 Bad Request\r\n'
+    printf '\r\n'
+  fi
+
+  exit
+fi
 
 # parse URL query parameters as shell variables
 eval "$(
@@ -184,7 +202,10 @@ HEADER
 if test $1 -eq 0; then
   # notify user when no docsets are installed so they can go install them
   echo "<h1><i>${docsets_html}</i> docsets not installed so <i>$query_html</i> not searched</h1>"
-elif ! dasht-query-html "$query" $docsets; then
+elif results_html=$(dasht-query-html "$query" $docsets); then
+  # translate local file:// URLs into HTTP ones so that we can serve them
+  echo "$results_html" | sed 's,file://,,'
+else
   # notify user when no results are found so they can refine their search
   echo "<h1><i>$query_html</i> not found in $1 docsets matching <i>${docsets_html:-.*}</i></h1>"
 fi
