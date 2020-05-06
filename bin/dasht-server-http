@@ -181,8 +181,9 @@ cat <<HEADER
         <select name="docsets">
           <option value="" selected>matched $1 out of $3</option>
           $(echo "$docsets_menu" | awk -v were_any_ignored=$2 '{
-            value = "^" $2 "$"
             label = were_any_ignored && $1 ? "((( " $2 " )))" : $2
+            regex = $2; gsub("[[:punct:]]", "\\\\&", regex)
+            value = "^" regex "$"
             print "<option value=\"" value "\">" label "</option>"
           }')
         </select>
