@@ -93,5 +93,5 @@ for docset; do
   url="https://kapeli.com/feeds/$basename"
 
   wget -P "$DASHT_DOCSETS_DIR" -N -c "$url"
-  dasht-docsets-extract "$tgz"
+  gzip -t "$tgz" && dasht-docsets-extract "$tgz"
 done
