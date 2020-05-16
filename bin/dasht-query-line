@@ -119,7 +119,7 @@ dasht-docsets "$@" | while read -r docset; do
       fragment_by_docset["C"]                       = "#toc"
       fragment_by_docset["C++"]                     = "#toc"
       # fragment_by_docset["CMake"]                 = "#"                        # FIXME: none available
-      fragment_by_docset["CSS"]                     = "#wiki-content"
+      fragment_by_docset["CSS"]                     = "#content"
       fragment_by_docset["CakePHP"]                 = "#right"
       fragment_by_docset["Cappuccino"]              = "#MSearchResults"
       fragment_by_docset["Chai"]                    = "#content"                 # FIXME: needs improvement
@@ -158,7 +158,7 @@ dasht-docsets "$@" | while read -r docset; do
       # fragment_by_docset["Groovy_JDK"]            = "#"                        # FIXME: none available
       # fragment_by_docset["Grunt"]                 = "#"                        # FIXME: none available
       # fragment_by_docset["Gulp"]                  = "#"                        # works fine without it
-      fragment_by_docset["HTML"]                    = "#wiki-content"
+      fragment_by_docset["HTML"]                    = "#content"
       fragment_by_docset["Handlebars"]              = "#reference"
       fragment_by_docset["Haskell"]                 = "#content"
       fragment_by_docset["Ionic"]                   = "#usage"                   # FIXME: needs improvement
