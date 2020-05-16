@@ -9,8 +9,8 @@ Bugs: \[la]https://github.com/sunaku/dasht/issues\[ra]
 .TH Search API docs offline, in your terminal or browser
 .PP
 dasht is a collection of shell scripts for searching, browsing, and managing
-API documentation (in the form of 150+ offline documentation sets \[la]https://kapeli.com/dash#docsets\[ra],
-courtesy of Dash for OS X \[la]https://kapeli.com/dash\[ra]) all from the comfort of your own terminal!
+API documentation (in the form of 200+ offline documentation sets \[la]https://kapeli.com/dash#docsets\[ra],
+courtesy of Dash for macOS \[la]https://kapeli.com/dash\[ra]) all from the comfort of your own terminal!
 .PP
 The name "dasht" is a portmanteau of Dash \[la]https://kapeli.com/dash\[ra] and the letter "t", for terminal.
 Etymologically, "dasht" is Persian for \fIplain\fP, as in an flat expanse of land,
@@ -177,10 +177,23 @@ at the top of script files in the \fB\fCbin/\fR directory, then remember to run 
 .SH License
 .PP
 .RS
-Like my work? :+1:  Please spare a life \[la]https://sunaku.github.io/vegan-for-life.html\[ra] today as thanks!
-:cow::pig::chicken::fish::speak\fIno\fPevil::v::revolving_hearts:
+Like my work? 👍 Please spare a life \[la]https://sunaku.github.io/vegan-for-life.html\[ra] today as thanks! 🐄🐖🐑🐔🐣🐟✨🙊✌
+.br
+Why? For 💕 ethics, the 🌎 environment, and 💪 health; see link above. 🙇
 .RE
+.PP
+(the ISC license)
 .PP
 Copyright 2016 Suraj N. Kurapati \[la]https://github.com/sunaku\[ra]
 .PP
-Distributed under the terms of the ISC license (see the LICENSE file).
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+.PP
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.

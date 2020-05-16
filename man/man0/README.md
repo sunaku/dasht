@@ -5,8 +5,8 @@
 # Search API docs offline, in your terminal or browser
 
 dasht is a collection of shell scripts for searching, browsing, and managing
-API documentation (in the form of [150+ offline documentation sets][docsets],
-courtesy of [Dash for OS X][Dash]) all from the comfort of your own terminal!
+API documentation (in the form of [200+ offline documentation sets][docsets],
+courtesy of [Dash for macOS][Dash]) all from the comfort of your own terminal!
 
 The name "dasht" is a portmanteau of [Dash] and the letter "t", for terminal.
 Etymologically, "dasht" is Persian for _plain_, as in an flat expanse of land,
@@ -151,9 +151,21 @@ at the top of script files in the `bin/` directory, then remember to run the
 ## License
 
 [Spare A Life]: https://sunaku.github.io/vegan-for-life.html
-> Like my work? :+1:  Please [spare a life] today as thanks!
-:cow::pig::chicken::fish::speak_no_evil::v::revolving_hearts:
+> Like my work? 👍 Please [spare a life] today as thanks! 🐄🐖🐑🐔🐣🐟✨🙊✌  
+> Why? For 💕 ethics, the 🌎 environment, and 💪 health; see link above. 🙇
+
+(the ISC license)
 
 Copyright 2016 Suraj N. Kurapati <https://github.com/sunaku>
 
-Distributed under the terms of the ISC license (see the LICENSE file).
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.

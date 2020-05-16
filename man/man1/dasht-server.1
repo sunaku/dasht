@@ -1,4 +1,4 @@
-.TH DASHT\-SERVER 1                2018\-10\-09                            2.3.0
+.TH DASHT\-SERVER 1                2020\-05\-16                            2.4.0
 .SH NAME
 .PP
 dasht\-server \- runs a local search engine for your web browser
@@ -26,46 +26,6 @@ which can be used to launch a web browser along with the search engine:
 dasht\-server | xargs \-n1 w3m
 .fi
 .RE
-.SS Browser refuses to load \fB\fCfile://\fR links
-.PP
-Some browsers refuse to load \fB\fCfile://\fR links from \fB\fChttp://127.0.0.1\fR URLs.
-However, the following browsers do not suffer from this limitation and are
-thereby recommended for use with the search engine provided by this script.
-.PP
-Recommended terminal web browsers:
-.RS
-.IP \(bu 2
-w3m \[la]http://w3m.sourceforge.net\[ra]
-.IP \(bu 2
-elinks \[la]http://elinks.or.cz\[ra]
-.IP \(bu 2
-lynx \[la]http://lynx.invisible-island.net\[ra]
-.RE
-.PP
-Recommended graphical web browsers:
-.RS
-.IP \(bu 2
-Dillo \[la]http://www.dillo.org\[ra]
-.IP \(bu 2
-NetSurf \[la]http://www.netsurf-browser.org\[ra]
-.IP \(bu 2
-Chrome \[la]https://www.google.com/chrome/\[ra] using the LocalLinks extension \[la]https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida\[ra]
-.IP \(bu 2
-Firefox \[la]http://www.mozilla.org/firefox\[ra] using the following workaround
-.RE
-.SS Firefox
-.PP
-The workaround for Firefox is to add this snippet to your \fB\fCprefs.js\fR file:
-.PP
-.RS
-.nf
-user_pref("capability.policy.policynames", "localfilelinks");
-user_pref("capability.policy.localfilelinks.sites", "http://127.0.0.1:54321");
-user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
-.fi
-.RE
-.PP
-See \[la]http://kb.mozillazine.org/Links_to_local_pages_do_not_work\[ra] for details.
 .SH ENVIRONMENT
 .TP
 \fB\fCDASHT_DOCSETS_DIR\fR

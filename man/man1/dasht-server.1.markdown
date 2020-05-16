@@ -1,4 +1,4 @@
-# DASHT-SERVER 1                2018-10-09                            2.3.0
+# DASHT-SERVER 1                2020-05-16                            2.4.0
 
 ## NAME
 
@@ -26,42 +26,6 @@ The search engine's URL is printed to stdout, for the user's reference,
 which can be used to launch a web browser along with the search engine:
 
     dasht-server | xargs -n1 w3m
-
-### Browser refuses to load `file://` links
-
-Some browsers refuse to load `file://` links from `http://127.0.0.1` URLs.
-However, the following browsers do not suffer from this limitation and are
-thereby recommended for use with the search engine provided by this script.
-
-Recommended terminal web browsers:
-
-* [w3m]( http://w3m.sourceforge.net )
-
-* [elinks]( http://elinks.or.cz )
-
-* [lynx]( http://lynx.invisible-island.net )
-
-Recommended graphical web browsers:
-
-* [Dillo]( http://www.dillo.org )
-
-* [NetSurf]( http://www.netsurf-browser.org )
-
-* [Chrome]( https://www.google.com/chrome/ ) using the [LocalLinks extension](
-  https://chrome.google.com/webstore/detail/locallinks/jllpkdkcdjndhggodimiphkghogcpida
-  )
-
-* [Firefox]( http://www.mozilla.org/firefox ) using the following workaround
-
-#### Firefox
-
-The workaround for Firefox is to add this snippet to your `prefs.js` file:
-
-    user_pref("capability.policy.policynames", "localfilelinks");
-    user_pref("capability.policy.localfilelinks.sites", "http://127.0.0.1:54321");
-    user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
-
-See http://kb.mozillazine.org/Links_to_local_pages_do_not_work for details.
 
 ## ENVIRONMENT
 
