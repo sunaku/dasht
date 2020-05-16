@@ -5,8 +5,8 @@
 # Search API docs offline, in your terminal or browser
 
 dasht is a collection of shell scripts for searching, browsing, and managing
-API documentation (in the form of [150+ offline documentation sets][docsets],
-courtesy of [Dash for OS X][Dash]) all from the comfort of your own terminal!
+API documentation (in the form of [200+ offline documentation sets][docsets],
+courtesy of [Dash for macOS][Dash]) all from the comfort of your own terminal!
 
 The name "dasht" is a portmanteau of [Dash] and the letter "t", for terminal.
 Etymologically, "dasht" is Persian for _plain_, as in an flat expanse of land,

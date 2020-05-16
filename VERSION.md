@@ -1,3 +1,62 @@
+## Version 2.4.0 (2020-05-16)
+
+This release drops special Web browser requirements to access dasht-server(1),
+improves error messages in dasht-docset-install(1), ensures clean up of stale
+files that contain whitespace in their names, and resolves a few other issues.
+
+### Minor:
+
+  * dasht-server-http(1): serve local `file://` URLs through `http://` URLs.
+
+    Users no longer have to use special browsers or special configurations
+    that allow the loading of `file://` links from `http://127.0.0.1` URLs.
+    All browsers can now natively access the dasht-server(1) search engine.
+
+    See https://github.com/sunaku/dasht/issues/45
+
+### Patch:
+
+  * dasht-docsets-update(1): remove stale files with whitespace in names.
+
+    Thanks to @frodeaa for reporting this issue and contributing a patch:
+
+    > Replace `xargs` with `while read` and avoid globbing. The same could be
+    > achived by using `xargs -0` (GNU/BSD) if newline is replaced with `\0`.
+    >
+    >     tr '\n' '\0' | xargs -0 sh -e -u -c '
+
+    See https://github.com/sunaku/dasht/issues/35
+
+  * dasht-server-http(1): escape "C++" docset name as `^C\+\+$` regex.
+
+    When the "C++" docset was selected from the "in docsets" dropdown menu in
+    dasht-server(1), the plus signs weren't properly escaped per regex syntax.
+
+    See https://github.com/sunaku/dasht/issues/49
+
+  * dasht-docsets-install(1): validate gzip(1) integrity before extraction.
+
+    This avoids cryptic errors from tarball extraction:
+
+        gzip: stdin: unexpected end of file
+        tar: Child returned status 1
+        tar: Error is not recoverable: exiting now
+
+    By pointing out the cause of the error to the user:
+
+        gzip: Apple_Guides_and_Sample_Code.tgz: unexpected end of file
+
+  * dasht-docsets-install(1): restore support for older wget(1) versions.
+
+    Older wget versions don't support the `--show-progress` option:
+
+        wget: unrecognized option '--show-progress'
+        Usage: wget [OPTION]... [URL]...
+
+        Try ‘wget --help’ for more options.
+
+  * dasht-query-line(1): update URI fragments for HTML and CSS docsets.
+
 ## Version 2.3.0 (2018-10-09)
 
 This release provides better error messaging for first-time users who try to
