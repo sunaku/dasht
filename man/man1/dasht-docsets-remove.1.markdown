@@ -46,4 +46,4 @@ dasht-docsets-install(1), dasht-docsets-update(1), dasht-docsets(1), [Dash]
 ## AUTHOR
 
 Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
-Distributed under the terms of the ISC license (see the LICENSE file).
+Distributed under the terms of the ISC license (refer to README file).
