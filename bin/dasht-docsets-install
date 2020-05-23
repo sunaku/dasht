@@ -54,7 +54,7 @@
 # ## AUTHOR
 #
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
-# Distributed under the terms of the ISC license (see the LICENSE file).
+# Distributed under the terms of the ISC license (refer to README file).
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 : ${DASHT_CACHE_DIR:=${XDG_CACHE_HOME:-$HOME/.cache}/dasht}
