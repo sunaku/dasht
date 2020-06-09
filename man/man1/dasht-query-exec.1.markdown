@@ -27,8 +27,13 @@ For example, `\%` and `\_` are escaped, whereas `%` and `_` are not escaped.
 sqlite3(1), dasht-query-line(1), dasht(1), [Dash]
 
 [Dash]: https://kapeli.com/dash
+[Zeal]: https://zealdocs.org
 
 ## AUTHOR
 
 Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 Distributed under the terms of the ISC license (refer to README file).
+
+This particular script contains SQL queries that were derived from [Zeal],
+which is licensed under the GNU General Public License.  Refer to the body
+of this script for the terms and conditions that govern those SQL queries.
