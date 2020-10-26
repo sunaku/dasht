@@ -23,6 +23,8 @@ which aptly characterizes the terminal environment where everything is text.
 
 * Keep [Dash] docsets anywhere you like.
 
+* Access existing docset library managed by Dash.app (MacOS only).
+
 ### Preview
 
 Watch the "[dasht in a terminal](https://vimeo.com/159462598)"
@@ -61,6 +63,10 @@ Optional:
 
 * [gawk] for dasht-server(1) search engine
 
+[Dash.app]: https://kapeli.com/dash
+
+* [Dash.app] to let the Dash MacOS app manage your docsets
+
 Development:
 
 [binman]: https://sunaku.github.io/binman/
@@ -90,6 +96,15 @@ Manually, on any system:
 3.  Add the `man/` folder to your `MANPATH` environment variable:
 
         export MANPATH=location_where_you_cloned_or_downloaded_dasht/man:$MANPATH
+
+### Dash.app integration
+
+Set `DASHT_USE_DASH_APP=true` to use the docsets stored by Dash.app on your
+machine. This makes `dasht` act like a read-only client for your Dash.app
+docset library-- all docset management commands (`install`, `update`, `remove`)
+are disabled. This also provides access to an expanded library of docsets, as
+at present `dasht` itself can only download and/or build a subset of the
+docsets available through Dash.app.
 
 ### Vim integration
 
@@ -141,6 +156,11 @@ You may optionally configure the `DASHT_CACHE_DIR` environment variable,
 which defines the filesystem location where download links are cached.
 If undefined, its value is assumed to be `$XDG_CACHE_HOME/dasht/`
 or, if `XDG_CACHE_HOME` is also undefined, `$HOME/.cache/dasht/`.
+
+Set `DASHT_USE_DASH_APP=true` to enable Dash.app integration (MacOS only). See
+[Dash.app integration](#dashapp-integration) for details. Note that this will
+also change the default setting of `DASHT_DOCSETS_DIR` to `~/Libary/Application
+Support/Dash` (where Dash.app docsets are stored by default).
 
 ## Development
 
