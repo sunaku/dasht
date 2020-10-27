@@ -60,39 +60,50 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (refer to README file).
 
-: ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 : ${DASHT_USE_DASH_APP:=false}
-
 if $DASHT_USE_DASH_APP; then
-  echo "extract, install, remove, and update operations are disabled when \
-    DASHT_USE_DASH_APP=true." >&2
-  exit 46
+  : ${DASHT_DOCSETS_DIR:="/Users/smackesey/Library/Application Support/Dash"}
+else
+  : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 fi
 
 test $# -gt 0
 for tgz; do
-  want="$DASHT_DOCSETS_DIR/$(basename "$tgz" .tgz).docset"
-  have="$DASHT_DOCSETS_DIR/$(tar -t -f "$tgz" -z | head -1 | sed 's|/.*||')"
 
-  # for dasht-docsets-update(1), the extracted directory will already exist
-  # with the correct name, but we need to temporarily rename it back to the
-  # wrong name so that the archive extraction below can update its contents
-  # in place, rather than extracting out to a new (and different) directory
-  test "$have" = "$want" -o ! -e "$want" || mv "$want" "$have"
+  # Extract Documents dir inside existing Dash.app docset directory. Dash.app
+  # leaves the Documents inside the tarball tarix.tgz by default.
+  if $DASHT_USE_DASH_APP; then
+    pushd "$(dirname "$tgz")" >/dev/null
+    docset_name="$(basename "$(dirname "$(dirname "$(dirname "$tgz")")")")"
+    tar -x -f "$tgz" "$docset_name/Contents/Resources/Documents"
+    mv "$docset_name/Contents/Resources/Documents" .
+    rm -r "$docset_name"
+    popd >/dev/null
+  else
 
-  # extract the archive; the extracted directory's path is defined by $have
-  tar -v -C "$DASHT_DOCSETS_DIR" -x -f "$tgz" -z
+    want="$DASHT_DOCSETS_DIR/$(basename "$tgz" .tgz).docset"
+    have="$DASHT_DOCSETS_DIR/$(tar -t -f "$tgz" -z | head -1 | sed 's|/.*||')"
 
-  # rename the extracted directory to have the same rootname as the archive
-  test "$have" = "$want" || mv "$have" "$want"
+    # for dasht-docsets-update(1), the extracted directory will already exist
+    # with the correct name, but we need to temporarily rename it back to the
+    # wrong name so that the archive extraction below can update its contents
+    # in place, rather than extracting out to a new (and different) directory
+    test "$have" = "$want" -o ! -e "$want" || mv "$want" "$have"
 
-  # remove any stale files that were left behind by the previous extraction
-  { find "$want" -print
-    tar -t -f "$tgz" -z | sed -e "s|^[^/]*|$want|" -e 's|/$||'
-  } | sort -r | uniq -c | sed -n 's/^ *1 //p' | while read -r arg; do
-      if test -d "$arg"
-      then rmdir "$arg"
-      else rm -v "$arg"
-      fi
-  done
+    # extract the archive; the extracted directory's path is defined by $have
+    tar -v -C "$DASHT_DOCSETS_DIR" -x -f "$tgz" -z
+
+    # rename the extracted directory to have the same rootname as the archive
+    test "$have" = "$want" || mv "$have" "$want"
+
+    # remove any stale files that were left behind by the previous extraction
+    { find "$want" -print
+      tar -t -f "$tgz" -z | sed -e "s|^[^/]*|$want|" -e 's|/$||'
+    } | sort -r | uniq -c | sed -n 's/^ *1 //p' | while read -r arg; do
+        if test -d "$arg"
+        then rmdir "$arg"
+        else rm -v "$arg"
+        fi
+    done
+  fi
 done
