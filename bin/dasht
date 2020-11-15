@@ -74,7 +74,7 @@
 
 : ${DASHT_USE_DASH_APP:=false}
 if $DASHT_USE_DASH_APP; then
-  : ${DASHT_DOCSETS_DIR:="/Users/smackesey/Library/Application Support/Dash"}
+  : ${DASHT_DOCSETS_DIR:="$HOME/Library/Application Support/Dash"}
 else
   : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 fi
@@ -103,7 +103,6 @@ if test $count -eq 0; then
 fi
 
 trap 'exit 44' USR1 # exit with a nonzero status when no results are found
-
 if ! dasht-query-html "$pattern" "$@"; then
   # notify user when no results are found so they can refine their search
   echo "dasht: '$pattern' not found in $count docsets matching '${*:-.*}'" >&2

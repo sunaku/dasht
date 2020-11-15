@@ -63,9 +63,7 @@ Optional:
 
 * [gawk] for dasht-server(1) search engine
 
-[Dash.app]: https://kapeli.com/dash
-
-* [Dash.app] to let the Dash MacOS app manage your docsets
+* [Dash] to let the Dash MacOS app manage your docsets
 
 Development:
 
@@ -102,8 +100,8 @@ Manually, on any system:
 Set `DASHT_USE_DASH_APP=true` to use the docsets stored by Dash.app on your
 machine. This makes `dasht` act like a read-only client for your Dash.app
 docset library-- all docset management commands (`install`, `update`, `remove`)
-are disabled. This also provides access to an expanded library of docsets, as
-at present `dasht` itself can only download and/or build a subset of the
+are disabled. This also provides access to an expanded library of docsets,
+because currently `dasht` can only download and/or build a subset of the
 docsets available through Dash.app.
 
 ### Vim integration

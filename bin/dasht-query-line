@@ -93,7 +93,7 @@
 
 : ${DASHT_USE_DASH_APP:=false}
 if $DASHT_USE_DASH_APP; then
-  : ${DASHT_DOCSETS_DIR:="/Users/smackesey/Library/Application Support/Dash"}
+  : ${DASHT_DOCSETS_DIR:="$HOME/Library/Application Support/Dash"}
 else
   : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
 fi
