@@ -75,7 +75,7 @@ url=$(awk '
 
 # serve translated local file:// URLs over HTTP
 # (skip the / homepage and /? form submissions)
-if ! echo "$url" | grep -q '^/$\|^/?'; then
+if ! test "$url" = / -o -z "${url##/\?*}"; then
   file=${url%#*} # strip URI fragment, if any
 
   if test -f "$file"; then
