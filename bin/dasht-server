@@ -36,6 +36,11 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_USE_DASH_APP`
+#   Set to "true" to use Dash.app's (MacOS only) docset library. Disables
+#   docset management commands (install, remove, update). Also changes the
+#   default `DASHT_DOCSETS_DIR` to "~/Library/Application Support/Dash".
+#
 # ## SEE ALSO
 #
 # socat(1), dasht-server-http(1), dasht-docsets(1), dasht(1), [Dash]

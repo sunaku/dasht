@@ -66,6 +66,11 @@ url = file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resourc
 Defines the filesystem location where your Dash \[la]https://kapeli.com/dash\[ra] docsets are installed.
 If undefined, its value is assumed to be \fB\fC$XDG_DATA_HOME/dasht/docsets/\fR
 or, if \fB\fCXDG_DATA_HOME\fR is undefined, \fB\fC$HOME/.local/share/dasht/docsets/\fR\&.
+.TP
+\fB\fCDASHT_USE_DASH_APP\fR
+Set to "true" to use Dash.app's (MacOS only) docset library. Disables
+docset management commands (install, remove, update). Also changes the
+default \fB\fCDASHT_DOCSETS_DIR\fR to "~/Library/Application Support/Dash".
 .SH EXIT STATUS
 .TP
 44

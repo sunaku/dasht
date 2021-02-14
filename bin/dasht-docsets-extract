@@ -39,6 +39,16 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_USE_DASH_APP`
+#   Set to "true" to use Dash.app's (MacOS only) docset library. Disables
+#   docset management commands (install, remove, update). Also changes the
+#   default `DASHT_DOCSETS_DIR` to "~/Library/Application Support/Dash".
+#
+# ## EXIT STATUS
+#
+# 46
+#   Command was not executed because `DASHT_USE_DASH_APP` is set.
+#
 # ## SEE ALSO
 #
 # dasht-docsets-install(1), dasht-docsets-update(1), [Dash]
@@ -50,10 +60,28 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (refer to README file).
 
-: ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+: ${DASHT_USE_DASH_APP:=false}
+if $DASHT_USE_DASH_APP; then
+  : ${DASHT_DOCSETS_DIR:="$HOME/Library/Application Support/Dash"}
+else
+  : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+fi
 
 test $# -gt 0
 for tgz; do
+
+  # Extract Documents dir inside existing Dash.app docset directory. Dash.app
+  # leaves the Documents inside the tarball tarix.tgz by default.
+  if $DASHT_USE_DASH_APP; then
+    pushd "$(dirname "$tgz")" >/dev/null
+    docset_name="$(basename "${tgz%/*/*/*}")"
+    tar -x -f "$tgz" "$docset_name/Contents/Resources/Documents"
+    mv "$docset_name/Contents/Resources/Documents" .
+    rm -r "$docset_name"
+    popd >/dev/null
+    continue
+  fi
+
   want="$DASHT_DOCSETS_DIR/$(basename "$tgz" .tgz).docset"
   have="$DASHT_DOCSETS_DIR/$(tar -t -f "$tgz" -z | head -1 | sed 's|/.*||')"
 
