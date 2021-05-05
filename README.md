@@ -83,11 +83,13 @@ Manually, on any system:
 
 1.  [Download] a stable release or [clone] this Git repository.
 
-2.  Add the `bin/` folder to your `PATH` environment variable:
+2.  Run `make` for automated installation, or do it yourself:
+
+3.  Add the `bin/` folder to your `PATH` environment variable:
 
         export PATH=$PATH:location_where_you_cloned_or_downloaded_dasht/bin
 
-3.  Add the `man/` folder to your `MANPATH` environment variable:
+4.  Add the `man/` folder to your `MANPATH` environment variable:
 
         export MANPATH=location_where_you_cloned_or_downloaded_dasht/man:$MANPATH
 

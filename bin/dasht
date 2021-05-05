@@ -46,7 +46,7 @@
 # `DASHT_DOCSETS_DIR`
 #   Defines the filesystem location where your [Dash] docsets are installed.
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
-#   or, if `XDG_DATA_HOME` is undefined, `PREFIX/share/dasht/docsets/`.
+#   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
 # ## EXIT STATUS
 #
