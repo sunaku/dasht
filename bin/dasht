@@ -87,12 +87,7 @@ fi
 # Ensure any docsets we are accessing from the Dash.app library have had their
 # documents extracted. Dash.app leaves the documents in the tarball by default.
 if $DASHT_USE_DASH_APP; then
-  dasht-docsets "$@" | while read docset; do
-    root=("$DASHT_DOCSETS_DIR/"*/*"/${docset}.docset")
-    if ! test -d "${root}/Contents/Resources/Documents"; then
-      dasht-docsets-extract "$root/Contents/Resources/tarix.tgz"
-    fi
-  done
+  dasht-docsets-inherit "$@"
 fi
 
 count=$(dasht-docsets "$@" | wc -l)
