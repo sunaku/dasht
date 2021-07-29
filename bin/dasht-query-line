@@ -4,7 +4,7 @@
 #
 # ## NAME
 #
-# dasht-query-line - searches [Dash] docsets and emits groups of lines
+# dasht-query-line - searches [Dash] docsets and emits TSV table rows
 #
 # ## SYNOPSIS
 #
@@ -28,7 +28,7 @@
 #
 # Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 # only in those whose names match *DOCSET*s, by calling dasht-query-exec(1)
-# and emits the results in groups of lines, as described in "Results" below.
+# and emits the results, one per line, in Tab-Separated Values (TSV) format.
 # However, if no results were found, this program exits with a nonzero status.
 #
 # ### Searching
@@ -42,26 +42,24 @@
 #
 # ### Results
 #
-# Each search result is printed to stdout as a group of four lines of text:
+# Each search result is printed stdout as a line with 4 tab-separated fields:
 #
-# `name` `=` *VALUE*
+# `name`
 #   Name of the token that matched the *PATTERN*.
 #
-# `type` `=` *VALUE*
+# `type`
 #   Type of the token, as defined in the docset.
 #
-# `from` `=` *VALUE*
+# `from`
 #   Name of the docset this result was found in.
 #
-# `url` `=` *VALUE*
+# `url`
 #   URL of the API documentation for this result.
 #
-# For example, here is a search result for "c - x" from the "bash" docset:
+# For example, here is a search result for "c - x" from the "bash" docset,
+# with the tab separators represented by `<TAB>` for illustrative purposes:
 #
-#     name = undo (C-_ or C-x C-u)
-#     type = Function
-#     from = Bash
-#     url = file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resources/Documents/bash/Miscellaneous-Commands.html#//apple_ref/Function/undo%20%28C%2D%5F%20or%20C%2Dx%20C%2Du%29
+#     undo (C-_ or C-x C-u)<TAB>Function<TAB>Bash<TAB>file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resources/Documents/bash/Miscellaneous-Commands.html#//apple_ref/Function/undo%20%28C%2D%5F%20or%20C%2Dx%20C%2Du%29
 #
 # ## ENVIRONMENT
 #
@@ -245,9 +243,12 @@ dasht-docsets "$@" | while read -r docset; do
 
     { $1 = $1 } # strip whitespace from key
 
+    $2 == "=" {
+      # skip over the first 2 fields and grab the rest of the line
+      result[$1] = substr($0, 1 + length($1) + 1 + length($2) + 1)
+    }
+
     $1 == "url" { were_any_results_found=1
-      # indicate the source of this result
-      print "from = " docset
 
       # strip embedded XML from result URL
       gsub("<.*>", "", $3)
@@ -259,9 +260,10 @@ dasht-docsets "$@" | while read -r docset; do
 
       # resolve URL to filesystem location
       $3 = file_url $3
-    }
 
-    /./ # reject any empty lines from input
+      printf("%s\t%s\t%s\t%s\n", result["name"], docset, result["type"], $3)
+
+    }
 
     END { exit !were_any_results_found }
   ' && kill -s USR1 $$ || : # notify this script if any results were found
