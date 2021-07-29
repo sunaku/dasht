@@ -1,7 +1,7 @@
 .TH DASHT\-QUERY\-LINE 1            2020\-05\-16                            2.4.0
 .SH NAME
 .PP
-dasht\-query\-line \- searches Dash \[la]https://kapeli.com/dash\[ra] docsets and emits groups of lines
+dasht\-query\-line \- searches Dash \[la]https://kapeli.com/dash\[ra] docsets and emits groups of lines as tsv
 .SH SYNOPSIS
 .PP
 \fB\fCdasht\-query\-line\fR [\fIPATTERN\fP] [\fIDOCSET\fP]...
@@ -24,8 +24,8 @@ Searches for \fIPATTERN\fP in all installed Dash \[la]https://kapeli.com/dash\[r
 only in those whose names match \fIDOCSET\fPs, by calling 
 .BR dasht-query-exec (1)
 
-and emits the results in groups of lines, as described in "Results" below.
-However, if no results were found, this program exits with a nonzero status.
+and emits the results as TSV. However, if no results were found, this program
+exits with a nonzero status.
 .SS Searching
 .PP
 Whitespace characters in \fIPATTERN\fP are treated as wildcards, whereas the
@@ -36,28 +36,26 @@ can match anywhere: beginning, middle, or end.  As a result, if \fIPATTERN\fP is
 undefined, it becomes a whitespace wildcard and thereby matches everything.
 .SS Results
 .PP
-Each search result is printed to stdout as a group of four lines of text:
+Each search result is printed to stdout as a tab\-separated line with fields:
 .TP
-\fB\fCname\fR \fB\fC=\fR \fIVALUE\fP
+\fB\fCname\fR
 Name of the token that matched the \fIPATTERN\fP\&.
 .TP
-\fB\fCtype\fR \fB\fC=\fR \fIVALUE\fP
+\fB\fCtype\fR
 Type of the token, as defined in the docset.
 .TP
-\fB\fCfrom\fR \fB\fC=\fR \fIVALUE\fP
+\fB\fCfrom\fR
 Name of the docset this result was found in.
 .TP
-\fB\fCurl\fR \fB\fC=\fR \fIVALUE\fP
+\fB\fCurl\fR
 URL of the API documentation for this result.
 .PP
-For example, here is a search result for "c \- x" from the "bash" docset:
+For example, here is a search result for "c \- x" from the "bash" docset, with
+tab characters represented by "<TAB>":
 .PP
 .RS
 .nf
-name = undo (C\-_ or C\-x C\-u)
-type = Function
-from = Bash
-url = file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resources/Documents/bash/Miscellaneous\-Commands.html#//apple_ref/Function/undo%20%28C%2D%5F%20or%20C%2Dx%20C%2Du%29
+undo (C\-_ or C\-x C\-u)<TAB>Function<TAB>Bash<TAB>file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resources/Documents/bash/Miscellaneous\-Commands.html#//apple_ref/Function/undo%20%28C%2D%5F%20or%20C%2Dx%20C%2Du%29
 .fi
 .RE
 .SH ENVIRONMENT

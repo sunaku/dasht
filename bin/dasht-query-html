@@ -113,42 +113,46 @@ trap 'exit 44' USR1 # exit with a nonzero status when no results found
     if (pattern == "") pattern = "^."         # grouped by leading character
   }
   NR == 1      { print "<table>" }
-  $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
-  $1 == "from" { result["from"] = wordbreak_cached(result["from"], "<wbr>") }
-  $1 == "name" {
+  {
+
+    # $1, $2, $3, $4 :: name, docset, type, url
+
     # mark search terms with STX and ETX bytes which are ignored by escape()
     if (pattern) {
-      gsub(pattern, "\002&\003", result["name"])
+      gsub(pattern, "\002&\003", $1)
     }
 
     # mark word-wrappable points with VT bytes which are ignored by escape()
-    result["name"] = wordbreak(result["name"], "\v", "\002\003")
+    $1 = wordbreak($1, "\v", "\002\003")
 
     # escape XML entities in search result to make them visible in browsers
-    result["name"] = escape(result["name"])
+    $1 = escape($1)
 
     # insert word-break opportunity <wbr> tags at points marked by VT bytes
-    gsub("\v", "<wbr>", result["name"])
+    gsub("\v", "<wbr>", $1)
 
     # highlight search terms in search result using the STX and ETX markers
     if (pattern) {
-      gsub("\002", "<b><i><u>", result["name"])
-      gsub("\003", "</u></i></b>", result["name"])
+      gsub("\002", "<b><i><u>", $1)
+      gsub("\003", "</u></i></b>", $1)
     }
-  }
-  $1 == "url"  { print \
-    "<tr>"\
-      "<td><a href=\"" result["url"] "\">" result["name"] "</a></td>"\
-      "<td valign=\"bottom\" align=\"right\">" result["from"] "</td>"\
-      "<td valign=\"bottom\">" tolower(result["type"]) "</td>"\
-    "</tr>"
+
+    $2 = wordbreak_cached($2, "<wbr>")  # docset field
+
+    print \
+      "<tr>"\
+        "<td><a href=\"" $4 "\">" $1 "</a></td>"\
+        "<td valign=\"bottom\" align=\"right\">" $2 "</td>"\
+        "<td valign=\"bottom\">" tolower($3) "</td>"\
+      "</tr>"
+
   }
   END {
     if (NR > 0) {
       print "</table>"
-      if (NR == 4) {
+      if (NR == 1) {
         # there was only one search result, so automatically visit its url
-        print "<meta http-equiv=\"refresh\" content=\"0;url=" result["url"] "\">"
+        print "<meta http-equiv=\"refresh\" content=\"0;url=" $4 "\">"
       }
     }
   }
