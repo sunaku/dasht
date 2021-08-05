@@ -4,7 +4,7 @@
 #
 # ## NAME
 #
-# dasht-query-line - searches [Dash] docsets and emits results as tsv
+# dasht-query-line - searches [Dash] docsets and emits results as TSV
 #
 # ## SYNOPSIS
 #
@@ -28,8 +28,8 @@
 #
 # Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 # only in those whose names match *DOCSET*s, by calling dasht-query-exec(1)
-# and emits the results as TSV. However, if no results were found, this program
-# exits with a nonzero status.
+# and emits the results in Tab Separated Values (TSV) format. However, if no
+# results were found, this program exits with a nonzero status.
 #
 # ### Searching
 #
@@ -42,7 +42,8 @@
 #
 # ### Results
 #
-# Each search result is printed to stdout as a tab-separated line with fields:
+# Each search result is printed to stdout as a line with 4 tab-separated
+# fields:
 #
 # `name`
 #   Name of the token that matched the *PATTERN*.
@@ -244,7 +245,7 @@ dasht-docsets "$@" | while read -r docset; do
     { $1 = $1 } # strip whitespace from key
 
     $2 == "=" {
-      result[$1] = substr($0, index($0, $2) + length($2) + 1)
+      result[$1] = substr($0, length($1) + 1 + length($2) + 1)
     }
 
     $1 == "url" { were_any_results_found=1
@@ -260,9 +261,13 @@ dasht-docsets "$@" | while read -r docset; do
       # resolve URL to filesystem location
       $3 = file_url $3
 
-      # print TSV line
-      printf "%s\t%s\t%s\t%s\n", result["name"], docset, \
-        result["type"], $3
+      printf( \
+        "%s\t%s\t%s\t%s\n", \
+        result["name"], \
+        docset, \
+        result["type"], \
+        $3 \
+      )
 
     }
 
