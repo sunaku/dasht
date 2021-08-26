@@ -261,13 +261,7 @@ dasht-docsets "$@" | while read -r docset; do
       # resolve URL to filesystem location
       $3 = file_url $3
 
-      printf( \
-        "%s\t%s\t%s\t%s\n", \
-        result["name"], \
-        docset, \
-        result["type"], \
-        $3 \
-      )
+      printf("%s\t%s\t%s\t%s\n", result["name"], docset, result["type"], $3)
 
     }
 

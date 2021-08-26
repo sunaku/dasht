@@ -115,35 +115,35 @@ trap 'exit 44' USR1 # exit with a nonzero status when no results found
   NR == 1      { print "<table>" }
   {
 
-    # $1, $2, $3, $4 :: name, docset, type, url
+    name = $1; docset = $2; type = $3; url = $4;
 
     # mark search terms with STX and ETX bytes which are ignored by escape()
     if (pattern) {
-      gsub(pattern, "\002&\003", $1)
+      gsub(pattern, "\002&\003", $name)
     }
 
     # mark word-wrappable points with VT bytes which are ignored by escape()
-    $1 = wordbreak($1, "\v", "\002\003")
+    $name = wordbreak($name, "\v", "\002\003")
 
     # escape XML entities in search result to make them visible in browsers
-    $1 = escape($1)
+    $name = escape($name)
 
     # insert word-break opportunity <wbr> tags at points marked by VT bytes
-    gsub("\v", "<wbr>", $1)
+    gsub("\v", "<wbr>", $name)
 
     # highlight search terms in search result using the STX and ETX markers
     if (pattern) {
-      gsub("\002", "<b><i><u>", $1)
-      gsub("\003", "</u></i></b>", $1)
+      gsub("\002", "<b><i><u>", $name)
+      gsub("\003", "</u></i></b>", $name)
     }
 
-    $2 = wordbreak_cached($2, "<wbr>")  # docset field
+    $docset = wordbreak_cached($docset, "<wbr>")  # docset field
 
     print \
       "<tr>"\
-        "<td><a href=\"" $4 "\">" $1 "</a></td>"\
-        "<td valign=\"bottom\" align=\"right\">" $2 "</td>"\
-        "<td valign=\"bottom\">" tolower($3) "</td>"\
+        "<td><a href=\"" $url "\">" $name "</a></td>"\
+        "<td valign=\"bottom\" align=\"right\">" $docset "</td>"\
+        "<td valign=\"bottom\">" tolower($type) "</td>"\
       "</tr>"
 
   }
@@ -152,7 +152,7 @@ trap 'exit 44' USR1 # exit with a nonzero status when no results found
       print "</table>"
       if (NR == 1) {
         # there was only one search result, so automatically visit its url
-        print "<meta http-equiv=\"refresh\" content=\"0;url=" $4 "\">"
+        print "<meta http-equiv=\"refresh\" content=\"0;url=" $url "\">"
       }
     }
   }
