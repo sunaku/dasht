@@ -28,8 +28,8 @@
 #
 # Searches for *PATTERN* in all installed [Dash] docsets, optionally searching
 # only in those whose names match *DOCSET*s, by calling dasht-query-exec(1)
-# and emits the results in Tab Separated Values (TSV) format. However, if no
-# results were found, this program exits with a nonzero status.
+# and emits the results, one per line, in Tab-Separated Values (TSV) format.
+# However, if no results were found, this program exits with a nonzero status.
 #
 # ### Searching
 #
@@ -42,8 +42,7 @@
 #
 # ### Results
 #
-# Each search result is printed to stdout as a line with 4 tab-separated
-# fields:
+# Each search result is printed stdout as a line with 4 tab-separated fields:
 #
 # `name`
 #   Name of the token that matched the *PATTERN*.
@@ -57,8 +56,8 @@
 # `url`
 #   URL of the API documentation for this result.
 #
-# For example, here is a search result for "c - x" from the "bash" docset, with
-# tab characters represented by "<TAB>":
+# For example, here is a search result for "c - x" from the "bash" docset,
+# with the tab separators represented by `<TAB>` for illustrative purposes:
 #
 #     undo (C-_ or C-x C-u)<TAB>Function<TAB>Bash<TAB>file:///home/sunny/.local/share/dasht/docsets/Bash.docset/Contents/Resources/Documents/bash/Miscellaneous-Commands.html#//apple_ref/Function/undo%20%28C%2D%5F%20or%20C%2Dx%20C%2Du%29
 #

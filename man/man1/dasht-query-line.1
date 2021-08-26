@@ -1,7 +1,7 @@
 .TH DASHT\-QUERY\-LINE 1            2020\-05\-16                            2.4.0
 .SH NAME
 .PP
-dasht\-query\-line \- searches Dash \[la]https://kapeli.com/dash\[ra] docsets and emits groups of lines as tsv
+dasht\-query\-line \- searches Dash \[la]https://kapeli.com/dash\[ra] docsets and emits results as TSV
 .SH SYNOPSIS
 .PP
 \fB\fCdasht\-query\-line\fR [\fIPATTERN\fP] [\fIDOCSET\fP]...
@@ -24,8 +24,8 @@ Searches for \fIPATTERN\fP in all installed Dash \[la]https://kapeli.com/dash\[r
 only in those whose names match \fIDOCSET\fPs, by calling 
 .BR dasht-query-exec (1)
 
-and emits the results as TSV. However, if no results were found, this program
-exits with a nonzero status.
+and emits the results, one per line, in Tab\-Separated Values (TSV) format.
+However, if no results were found, this program exits with a nonzero status.
 .SS Searching
 .PP
 Whitespace characters in \fIPATTERN\fP are treated as wildcards, whereas the
@@ -36,7 +36,7 @@ can match anywhere: beginning, middle, or end.  As a result, if \fIPATTERN\fP is
 undefined, it becomes a whitespace wildcard and thereby matches everything.
 .SS Results
 .PP
-Each search result is printed to stdout as a tab\-separated line with fields:
+Each search result is printed stdout as a line with 4 tab\-separated fields:
 .TP
 \fB\fCname\fR
 Name of the token that matched the \fIPATTERN\fP\&.
@@ -50,8 +50,8 @@ Name of the docset this result was found in.
 \fB\fCurl\fR
 URL of the API documentation for this result.
 .PP
-For example, here is a search result for "c \- x" from the "bash" docset, with
-tab characters represented by "<TAB>":
+For example, here is a search result for "c \- x" from the "bash" docset,
+with the tab separators represented by \fB\fC<TAB>\fR for illustrative purposes:
 .PP
 .RS
 .nf
