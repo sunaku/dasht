@@ -244,7 +244,8 @@ dasht-docsets "$@" | while read -r docset; do
     { $1 = $1 } # strip whitespace from key
 
     $2 == "=" {
-      result[$1] = substr($0, length($1) + 1 + length($2) + 1)
+      # skip over the first 2 fields and grab the rest of the line
+      result[$1] = substr($0, 1 + length($1) + 1 + length($2) + 1)
     }
 
     $1 == "url" { were_any_results_found=1
