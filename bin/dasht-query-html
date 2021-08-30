@@ -111,6 +111,7 @@ trap 'exit 44' USR1 # exit with a nonzero status when no results found
     gsub("[[:space:]]+", ".*", pattern)       # treat whitespace as wildcards
     pattern = ignorecase(pattern)             # emulate IGNORECASE=1 for POSIX
     if (pattern == "") pattern = "^."         # grouped by leading character
+    FS = "\t"                                 # split lines with tab
   }
   NR == 1      { print "<table>" }
   {
