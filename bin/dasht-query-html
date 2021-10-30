@@ -111,44 +111,50 @@ trap 'exit 44' USR1 # exit with a nonzero status when no results found
     gsub("[[:space:]]+", ".*", pattern)       # treat whitespace as wildcards
     pattern = ignorecase(pattern)             # emulate IGNORECASE=1 for POSIX
     if (pattern == "") pattern = "^."         # grouped by leading character
+    FS = "\t"                                 # fields are separated by tabs
   }
-  NR == 1      { print "<table>" }
-  $2 == "="    { result[$1] = substr($0, index($0, $2) + length($2) + 1) }
-  $1 == "from" { result["from"] = wordbreak_cached(result["from"], "<wbr>") }
-  $1 == "name" {
+  NR == 1 {
+    print "<table>"
+  }
+  {
+    name = $1
+    from = wordbreak_cached($2, "<wbr>")
+    type = $3
+    url = $4
+
     # mark search terms with STX and ETX bytes which are ignored by escape()
     if (pattern) {
-      gsub(pattern, "\002&\003", result["name"])
+      gsub(pattern, "\002&\003", name)
     }
 
     # mark word-wrappable points with VT bytes which are ignored by escape()
-    result["name"] = wordbreak(result["name"], "\v", "\002\003")
+    name = wordbreak(name, "\v", "\002\003")
 
     # escape XML entities in search result to make them visible in browsers
-    result["name"] = escape(result["name"])
+    name = escape(name)
 
     # insert word-break opportunity <wbr> tags at points marked by VT bytes
-    gsub("\v", "<wbr>", result["name"])
+    gsub("\v", "<wbr>", name)
 
     # highlight search terms in search result using the STX and ETX markers
     if (pattern) {
-      gsub("\002", "<b><i><u>", result["name"])
-      gsub("\003", "</u></i></b>", result["name"])
+      gsub("\002", "<b><i><u>", name)
+      gsub("\003", "</u></i></b>", name)
     }
-  }
-  $1 == "url"  { print \
-    "<tr>"\
-      "<td><a href=\"" result["url"] "\">" result["name"] "</a></td>"\
-      "<td valign=\"bottom\" align=\"right\">" result["from"] "</td>"\
-      "<td valign=\"bottom\">" tolower(result["type"]) "</td>"\
-    "</tr>"
+
+    print \
+      "<tr>"\
+        "<td><a href=\"" url "\">" name "</a></td>"\
+        "<td valign=\"bottom\" align=\"right\">" from "</td>"\
+        "<td valign=\"bottom\">" tolower(type) "</td>"\
+      "</tr>"
   }
   END {
     if (NR > 0) {
       print "</table>"
-      if (NR == 4) {
+      if (NR == 1) {
         # there was only one search result, so automatically visit its url
-        print "<meta http-equiv=\"refresh\" content=\"0;url=" result["url"] "\">"
+        print "<meta http-equiv=\"refresh\" content=\"0;url=" url "\">"
       }
     }
   }
