@@ -48,6 +48,11 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_USE_DASH_APP`
+#   Set to "true" to use Dash.app's (MacOS only) docset library. Disables
+#   docset management commands (install, remove, update). Also changes the
+#   default `DASHT_DOCSETS_DIR` to "~/Library/Application Support/Dash".
+#
 # ## EXIT STATUS
 #
 # 44
@@ -67,9 +72,22 @@
 # Written in 2016 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (refer to README file).
 
+: ${DASHT_USE_DASH_APP:=false}
+if $DASHT_USE_DASH_APP; then
+  : ${DASHT_DOCSETS_DIR:="$HOME/Library/Application Support/Dash"}
+else
+  : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+fi
+
 if test $# -gt 0; then
   pattern=$1
   shift
+fi
+
+# Ensure any docsets we are accessing from the Dash.app library have had their
+# documents extracted. Dash.app leaves the documents in the tarball by default.
+if $DASHT_USE_DASH_APP; then
+  dasht-docsets-inherit "$@"
 fi
 
 count=$(dasht-docsets "$@" | wc -l)

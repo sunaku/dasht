@@ -1,0 +1,44 @@
+.TH DASHT\-DOCSETS\-INHERIT 1       2020\-05\-16                            2.4.0
+.SH NAME
+.PP
+dasht\-docsets\-inherit \- unpack docsets from Dash.app
+.SH SYNOPSIS
+.PP
+\fB\fCdasht\-docsets\-inherit\fR [\fINAME\fP\&...]
+.SS Examples
+.TP
+\fB\fCdasht\-docsets\-inherit\fR
+Unpack all installed Dash.app docsets.
+.TP
+\fB\fCdasht\-docsets\-inherit\fR sh
+Unpack Dash.app docsets whose names contain "sh".
+.TP
+\fB\fCdasht\-docsets\fR sh 'c$'
+Unpack Dash.app docsets whose names contain "sh" or end in "c".
+.SH DESCRIPTION
+.PP
+Unpack specified Dash.app docsets. This is necessary to use the Docsets with
+\fB\fCdasht\fR\&. Docsets are specified by passing one or more name filters as
+arguments, which are matched against docset names. If no filters are
+specified, all docsets are unpacked. Note that \fB\fCDASHT_USE_DASH_APP\fR must be
+set to \fB\fCtrue\fR for this script to execute.
+.SH ENVIRONMENT
+.TP
+\fB\fCDASHT_USE_DASH_APP\fR
+Set to "true" to use Dash.app's (MacOS only) docset library. Disables
+docset management commands (install, remove, update). Also changes the
+default \fB\fCDASHT_DOCSETS_DIR\fR to "~/Library/Application Support/Dash".
+.SH EXIT STATUS
+.PP
+44
+  No results were found.
+46
+  Command was not executed because \fB\fCDASHT_USE_DASH_APP\fR is not set.
+.SH SEE ALSO
+.PP
+.BR dasht-docsets (1), 
+Dash \[la]https://kapeli.com/dash\[ra]
+.SH AUTHOR
+.PP
+Written in 2016 by Suraj N. Kurapati \[la]https://github.com/sunaku/dasht\[ra]
+Distributed under the terms of the ISC license (refer to README file).
