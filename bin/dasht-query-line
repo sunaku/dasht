@@ -92,6 +92,12 @@ test $# -gt 0 && shift # shift off PATTERN so argv contains solely DOCSETs
 status=44 # (default) exit with a nonzero status when no results are found
 trap 'status=0' USR1 # override default exit status when results are found
 
+if ! dasht-docsets "$@"
+then
+  echo "No docset matching your query found" 1>&2
+  exit 44
+fi
+
 dasht-docsets "$@" | while read -r docset; do
   database="$DASHT_DOCSETS_DIR/$docset".docset/Contents/Resources/docSet.dsidx
   file_url="file://$(dirname "$database")/Documents/"
