@@ -78,4 +78,5 @@ for tgz; do
       else rm -v "$arg"
       fi
   done
-done
+done | # rewrite verbose output onto a single line and clear it at the end
+awk 'function p(s) { printf("\033[2K\r%s", s) }; { p($0) }; END { p("") }'
