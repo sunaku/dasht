@@ -8,7 +8,7 @@
 #
 # ## SYNOPSIS
 #
-# `dasht-progress-line` [ARGUMENTS_FOR_AWK...]
+# ... | `dasht-progress-line`
 #
 # ### Examples
 #
@@ -18,7 +18,8 @@
 #
 # ## DESCRIPTION
 #
-# Copies each line of input onto the same output line and clears it at the end.
+# Copies each line of input onto the same output line and clears it at the end
+# if the output device is a terminal.  Otherwise, copies input to output as-is.
 #
 # ## SEE ALSO
 #
@@ -29,4 +30,8 @@
 # Written in 2023 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
 # Distributed under the terms of the ISC license (refer to README file).
 
-awk 'function p(s) { printf("\033[2K\r%s", s) }; { p($0) }; END { p() }' "$@"
+if test -t 1; then
+  awk 'function p(s) { printf("\033[2K\r%s", s) }; { p($0) }; END { p("") }'
+else
+  cat
+fi
