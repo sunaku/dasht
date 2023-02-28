@@ -1,0 +1,32 @@
+#!/bin/sh -e
+#
+# # DASHT-PROGRESS-LINE 1         2020-05-16                            2.4.0
+#
+# ## NAME
+#
+# dasht-progress-line - copies input to a single line and clears it at the end
+#
+# ## SYNOPSIS
+#
+# `dasht-progress-line` [ARGUMENTS_FOR_AWK...]
+#
+# ### Examples
+#
+# tar -t -z -f NET\_Framework.tgz | `dasht-progress-line`
+#   Progressively lists all files in the [Dash] docset archive file named
+#   "NET\_Framework.tgz" that is located in the current working directory.
+#
+# ## DESCRIPTION
+#
+# Copies each line of input onto the same output line and clears it at the end.
+#
+# ## SEE ALSO
+#
+# dasht(1)
+#
+# ## AUTHOR
+#
+# Written in 2023 by Suraj N. Kurapati <https://github.com/sunaku/dasht>
+# Distributed under the terms of the ISC license (refer to README file).
+
+awk 'function p(s) { printf("\033[2K\r%s", s) }; { p($0) }; END { p() }' "$@"
