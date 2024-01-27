@@ -39,6 +39,12 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_CACHE_DIR`
+#   Defines the filesystem location where download links and downloaded
+#   archives are cached. If undefined, its value is assumed to be
+#   `$XDG_CACHE_HOME/dasht/` or, if `XDG_CACHE_HOME` is also undefined,
+#   `$HOME/.cache/dasht/`.
+#
 # ## SEE ALSO
 #
 # dasht-docsets-install(1), dasht-docsets-update(1), dasht-docsets(1), [Dash]
@@ -51,6 +57,7 @@
 # Distributed under the terms of the ISC license (refer to README file).
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+: ${DASHT_CACHE_DIR:=${XDG_CACHE_HOME:-$HOME/.cache}/dasht}
 
 test "$1" = '-f' -o "$1" = '--force' && force=1 && shift || unset force
 
@@ -62,7 +69,6 @@ for docset; do
   test -n "$force" || # don't ask for confirmation when it's being forced
   echo "Remove $docset docset [y/N]" | xargs -p | grep -q . || continue
 
-  rootname="$DASHT_DOCSETS_DIR/$docset"
-  rm -v -f -r "$rootname".docset \
-              "$rootname".tgz
+  rm -v -f -r "$DASHT_DOCSETS_DIR/$docset".docset \
+              "$DASHT_CACHE_DIR/$docset".tgz
 done
