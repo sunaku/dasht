@@ -40,9 +40,10 @@
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
 # `DASHT_CACHE_DIR`
-#   Defines the filesystem location where download links are cached.
-#   If undefined, its value is assumed to be `$XDG_CACHE_HOME/dasht/`
-#   or, if `XDG_CACHE_HOME` is also undefined, `$HOME/.cache/dasht/`.
+#   Defines the filesystem location where download links and downloaded
+#   archives are cached. If undefined, its value is assumed to be
+#   `$XDG_CACHE_HOME/dasht/` or, if `XDG_CACHE_HOME` is also undefined,
+#   `$HOME/.cache/dasht/`.
 #
 # ## SEE ALSO
 #
@@ -89,9 +90,9 @@ for docset; do
   echo "Install $docset docset [y/N]" | xargs -p | grep -q . || continue
 
   basename="$docset".tgz
-  tgz="$DASHT_DOCSETS_DIR/$basename"
+  tgz="$DASHT_CACHE_DIR/$basename"
   url="https://kapeli.com/feeds/$basename"
 
-  wget -P "$DASHT_DOCSETS_DIR" -N -c "$url"
+  wget -P "$DASHT_CACHE_DIR" -N -c "$url"
   gzip -t "$tgz" && dasht-docsets-extract "$tgz"
 done

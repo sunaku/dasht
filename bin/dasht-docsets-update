@@ -33,6 +33,12 @@
 #   If undefined, its value is assumed to be `$XDG_DATA_HOME/dasht/docsets/`
 #   or, if `XDG_DATA_HOME` is undefined, `$HOME/.local/share/dasht/docsets/`.
 #
+# `DASHT_CACHE_DIR`
+#   Defines the filesystem location where download links and downloaded
+#   archives are cached. If undefined, its value is assumed to be
+#   `$XDG_CACHE_HOME/dasht/` or, if `XDG_CACHE_HOME` is also undefined,
+#   `$HOME/.cache/dasht/`.
+#
 # ## SEE ALSO
 #
 # dasht-docsets-extract(1), dasht-docsets-install(1), dasht-docsets-remove(1),
@@ -46,15 +52,16 @@
 # Distributed under the terms of the ISC license (refer to README file).
 
 : ${DASHT_DOCSETS_DIR:=${XDG_DATA_HOME:-$HOME/.local/share}/dasht/docsets}
+: ${DASHT_CACHE_DIR:=${XDG_CACHE_HOME:-$HOME/.cache}/dasht}
 
 dasht-docsets "$@" | while read -r docset; do
-  ls "$DASHT_DOCSETS_DIR/$docset"*.tgz
+  ls "$DASHT_CACHE_DIR/$docset"*.tgz
 done | sort -u | while read -r tgz; do
   last_modified_at="$tgz".last_modified_at
   url="https://kapeli.com/feeds/$(basename "$tgz")"
 
   touch -r "$tgz" "$last_modified_at"
-  wget -P "$DASHT_DOCSETS_DIR" -N "$url"
+  wget -P "$DASHT_CACHE_DIR" -N "$url"
   test "$tgz" -nt "$last_modified_at" && dasht-docsets-extract "$tgz"
   rm "$last_modified_at"
 done
